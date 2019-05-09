@@ -11,18 +11,21 @@
 
  Milestones at the end of each [GSoC phase](https://developers.google.com/open-source/gsoc/timeline):
 
-June 28, 2019 Phase 1 Evaluation:  
+<h3>June 28, 2019 Phase 1 Evaluation:</h3>  
+
 - Complete Database schema.
 - Complete Models and Routes of the Backend system.
 - API that supports the basic functionality of the system (student,supervisor register, topic creation, assign topic, submit topic).
 
-July 26, 2019 Phase 2 Evaluation:
+<h3>July 26, 2019 Phase 2 Evaluation:</h3>
+
 - Register and Log in components in the frontend.
 - Basic user-interface for student and supervisor.
 - Partial documentation of the system
 - Tests that checks if the backend works properly
 
-August 26, 2019 Final Evaluation:
+<h3>August 26, 2019 Final Evaluation:</h3>
+
 - Functional user-interface and backend that supports all the roles that I described above
 - Full documentation of the project
 - Digital repository of completed thesis
