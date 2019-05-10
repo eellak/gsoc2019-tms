@@ -26,7 +26,7 @@
 
 <h3>August 26, 2019 Final Evaluation:</h3>
 
-- Functional user-interface and backend that supports all the roles that I described above
+- Functional user-interface and backend that supports all the roles of the TMS lifecycle
 - Full documentation of the project
 - Digital repository of completed thesis
 - Integrated Chat between student and supervisor
