@@ -4,16 +4,15 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
+var dotenv = require('dotenv');
+dotenv.config();
 
-//const productRoutes = require("./api/routes/products");
-//const orderRoutes = require("./api/routes/orders");
-//const userRoutes = require('./api/routes/user');
-
-
-mongoose.connect('mongodb+srv://new_mike_first:W2ge1cXlGCm9TpDI@cluster0-wyycr.mongodb.net/test?retryWrites=true'
+// connect with database
+mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cluster0-wyycr.mongodb.net/test?retryWrites=true'
 , {useNewUrlParser: true}).catch(err => {
   console.log(err);
 })
+
 
 app.use(morgan("dev"));
 //app.use('/uploads', express.static('uploads'));
