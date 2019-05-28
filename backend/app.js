@@ -4,8 +4,14 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
-const external_login=require("./routes/external_login")
-var dotenv = require('dotenv');
+const external_login=require("./routes/external_login");
+const SSOlogin=require("./routes/SSO_login");
+var SamlStrategy = require('passport-saml').Strategy;
+const passport =require('passport');
+const dotenv = require('dotenv');
+const auth = require('./ssoauth');
+const jwt = require('jsonwebtoken');
+
 dotenv.config();
 
 // connect with database
@@ -24,7 +30,9 @@ app.use(cors);
 
 // Routes which should handle requests
 app.use('/external',external_login);
+app.use('/SSO',SSOlogin);
 
+ 
 
 // Error handling
 app.use((req, res, next) => {
