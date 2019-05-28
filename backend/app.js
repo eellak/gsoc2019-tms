@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
+const external_login=require("./routes/external_login")
 var dotenv = require('dotenv');
 dotenv.config();
 
@@ -22,7 +23,7 @@ app.use(cors);
 
 
 // Routes which should handle requests
-
+app.use('/external',external_login);
 
 
 // Error handling
