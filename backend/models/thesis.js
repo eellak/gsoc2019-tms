@@ -21,4 +21,4 @@ const thesisSchema = mongoose.Schema({
     id_supervisor: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }]
     });
 
-module.exports = mongoose.model('Thesis', thesisSchema);
+module.exports = mongoose.model('Thesis', thesisSchema,'thesis');

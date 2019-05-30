@@ -10,7 +10,7 @@ const externalSchema = mongoose.Schema({
     password: { type: String, required: true },
     name: String,
     lastname: String,
-    role: {type: String, default: "external" },
+    role: {type: String, default: "External" },
 
     });
 

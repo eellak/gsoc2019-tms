@@ -89,24 +89,4 @@ exports.user_login = (req, res, next) => {
     });
 };
 
-exports.user_delete = (req, res, next) => {
-    External.findByIdAndDelete({ _id: req.params.userId })
-    .exec()
-    .then(result => {
-        if(result) {
-            res.status(200).json({
-            message: "User deleted"
-            })
-        }
-        else { res.status(200).json({
-            message:"No user found"
-            })
-        }
-      })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-};
+

@@ -8,14 +8,14 @@ exports.checkUniversity= (req,res,next) => {
     var thesisId=req.params.thesisId;
     var studentId=req.params.userId;
     Thesis.findById(thesisId)
-        .select('id_university','id_owner')
+        .select('id_university id_owner')
         .exec()
         .then(doc => {
             Student.findById(studentId)
-            .select('id_university','role')
+            .select('id_university role')
             .exec()
             .then( user => {
-                if(user.id_university==doc.id_university && user.role=='Student') {
+                if(user.id_university.equals(doc.id_university) && user.role=='Student') {
                     console.log("okay in checkUniversity")
                     res.locals.professorId=doc.id_owner
                     next();
@@ -30,6 +30,16 @@ exports.checkUniversity= (req,res,next) => {
        };
 
 exports.apply_thesis= (req,res,next) => {  
+    // check if student has already applied for the thesis
+    Request.find({id_student : req.params.userId, id_thesis: req.params.thesisId })
+    .exec()
+    .then(doc => {
+        if(doc.length>0) {
+            return res.status(401).json({
+                message: 'You have already applied for this thesis'
+            })
+        }
+    })
     var thesisId=req.params.thesisId;
     const request = new Request({
         _id: new mongoose.Types.ObjectId(),
@@ -38,22 +48,13 @@ exports.apply_thesis= (req,res,next) => {
         id_thesis: req.params.thesisId
       });
       request
-        .save()
+        .save() 
         .then(result => {
           console.log(result);
           res.status(201).json({
-            message: "Created product successfully",
-            createdProduct: {
-              name: result.name,
-              price: result.price,
-              _id: result._id,
-              request: {
-                type: "GET",
-                url: "http://localhost:3000/products/" + result._id
-              }
-            }
-          });
-        })
+            message: "Created request successfully",
+          })
+          })
         .catch(err => {
           console.log(err);
           res.status(500).json({

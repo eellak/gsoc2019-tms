@@ -6,6 +6,7 @@ exports.thesis_get_all= (req,res,next) => {
       //.select("name price _id productImage")
       .exec()
       .then(docs => {
+        console.log(docs)
         const response = {
           count: docs.length,
           thesis: docs.map(doc => {
