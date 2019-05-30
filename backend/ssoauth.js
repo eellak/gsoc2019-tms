@@ -59,7 +59,6 @@ passport.use(new SamlStrategy({
             console.log("NO EMAIL");
             return done(new Error("No email found"), null);
         }
-        console.log("i passed");
         process.nextTick(function() {
             console.log('process.nextTick' + profile);
             findByEmail(profile["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"], function(err, user) {
@@ -77,7 +76,7 @@ passport.use(new SamlStrategy({
                  return done(null, user);
                 }
                 else //o user uparxei kai ton brhkame
-                console.log("first" +user)
+                    console.log("first" +user)
                 console.log('Ending Method for profiling');
                 //generate token 
                 console.log("O USER EINAI OOO" +user);

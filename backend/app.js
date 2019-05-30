@@ -4,20 +4,22 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
-const external_login=require("./routes/external_login");
-const SSOlogin=require("./routes/SSO_login");
+const external_loginRoutes=require("./routes/external_login");
+const SSOloginRoutes=require("./routes/SSO_login");
 var SamlStrategy = require('passport-saml').Strategy;
 const passport =require('passport');
 const dotenv = require('dotenv');
 const auth = require('./ssoauth');
 const jwt = require('jsonwebtoken');
+const thesisRoutes=require('./routes/thesis');
+const studentRoutes=require('./routes/student');
 
 dotenv.config();
 
 // connect with database
 mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cluster0-wyycr.mongodb.net/test?retryWrites=true'
 , {useNewUrlParser: true}).catch(err => {
-  console.log(err);
+  console.log('error in database:'+err);
 })
 
 
@@ -29,10 +31,11 @@ app.use(cors);
 
 
 // Routes which should handle requests
-app.use('/external',external_login);
-app.use('/SSO',SSOlogin);
+app.use('/external',external_loginRoutes);
+app.use('/SSO',SSOloginRoutes);
+app.use('/thesis',thesisRoutes);
+app.use('/student',studentRoutes);
 
- 
 
 // Error handling
 app.use((req, res, next) => {
