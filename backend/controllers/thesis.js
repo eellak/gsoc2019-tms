@@ -17,10 +17,10 @@ exports.thesis_get_all= (req,res,next) => {
               _id: doc._id,
               created_time: doc.created_time,
               published: doc.published,
-              id_university: doc.id_university,
-              id_owner: doc.id_owner,
-              id_creator_student: doc.id_creator_student,
-              id_creator_external: doc.id_creator_external,
+              university: doc.university,
+              owner: doc.owner,
+              creator_student: doc.creator_student,
+              creator_external: doc.creator_external,
               request: {
                 type: "GET",
                 url: "http://localhost:3000/thesis/" + doc._id
@@ -53,11 +53,11 @@ exports.thesis_completed_get_all= (req,res,next) => {
               _id: doc._id,
               created_time: doc.created_time,
               published: doc.published,
-              id_student: doc.id_student,
-              id_university: doc.id_university,
-              id_owner: doc.id_owner,
-              id_creator_student: doc.id_creator_student,
-              id_creator_external: doc.id_creator_external,
+              student: doc.student,
+              university: doc.university,
+              owner: doc.owner,
+              creator_student: doc.creator_student,
+              creator_external: doc.creator_external,
               request: {
                 type: "GET",
                 url: "http://localhost:3000/thesis/" + doc._id

@@ -3,21 +3,22 @@ const Thesis= require('../models/thesis');
 const Student= require('../models/user');
 const Request=require('../models/request');                       
 
+                                        //check if student university is the same with thesis university
 
 exports.checkUniversity= (req,res,next) => {
     var thesisId=req.params.thesisId;
     var studentId=req.params.userId;
     Thesis.findById(thesisId)
-        .select('id_university id_owner')
+        .select('university owner')
         .exec()
         .then(doc => {
             Student.findById(studentId)
-            .select('id_university role')
+            .select('university role')
             .exec()
             .then( user => {
-                if(user.id_university.equals(doc.id_university) && user.role=='Student') {
+                if(user.university.equals(doc.university) && user.role=='Student') {
                     console.log("okay in checkUniversity")
-                    res.locals.professorId=doc.id_owner
+                    res.locals.professorId=doc.owner
                     next();
                 }
                 else {
@@ -29,9 +30,11 @@ exports.checkUniversity= (req,res,next) => {
         })
        };
 
-exports.apply_thesis= (req,res,next) => {  
+                                        // Student apply for thesis. 
+                                        //create a new request in db
+exports.apply_thesis= (req,res,next) => {   
     // check if student has already applied for the thesis
-    Request.find({id_student : req.params.userId, id_thesis: req.params.thesisId })
+    Request.find({student : req.params.userId, thesis: req.params.thesisId })
     .exec()
     .then(doc => {
         if(doc.length>0) {
@@ -43,9 +46,9 @@ exports.apply_thesis= (req,res,next) => {
     var thesisId=req.params.thesisId;
     const request = new Request({
         _id: new mongoose.Types.ObjectId(),
-        id_student: req.params.userId,
-        id_professor: res.locals.professorId,
-        id_thesis: req.params.thesisId
+        student: req.params.userId,
+        professor: res.locals.professorId,
+        thesis: req.params.thesisId
       });
       request
         .save() 
@@ -62,8 +65,38 @@ exports.apply_thesis= (req,res,next) => {
           });
         });
     };
-                                        // Student apply for thesis. 
-                                        //check if student university is the same with thesis university
-                                        //create a new request in db
 
+    exports.isUser=(req,res,next) => {
+        if(req.userData.userId==req.params.userId)
+            {
+                console.log("userId validated")
+                return next();
+            }
+        else 
+            res.status(401).json({
+                message: 'Not authorized: userId does not equals to tokens userId'
+            })
+    }
+    
+    exports.get_request= (req,res,next) => {
+        Request.find({student:req.params.userId})
+        .populate('thesis')
+        .exec()
+        .then(docs => { console.log(req.params.userId)
+              if(docs!=null)
+                res.status(200).json(docs);
+              else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
+            })
+            .catch(err => {
+              console.log(err+"wjat");
+              res.status(500).json({
+                error: err
+              });
+            });
+        };
+    
+     
 

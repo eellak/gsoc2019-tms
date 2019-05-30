@@ -13,12 +13,12 @@ const thesisSchema = mongoose.Schema({
     published: Date, //only if it is completed
     pending: Boolean, // external,student wait for approval from professor. 
     completed: Boolean, // completed thesis for digital repository
-    id_university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
-    id_student: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
-    id_owner: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
-    id_creator_student: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
-    id_creator_external:{ type: mongoose.Schema.Types.ObjectId, ref:'External'},
-    id_supervisor: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
+    student: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
+    owner: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
+    creator_student: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
+    creator_external:{ type: mongoose.Schema.Types.ObjectId, ref:'External'},
+    supervisor: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }]
     });
 
 module.exports = mongoose.model('Thesis', thesisSchema,'thesis');

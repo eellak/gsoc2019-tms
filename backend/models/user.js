@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
             type: String,
             enum: ['Guest','Admin','Professor','Student','Secreteriat']
     },
-    id_university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
+    university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     
     });
 

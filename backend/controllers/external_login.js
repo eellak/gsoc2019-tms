@@ -45,11 +45,11 @@ exports.user_signup = (req, res, next) => {
     });
 };
 
-exports.user_login = (req, res, next) => {
+exports.user_login = (req, res, next) => {   
   External.find({ email: req.body.email })
     .exec()
-    .then(user => {
-      if (user.length < 1) {
+    .then(user => { console.log(user)
+      if (user.length < 1) {console.log("not user")
         return res.status(401).json({
           message: "Auth failed"
         });
@@ -60,7 +60,7 @@ exports.user_login = (req, res, next) => {
             message: "Auth failed"
           });
         }
-        if (result) {
+        if (result) { 
           const token = jwt.sign(
             {
               email: user[0].email,

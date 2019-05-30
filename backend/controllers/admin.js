@@ -5,7 +5,7 @@ const Request=require('../models/request');
 const User=require('../models/user');
 
 exports.is_admin= (req,res,next) => {
-    adminId=req.params.adminId
+    adminId=req.userData.userId
     External.findById(adminId)
     .select('role')
     .exec()
