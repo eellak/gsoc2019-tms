@@ -103,3 +103,26 @@ exports.get_thesis_byId= (req,res,next) => {
         });
       });
 }
+
+exports.delete_thesis=(req,res,next) => {
+     Thesis.deleteOne({professor:req.userData.userId, _id:req.params.thesisId})
+     .exec()
+     .then(result => {
+         if(result.deletedCount>0) { 
+             res.status(200).json({
+             message: "Thesis deleted"
+             })
+         }
+         else { res.status(404).json({
+             message:"No thesis found"
+             })
+         }
+       })
+     .catch(err => {
+       console.log(err);
+       res.status(500).json({
+         error: err
+       });
+     });
+ };
+ 
