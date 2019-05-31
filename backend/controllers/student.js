@@ -7,7 +7,7 @@ const Request=require('../models/request');
 
 exports.checkUniversity= (req,res,next) => {
     var thesisId=req.params.thesisId;
-    var studentId=req.params.userId;
+    var studentId=req.userData.userId;
     Thesis.findById(thesisId)
         .select('university owner')
         .exec()
@@ -34,7 +34,7 @@ exports.checkUniversity= (req,res,next) => {
                                         //create a new request in db
 exports.apply_thesis= (req,res,next) => {   
     // check if student has already applied for the thesis
-    Request.find({student : req.params.userId, thesis: req.params.thesisId })
+    Request.find({student : req.userData.userId, thesis: req.params.thesisId })
     .exec()
     .then(doc => {
         if(doc.length>0) {
@@ -46,7 +46,7 @@ exports.apply_thesis= (req,res,next) => {
     var thesisId=req.params.thesisId;
     const request = new Request({
         _id: new mongoose.Types.ObjectId(),
-        student: req.params.userId,
+        student: req.userData.userId,
         professor: res.locals.professorId,
         thesis: req.params.thesisId
       });
@@ -67,7 +67,7 @@ exports.apply_thesis= (req,res,next) => {
     };
 
     exports.isUser=(req,res,next) => {
-        if(req.userData.userId==req.params.userId)
+        if(req.userData.userId==req.userData.userId)
             {
                 console.log("userId validated")
                 return next();
@@ -79,10 +79,10 @@ exports.apply_thesis= (req,res,next) => {
     }
     
     exports.get_request= (req,res,next) => {
-        Request.find({student:req.params.userId})
+        Request.find({student:req.userData.userId})
         .populate('thesis')
         .exec()
-        .then(docs => { console.log(req.params.userId)
+        .then(docs => { console.log(req.userData.userId)
               if(docs!=null)
                 res.status(200).json(docs);
               else
