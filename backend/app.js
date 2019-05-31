@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 const thesisRoutes=require('./routes/thesis');
 const studentRoutes=require('./routes/student');
 const adminRoutes=require('./routes/admin');
+const professorRoutes=require('./routes/professor');
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use('/SSO',SSOloginRoutes);
 app.use('/thesis',thesisRoutes);
 app.use('/student',studentRoutes);
 app.use('/admin',adminRoutes);
+app.use('/professor',professorRoutes);
 
 
 // Error handling
