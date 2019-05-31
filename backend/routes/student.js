@@ -11,7 +11,7 @@ router.get("/request",checkAuth,studentController.isUser,studentController.get_r
 
 router.post("/request/:thesisId",checkAuth,studentController.checkUniversity,studentController.apply_thesis);    //check if he is logged in-apply for thesis
 
-router.delete("/request")
+router.delete("/request/:requestId",checkAuth,studentController.delete_request);     
 
 //router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
 

@@ -100,3 +100,25 @@ exports.apply_thesis= (req,res,next) => {
     
      
 
+exports.delete_request= (req,res,next) => {
+    // check if he owns the request
+    Request.deleteOne({student:req.userData.userId, _id:req.params.requestId})
+    .exec()
+    .then(result => {
+        if(result.deletedCount>0) { 
+            res.status(200).json({
+            message: "Request deleted"
+            })
+        }
+        else { res.status(200).json({
+            message:"No request found"
+            })
+        }
+      })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
