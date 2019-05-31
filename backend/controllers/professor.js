@@ -126,3 +126,52 @@ exports.delete_thesis=(req,res,next) => {
      });
  };
  
+
+ exports.create_thesis= (req,res,next) => {
+    const thesis = new Thesis({
+        _id: new mongoose.Types.ObjectId(),
+        professor: req.userData.userId,
+        title: req.body.title,
+        description: req.body.description,
+        prerequisites: req.body.prerequisites,
+        tags: req.body.tags,
+        created_time: req.body.created_time,
+        completed: false,
+        pending: false,
+        university: res.locals.university
+      });
+      thesis
+        .save() 
+        .then(result => {
+          console.log(result);
+          res.status(201).json({
+            message: "Created thesis successfully",
+          })
+          })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+    };
+ 
+
+exports.isProfessor=(req,res,next) => {
+    Professor.findById({_id:req.userData.userId})
+    .select('role university')
+    .exec()
+    .then(doc => {
+        if(doc) {
+            if(doc.role=='Professor') { 
+                console.log('Auth passed: User is professor')
+                res.locals.university=doc.university
+                console.log(doc.university)
+                return next();
+            }
+        }
+            return res.status(401).json({
+                message: 'Auth failed not Professor'
+            })
+    })
+}

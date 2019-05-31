@@ -12,7 +12,7 @@ router.delete("/request/:requestId",checkAuth,professorController.delete_request
 
 router.get("/thesis",checkAuth,professorController.get_thesis) // get all thesis he owns
 router.get("/thesis/:thesisId",checkAuth,professorController.get_thesis_byId) // get thesis he owns by id
-router.post("/thesis") // create thesis
+router.post("/thesis",checkAuth,professorController.isProfessor,professorController.create_thesis) // create thesis
 router.delete("/thesis/:thesisId",checkAuth,professorController.delete_thesis) //delete thesis he owns
 
 
