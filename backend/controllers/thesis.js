@@ -18,7 +18,7 @@ exports.thesis_get_all= (req,res,next) => {
               created_time: doc.created_time,
               published: doc.published,
               university: doc.university,
-              owner: doc.owner,
+              professor: doc.professor,
               creator_student: doc.creator_student,
               creator_external: doc.creator_external,
               request: {
@@ -55,7 +55,7 @@ exports.thesis_completed_get_all= (req,res,next) => {
               published: doc.published,
               student: doc.student,
               university: doc.university,
-              owner: doc.owner,
+              professor: doc.professor,
               creator_student: doc.creator_student,
               creator_external: doc.creator_external,
               request: {

@@ -9,7 +9,7 @@ exports.checkUniversity= (req,res,next) => {
     var thesisId=req.params.thesisId;
     var studentId=req.userData.userId;
     Thesis.findById(thesisId)
-        .select('university owner')
+        .select('university professor')
         .exec()
         .then(doc => {
             Student.findById(studentId)
@@ -18,7 +18,7 @@ exports.checkUniversity= (req,res,next) => {
             .then( user => {
                 if(user.university.equals(doc.university) && user.role=='Student') {
                     console.log("okay in checkUniversity")
-                    res.locals.professorId=doc.owner
+                    res.locals.professorId=doc.professor
                     next();
                 }
                 else {

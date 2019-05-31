@@ -4,11 +4,17 @@ const studentController=require('../controllers/student')
 const professorController = require('../controllers/professor');
 const checkAuth = require('../middleware/check-auth');
 
-
 //URL: /professor
 
-router.get("/request",checkAuth,studentController.isUser,professorController.get_request);//get all requests of userId
-router.delete("/request/:requestId",checkAuth,studentController.isUser,professorController.delete_request);     
+router.get("/request",checkAuth,professorController.get_request);//get all requests of userId
+router.delete("/request/:requestId",checkAuth,professorController.delete_request);     
+
+
+router.get("/thesis",checkAuth,professorController.get_thesis) // get all thesis he owns
+router.get("/thesis/:thesisId",checkAuth,professorController.get_thesis_byId) // get thesis he owns by id
+router.post("/thesis") // create thesis
+router.delete("/thesis/:thesisId") //delete thesis he owns
+
 
 //router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
 
