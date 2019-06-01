@@ -8,6 +8,8 @@ const checkAuth = require('../middleware/check-auth');
 
 router.get("/request",checkAuth,professorController.get_request);//get all requests of userId
 router.delete("/request/:requestId",checkAuth,professorController.delete_request);     
+router.post("/request/:requestId",checkAuth,professorController.accept_request);
+
 
 
 router.get("/thesis",checkAuth,professorController.get_thesis) // get all thesis he owns

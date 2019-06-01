@@ -48,7 +48,9 @@ exports.apply_thesis= (req,res,next) => {
         _id: new mongoose.Types.ObjectId(),
         student: req.userData.userId,
         professor: res.locals.professorId,
-        thesis: req.params.thesisId
+        thesis: req.params.thesisId,
+        accepted_fromStudent: false,
+        accepted_fromProfessor: false
       });
       request
         .save() 

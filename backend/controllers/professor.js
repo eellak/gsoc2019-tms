@@ -48,6 +48,29 @@ exports.delete_request=(req,res,next) => { //notification system not implemented
     });
 };
 
+
+exports.accept_request= (req,res,next) => {      //sent notification to student: not implemented yet
+  var updateObj={accepted_fromProfessor:true};
+  Request.findByIdAndUpdate({_id:req.params.requestId}, updateObj ,{new:true})
+  .exec()
+  .then(docs => { console.log(docs)
+        if(docs!=null) {
+          res.status(200).json(docs);
+        }
+        else
+          res.status(404).json({
+              message: 'No entries found'
+          })
+      })
+      .catch(err => {
+        console.log(err+"wjat");
+        res.status(500).json({
+          error: err
+        });
+      });
+  };
+
+
 exports.get_thesis= (req,res,next) => {
     Thesis.find({professor:req.userData.userId})
     .exec()

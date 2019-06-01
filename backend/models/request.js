@@ -7,7 +7,9 @@ const requestSchema = mongoose.Schema({
     professor: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
     thesis: {type: mongoose.Schema.Types.ObjectId, ref:'Thesis'},
     text: String,
-    created_time: Date
+    created_time: Date,
+    accepted_fromStudent:Boolean,
+    accepted_fromProfessor:Boolean
     });
 
 module.exports = mongoose.model('Request', requestSchema,'requests');

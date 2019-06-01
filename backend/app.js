@@ -17,7 +17,6 @@ const adminRoutes=require('./routes/admin');
 const professorRoutes=require('./routes/professor');
 
 dotenv.config();
-
 // connect with database
 mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cluster0-wyycr.mongodb.net/test?retryWrites=true'
 , {useNewUrlParser: true}).catch(err => {
