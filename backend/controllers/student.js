@@ -146,6 +146,7 @@ exports.post_accepted_request=(req,res,next) => { //student confirms his request
                 const active_thesis = new Active_Thesis({
                     _id: new mongoose.Types.ObjectId(),
                     student:docs.student,
+                    professor:docs.professor,
                     thesis:docs.thesis,
                     created_time: new Date(),
                     completed: false,

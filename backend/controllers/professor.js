@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
 const Professor= require('../models/user');
 const Request=require('../models/request');    
-
+const Active_Thesis=require('../models/active_thesis');
 
 
 exports.get_request= (req,res,next) => {
@@ -200,11 +200,32 @@ exports.isProfessor=(req,res,next) => {
 }
 
 exports.get_assigned=(req,res,next) => {
-    Thesis.find({professor:req.userData.userId,assigned:true})
+    Active_Thesis.find({professor:req.userData.userId})
+    .populate('thesis')
     .exec()
     .then(docs => {
       if(docs) {
-        console.log(docs)
+        res.status(200).json(docs);
+      }
+      else 
+        res.status(404).json({
+          message: 'No assigned thesis found'
+      })
+  })
+    .catch(err => {
+      console.log(err+"wjat");
+      res.status(500).json({
+      error: err
+      });
+    });
+  }
+
+exports.get_assigned_byId= (req,res,next) => { 
+  Active_Thesis.find({ _id:req.params.active_thesisId, professor:req.userData.userId})
+    .populate('thesis')
+    .exec()
+    .then(docs => {
+      if(docs) {
         res.status(200).json(docs);
       }
       else 
