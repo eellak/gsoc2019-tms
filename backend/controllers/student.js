@@ -124,3 +124,29 @@ exports.delete_request= (req,res,next) => {
       });
     });
 };
+
+
+exports.get_accepted_request=(req,res,next) => {
+    Request.find({student:req.userData.userId , accepted_fromProfessor:true})
+        .populate('thesis')
+        .exec()
+        .then(docs => { console.log(req.userData.userId)
+              if(docs!=null)
+                res.status(200).json(docs);
+              else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
+            })
+            .catch(err => {
+              console.log(err+"wjat");
+              res.status(500).json({
+                error: err
+              });
+            });
+        };
+
+exports.post_accepted_request=(req,res,next) => {
+    
+}
+ 
