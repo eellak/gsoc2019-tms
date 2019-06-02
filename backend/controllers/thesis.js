@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
 
 exports.thesis_get_all= (req,res,next) => {
-    Thesis.find()
+    Thesis.find({pending:false})
       //.select("name price _id productImage")
       .exec()
       .then(docs => {
@@ -21,10 +21,6 @@ exports.thesis_get_all= (req,res,next) => {
               professor: doc.professor,
               creator_student: doc.creator_student,
               creator_external: doc.creator_external,
-              request: {
-                type: "GET",
-                url: "http://localhost:3000/thesis/" + doc._id
-              }
             };
           })
         };
@@ -58,10 +54,6 @@ exports.thesis_completed_get_all= (req,res,next) => {
               professor: doc.professor,
               creator_student: doc.creator_student,
               creator_external: doc.creator_external,
-              request: {
-                type: "GET",
-                url: "http://localhost:3000/thesis/" + doc._id
-              }
             };
           })
         };

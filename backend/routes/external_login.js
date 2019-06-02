@@ -11,4 +11,6 @@ router.post("/signup", ExternalController.user_signup);
 router.post("/login", ExternalController.user_login);
 
 
+router.get("/")
+
 module.exports = router;

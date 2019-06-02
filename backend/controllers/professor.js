@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
 const Professor= require('../models/user');
 const Request=require('../models/request');    
-const Active_Thesis=require('../models/active_thesis');
-
+const Assigned_Thesis=require('../models/assigned_thesis');
+const Pending_Thesis=require('../models/pending');
 
 exports.get_request= (req,res,next) => {
     Request.find({professor:req.userData.userId})
@@ -24,6 +24,27 @@ exports.get_request= (req,res,next) => {
           });
         });
     };
+
+exports.get_request_byId= (req,res,next) => {
+      Request.find({professor:req.userData.userId , _id:req.params.requestId})
+      .populate('thesis')
+      .exec()
+      .then(docs => { console.log(req.userData.userId)
+            if(docs!=null)
+              res.status(200).json(docs);
+            else
+              res.status(404).json({
+                  message: 'No entries found'
+              })
+          })
+          .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+              error: err
+            });
+          });
+  };
+  
 
 exports.delete_request=(req,res,next) => { //notification system not implemented yet
     // check if he owns the request
@@ -128,7 +149,7 @@ exports.get_thesis_byId= (req,res,next) => {
 }
 
 exports.delete_thesis=(req,res,next) => {
-     Thesis.deleteOne({professor:req.userData.userId, _id:req.params.thesisId})
+     Thesis.deleteOne({professor:req.userData.userId, _id:req.params.thesisId , assigned:false})
      .exec()
      .then(result => {
          if(result.deletedCount>0) { 
@@ -200,7 +221,7 @@ exports.isProfessor=(req,res,next) => {
 }
 
 exports.get_assigned=(req,res,next) => {
-    Active_Thesis.find({professor:req.userData.userId})
+    Assigned_Thesis.find({professor:req.userData.userId})
     .populate('thesis')
     .exec()
     .then(docs => {
@@ -221,7 +242,7 @@ exports.get_assigned=(req,res,next) => {
   }
 
 exports.get_assigned_byId= (req,res,next) => { 
-  Active_Thesis.find({ _id:req.params.active_thesisId, professor:req.userData.userId})
+  Assigned_Thesis.find({ _id:req.params.assigned_thesisId, professor:req.userData.userId})
     .populate('thesis')
     .exec()
     .then(docs => {
@@ -240,3 +261,99 @@ exports.get_assigned_byId= (req,res,next) => {
       });
     });
   }
+
+
+exports.get_pending= (req,res,next) => {
+  Thesis.find({pending:true})
+    .exec()
+    .then(docs => { 
+          if(docs!=null)
+            res.status(200).json(docs);
+          else
+            res.status(404).json({
+                message: 'No entries found'
+            })
+        })
+        .catch(err => {
+          console.log(err+"wjat");
+          res.status(500).json({
+            error: err
+          });
+        });
+    };
+
+exports.get_pending_byId= (req,res,next) => {
+      Thesis.find({pending:true, _id:req.params.pendingId})
+      .exec()
+      .then(docs => { console.log(req.userData.userId)
+            if(docs!=null)
+              res.status(200).json(docs);
+            else
+              res.status(404).json({
+                  message: 'No entries found'
+              })
+          })
+          .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+              error: err
+            });
+          });
+      };
+  
+exports.check_pending = (req,res,next) => {
+  Pending_Thesis.find({professor:req.userData.userId , thesis:req.params.pendingId})
+  .exec()
+  .then(docs=>{
+    if(docs.length>0) {
+      res.status(404).json({
+        message:'You have already applied for this pending thesis'
+      })
+    }
+    else {
+      next();
+    } 
+  })
+    .catch(err=> {
+      res.status(500).json({
+        error: err
+      });
+    })
+};
+
+
+exports.accept_pending= (req,res,next) => {
+  Thesis.findOne({_id:req.params.pendingId , pending:true})
+  .exec()
+  .then(docs => { 
+        if(docs!=null) {
+          var creator;
+          console.log(docs.creator_external)
+          if(docs.creator_external!=null)
+              creator=docs.creator_external
+          else 
+              creator=docs.creator_student
+          const pending_thesis= new Pending_Thesis({
+            _id: new mongoose.Types.ObjectId(),
+            creator:creator,
+            professor:req.userData.userId,
+            thesis:docs.id,
+          });
+          pending_thesis
+          .save()
+          .then(docs => {
+            res.status(200).json(docs)
+          })
+        }
+        else
+          res.status(404).json({
+              message: 'No entries found'
+          })
+      })
+      .catch(err => {
+        console.log(err+"wjat");
+        res.status(500).json({
+          error: err
+        });
+      });
+  };

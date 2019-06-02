@@ -8,7 +8,6 @@ const requestSchema = mongoose.Schema({
     thesis: {type: mongoose.Schema.Types.ObjectId, ref:'Thesis'},
     text: String,
     created_time: Date,
-    accepted_fromStudent:Boolean,
     accepted_fromProfessor:Boolean
     });
 
