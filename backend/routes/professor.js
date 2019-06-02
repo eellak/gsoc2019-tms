@@ -10,6 +10,7 @@ router.get("/request",checkAuth,professorController.get_request);//get all reque
 router.delete("/request/:requestId",checkAuth,professorController.delete_request);     
 router.post("/request/:requestId",checkAuth,professorController.accept_request);
 
+router.get("/assigned",checkAuth,professorController.get_assigned); // get all assigned thesis to students
 
 
 router.get("/thesis",checkAuth,professorController.get_thesis) // get all thesis he owns

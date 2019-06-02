@@ -67,18 +67,7 @@ exports.apply_thesis= (req,res,next) => {
           });
         });
     };
-
-    exports.isUser=(req,res,next) => {
-        if(req.userData.userId==req.userData.userId)
-            {
-                console.log("userId validated")
-                return next();
-            }
-        else 
-            res.status(401).json({
-                message: 'Not authorized: userId does not equals to tokens userId'
-            })
-    }
+ 
     
     exports.get_request= (req,res,next) => {
         Request.find({student:req.userData.userId})
@@ -146,7 +135,7 @@ exports.get_accepted_request=(req,res,next) => {
             });
         };
 
-exports.post_accepted_request=(req,res,next) => {
+exports.post_accepted_request=(req,res,next) => { //student confirms his requests. All other requests of the student are deleted
     var updateObj={accepted_fromStudent:true};
     Request.findOneAndUpdate({_id:req.params.requestId , accepted_fromProfessor:true},updateObj, {new:true} )
         .exec()
@@ -177,4 +166,22 @@ exports.post_accepted_request=(req,res,next) => {
             });
         };
 
- 
+ exports.get_thesis=(req,res,next) => {
+     Thesis.find({student:req.userData.userId})
+     .exec()
+     .then( doc=> {
+         if(doc) {
+            res.status(200).json(doc)
+         }
+         else {
+            res.status(404).json({
+                message: 'No assigned thesis'
+            })
+         }
+     })
+     .catch(err => {
+         res.status(500).json({
+             error:err
+         });
+     })
+}
