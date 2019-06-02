@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
 const Student= require('../models/user');
-const Request=require('../models/request');                       
+const Request=require('../models/request');                   
+const Active_Thesis=require('../models/active_thesis');    
 
                                         //check if student university is the same with thesis university
 
@@ -98,6 +99,7 @@ exports.delete_request= (req,res,next) => {
     .then(result => {
         if(result.deletedCount>0) { 
             res.status(200).json({
+            doc: res.locals.doc,
             message: "Request deleted"
             })
         }
@@ -136,38 +138,60 @@ exports.get_accepted_request=(req,res,next) => {
         };
 
 exports.post_accepted_request=(req,res,next) => { //student confirms his requests. All other requests of the student are deleted
-    var updateObj={accepted_fromStudent:true};
+    var updateObj={accepted_fromStudent:true}; console.log("inside post")
     Request.findOneAndUpdate({_id:req.params.requestId , accepted_fromProfessor:true},updateObj, {new:true} )
         .exec()
         .then(docs => {
             if(docs!=null) {
-                var updateThesis={student:docs.student , assigned:true};
-                Thesis.findOneAndUpdate({_id:docs.thesis},updateThesis,{new:true})    
-                .exec()
-                .then(doc=> {
-                    if(doc!=null)
-                        res.status(200).json(doc);
-                    else 
-                        res.status(404).json({
-                            message:'No entries found'
-                        })
+                const active_thesis = new Active_Thesis({
+                    _id: new mongoose.Types.ObjectId(),
+                    student:docs.student,
+                    thesis:docs.thesis,
+                    created_time: new Date(),
+                    completed: false,
+                });
+                active_thesis
+                .save()
+                .then( doc=>{
+                    update(docs.thesis)
+                    res.locals.doc=doc;
+                    next();
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error:err
+                    })
                 })
             }
-            else
+            else {
                 res.status(404).json({
-                    message: 'No entries found'
+                    message: 'Not found'
                 })
-            })
+            }
+        })
+    }
+                
+
+function update(thesis) { console.log('somethinaaa')
+    Thesis.findOneAndUpdate({_id:thesis},{assigned:true},{new:true})    
+                    .exec()
+                    .then(doc=> {
+                        if(doc!=null)
+                            return ;
+                        else 
+                            return
+                    })
             .catch(err => {
               console.log(err+"wjat");
               res.status(500).json({
                 error: err
               });
-            });
-        };
+            })
+};
 
  exports.get_thesis=(req,res,next) => {
-     Thesis.find({student:req.userData.userId})
+     Active_Thesis.find({student:req.userData.userId})
+     .populate()
      .exec()
      .then( doc=> {
          if(doc) {
