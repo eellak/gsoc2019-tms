@@ -147,6 +147,34 @@ exports.get_accepted_request=(req,res,next) => {
         };
 
 exports.post_accepted_request=(req,res,next) => {
-    
-}
+    var updateObj={accepted_fromStudent:true};
+    Request.findOneAndUpdate({_id:req.params.requestId , accepted_fromProfessor:true},updateObj, {new:true} )
+        .exec()
+        .then(docs => {
+            if(docs!=null) {
+                var updateThesis={student:docs.student , assigned:true};
+                Thesis.findOneAndUpdate({_id:docs.thesis},updateThesis,{new:true})    
+                .exec()
+                .then(doc=> {
+                    if(doc!=null)
+                        res.status(200).json(doc);
+                    else 
+                        res.status(404).json({
+                            message:'No entries found'
+                        })
+                })
+            }
+            else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
+            })
+            .catch(err => {
+              console.log(err+"wjat");
+              res.status(500).json({
+                error: err
+              });
+            });
+        };
+
  

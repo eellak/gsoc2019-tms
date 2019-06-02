@@ -10,8 +10,9 @@ const thesisSchema = mongoose.Schema({
     prerequisites: String,
     tags: [String],
     created_time: Date,
-    published: Date, //only if it is completed
+    assigned: Boolean, // true if it is assigned to some student
     pending: Boolean, // external,student wait for approval from professor. 
+    published: Date, //only if it is completed
     completed: Boolean, // completed thesis for digital repository
     university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     student: { type: mongoose.Schema.Types.ObjectId, ref:'User'},

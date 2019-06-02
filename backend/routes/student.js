@@ -14,7 +14,7 @@ router.delete("/request/:requestId",checkAuth,studentController.delete_request);
 
 
 router.get("/request/accepted",checkAuth,studentController.get_accepted_request); // get all accepted requests from professors
-router.post("/request/accepted",checkAuth,studentController.post_accepted_request);// confirm request, establish connection(Student,Professor,Thesis)
+router.post("/request/:requestId/accepted",checkAuth,studentController.post_accepted_request);// confirm request, establish connection(Student,Professor,Thesis)
 
 //router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
 
