@@ -7,9 +7,7 @@ const checkAuth = require('../middleware/check-auth');
 //URL: /student
 
 router.get("/request",checkAuth,studentController.get_request);//get all requests of userId
-
 router.post("/request/:thesisId",checkAuth,studentController.checkUniversity,studentController.apply_thesis);    //check if he is logged in-apply for thesis
-
 router.delete("/request/:requestId",checkAuth,studentController.delete_request);     
 
 

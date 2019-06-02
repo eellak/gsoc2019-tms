@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
 const Student= require('../models/user');
 const Request=require('../models/request');                   
-const Active_Thesis=require('../models/active_thesis');    
+const Assigned_Thesis=require('../models/assigned_thesis');    
 
                                         //check if student university is the same with thesis university
 
@@ -143,7 +143,7 @@ exports.post_accepted_request=(req,res,next) => { //student confirms his request
         .exec()
         .then(docs => {
             if(docs!=null) {
-                const active_thesis = new Active_Thesis({
+                const assigned_thesis = new Assigned_Thesis({
                     _id: new mongoose.Types.ObjectId(),
                     student:docs.student,
                     professor:docs.professor,
@@ -151,7 +151,7 @@ exports.post_accepted_request=(req,res,next) => { //student confirms his request
                     created_time: new Date(),
                     completed: false,
                 });
-                active_thesis
+                assigned_thesis
                 .save()
                 .then( doc=>{
                     update(docs.thesis)
@@ -191,7 +191,7 @@ function update(thesis) { console.log('somethinaaa')
 };
 
  exports.get_thesis=(req,res,next) => {
-     Active_Thesis.find({student:req.userData.userId})
+     Assigned_Thesis.find({student:req.userData.userId})
      .populate('thesis')
      .exec()
      .then( doc=> {
