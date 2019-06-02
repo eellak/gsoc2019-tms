@@ -191,7 +191,7 @@ function update(thesis) { console.log('somethinaaa')
 
  exports.get_thesis=(req,res,next) => {
      Active_Thesis.find({student:req.userData.userId})
-     .populate()
+     .populate('thesis')
      .exec()
      .then( doc=> {
          if(doc) {
