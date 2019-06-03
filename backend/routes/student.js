@@ -12,7 +12,8 @@ router.delete("/request/:requestId",checkAuth,studentController.delete_request);
 
 
 router.get("/request/accepted",checkAuth,studentController.get_accepted_request); // get all accepted requests from professors
-router.post("/request/:requestId/accepted",checkAuth,studentController.post_accepted_request,studentController.delete_request);// confirm request, establish connection(Student,Professor,Thesis) , remove request
+router.get("/request/:requestId/accepted",checkAuth,studentController.get_accepted_request_byId); // get accepted request by Id
+router.post("/request/:requestId/accepted",checkAuth,studentController.post_accepted_request,studentController.delete_all_requests);// confirm request, establish connection(Student,Professor,Thesis) , remove request
 
 
 

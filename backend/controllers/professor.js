@@ -264,7 +264,7 @@ exports.get_assigned_byId= (req,res,next) => {
 
 
 exports.get_pending= (req,res,next) => {
-  Thesis.find({pending:true})
+  Thesis.find({pending:true , university:req.locals.university})
     .exec()
     .then(docs => { 
           if(docs!=null)
