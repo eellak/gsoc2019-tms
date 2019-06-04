@@ -3,7 +3,7 @@ const router = express.Router();
 
 const adminController = require('../controllers/admin');
 const checkAuth = require('../middleware/check-auth');
-const externalController= require('../controllers/external_login')
+const externalController= require('../controllers/external')
 
 //URL: /admin
 router.post("/create_external",checkAuth,adminController.is_admin,externalController.user_signup); //create external

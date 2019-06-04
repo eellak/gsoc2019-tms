@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const ExternalController = require('../controllers/external_login');
+const ExternalController = require('../controllers/external');
 const checkAuth = require('../middleware/check-auth');
 
 
