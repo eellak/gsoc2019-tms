@@ -440,4 +440,60 @@ exports.propose_supervisor =(req,res,next) => {
     .catch(err => {
       res.status(500).json({error:err})
     })
+    };
+
+
+
+exports.accept_supervisor= (req,res,next) => { // confirm supervisor
+  Supervision_Request.find({_id:req.params.supervise_requestId, professor:req.userData.userId})
+  .exec()
+  .then(doc => {
+    if(doc.length>0) { console.log(doc)
+        Thesis.findOneAndUpdate({_id:doc[0].thesis},{$push: {supervisor:doc[0].dst_professor} },{new:true})
+        .exec()
+        .then( result => {
+          if(result)
+              return next()
+          else 
+            res.status(404).json({message:'Not found'})
+        })
+    } 
+    else {
+      res.status(404).json({message:'Not found'})
     }
+  })
+    .catch(err => {
+      res.status(500).json({error:err})
+    });
+  }
+
+exports.delete_supervisor_request= (req,res,next) => {
+  Supervision_Request.deleteOne({_id:req.params.supervise_requestId})
+  .exec()
+  .then(result =>{
+    if(result)
+      res.status(200).json(result)
+    else {
+      res.status(404).json({message: 'Error on delete supervisor request'});
+    }
+
+  })
+  .catch(err => {
+    res.status(500).json({error:err});
+  })
+
+}
+
+exports.get_accepted_supervisor_requests=(req,res,next) => { 
+    Supervision_Request.find({professor:req.userData.userId, accepted_fromProfessor:true})
+    .exec()
+    .then(result => { 
+      if(result) {
+        res.status(200).json(result)
+      }
+      else { 
+        res.status(404).json({message: 'No supervisor requests'})
+      }
+    })
+
+}

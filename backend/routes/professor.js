@@ -33,7 +33,9 @@ router.get("/supervise",checkAuth,professorController.get_supervise) //get the t
 router.post("/supervise",checkAuth,professorController.post_supervise) // accept request for supervision
 
 router.post("/propose_supervisor/:supervisorId/:thesisId",checkAuth,professorController.propose_supervisor) //propose another professor to supervise a thesis
-
+router.get("/accept_supervisor",checkAuth,professorController.get_accepted_supervisor_requests)
+router.post("/accept_supervisor/:supervise_requestId",checkAuth,professorController.accept_supervisor,
+                                                    professorController.delete_supervisor_request) // professor confirms the supervisor
 
 //router.get()
 
