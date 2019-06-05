@@ -254,3 +254,75 @@ exports.get_accepted_request_byId= (req,res,next) => {
         });
     };
 
+
+    exports.get_pending= (req,res,next) => {
+        Thesis.find({creator_student: req.userData.userId})
+        .exec()
+        .then(docs=> { 
+          if(docs) {
+            res.status(200).json(docs)
+          }
+          else {
+            res.status(404).json({
+              message: 'Not found'
+            })
+          }
+        })
+        .catch(err => {
+          res.status(500).json({
+            error:err
+          })
+        })
+      };
+    
+
+exports.get_pending_byId= (req,res,next) => {
+        Thesis.find({creator_student: req.userData.userId , _id:req.params.pendingId})
+        .exec()
+        .then(docs=> {
+          if(docs) {
+            res.status(200).json(docs)
+          }
+          else {
+            res.status(404).json({
+              message: 'Not found'
+            })
+          }
+        })
+        .catch(err => {
+          res.status(500).json({
+            error:err
+          })
+        })
+  };
+
+  
+exports.create_pending= (req,res,next) => {
+    const thesis = new Thesis({
+      _id: new mongoose.Types.ObjectId(),
+      title: req.body.title,
+      description: req.body.description,
+      prerequisites: req.body.prerequisites,
+      tags: req.body.tags,
+      created_time: req.body.created_time,
+      completed: false,
+      pending: true,
+      university: req.body.university,       // student should add university 
+      creator_student: req.userData.userId
+    });
+    thesis
+      .save() 
+      .then(result => {
+        console.log(result);
+        res.status(201).json({
+          message: "Created thesis successfully",
+        })
+        })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  };
+  

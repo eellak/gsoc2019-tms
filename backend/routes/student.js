@@ -16,8 +16,8 @@ router.get("/request/:requestId/accepted",checkAuth,studentController.get_accept
 router.post("/request/:requestId/accepted",checkAuth,studentController.post_accepted_request,studentController.delete_all_requests);// confirm request, establish connection(Student,Professor,Thesis) , remove requests of student
 
 
-router.get("/pending/accepted",checkAuth,studentController.get_accepted) // get all accepted pending thesis of userId (From different professors) returns from pending collection
-router.get("/pending/:pendingId/accepted",checkAuth,studentController.get_accepted_byId) //get accepted pending thesis by Id
+router.get("/pending/accepted",checkAuth,studentController.get_accepted_pending) // get all accepted pending thesis of userId (From different professors) returns from pending collection
+router.get("/pending/:pendingId/accepted",checkAuth,studentController.get_accepted_pending_byId) //get accepted pending thesis by Id
 router.post("/pending/:pendingId/accepted",checkAuth,studentController.confirm_pending,studentController.delete_all_pendings) // thesis is now confirmed for a specific professor
 
 router.get("/pending",checkAuth,studentController.get_pending);  //get pending thesis of userId returns from thesis collection
