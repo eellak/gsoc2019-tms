@@ -3,6 +3,7 @@ const Thesis= require('../models/thesis');
 const Student= require('../models/user');
 const Request=require('../models/request');                   
 const Assigned_Thesis=require('../models/assigned_thesis');    
+const Pending= require("../models/pending")
 
                                         //check if student university is the same with thesis university
 
@@ -325,4 +326,110 @@ exports.create_pending= (req,res,next) => {
         });
       });
   };
+
+
   
+exports.get_accepted_pending =(req,res,next) => {
+    Pending.find({creator: req.userData.userId})
+    .populate('thesis')
+    .populate({path: 'professor' , select:'name lastname'  })
+    .exec()
+    .then(docs=> { 
+      if(docs) {
+        res.status(200).json(docs)
+      }
+      else {
+        res.status(404).json({
+          message: 'Not found'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({
+        error:err
+      })
+    })
+  };
+  
+  
+exports.get_accepted_pending_byId =(req,res,next) => {
+    Pending.find({creator: req.userData.userId , _id:req.params.pendingId})
+    .populate('thesis')
+    .populate({path: 'professor' , select:'name lastname'  })
+    .exec()
+    .then(docs=> { 
+      if(docs) {
+        res.status(200).json(docs)
+      }
+      else {
+        res.status(404).json({
+          message: 'Not found'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({
+        error:err
+      })
+    })
+  };
+  
+
+  
+exports.confirm_pending = (req,res,next) => { 
+    Pending.find({_id:req.params.pendingId , creator:req.userData.userId})
+    .exec()
+    .then(doc => { console.log(doc)
+      if(doc) { 
+        Thesis.updateOne({ _id:doc[0].thesis },{professor:doc[0].professor , pending:false }, {new:true} )
+        .exec()
+        .then(result => {
+          if(result) { 
+            console.log('go to next middleware')
+            res.locals.thesis=doc[0].thesis
+            return next()
+          }
+          else {
+            res.status(404).json({
+              message: 'Not found'
+            })
+          }
+        })
+      }
+      else {
+        res.status(404).json({
+          message: 'Not found'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err => {
+        error:err
+      })
+    })
+}
+
+
+exports.delete_all_pendings = (req,res,next) => { console.log('inside delete')
+  Pending.deleteMany({thesis:res.locals.thesis , creator:req.userData.userId})
+  .exec()
+  .then(doc => { 
+    if(doc.deletedCount>0) {
+      var result= {
+        doc: doc,
+        thesis:res.locals.thesis
+      }
+      res.status(200).json(result)
+    }
+    else {
+      res.status(404).json({
+        message: 'Error in delete'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({
+      error:err
+    });
+  })
+}

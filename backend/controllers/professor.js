@@ -3,7 +3,7 @@ const Thesis= require('../models/thesis');
 const Professor= require('../models/user');
 const Request=require('../models/request');    
 const Assigned_Thesis=require('../models/assigned_thesis');
-const Pending_Thesis=require('../models/pending');
+const Pending=require('../models/pending');
 
 exports.get_request= (req,res,next) => {
     Request.find({professor:req.userData.userId})
@@ -264,7 +264,7 @@ exports.get_assigned_byId= (req,res,next) => {
 
 
 exports.get_pending= (req,res,next) => {
-  Thesis.find({pending:true , university:req.locals.university})
+  Thesis.find({pending:true , university:res.locals.university})
     .exec()
     .then(docs => { 
           if(docs!=null)
@@ -302,7 +302,7 @@ exports.get_pending_byId= (req,res,next) => {
       };
   
 exports.check_pending = (req,res,next) => {
-  Pending_Thesis.find({professor:req.userData.userId , thesis:req.params.pendingId})
+  Pending.find({professor:req.userData.userId , thesis:req.params.pendingId})
   .exec()
   .then(docs=>{
     if(docs.length>0) {
@@ -333,7 +333,7 @@ exports.accept_pending= (req,res,next) => {
               creator=docs.creator_external
           else 
               creator=docs.creator_student
-          const pending_thesis= new Pending_Thesis({
+          const pending_thesis= new Pending({
             _id: new mongoose.Types.ObjectId(),
             creator:creator,
             professor:req.userData.userId,

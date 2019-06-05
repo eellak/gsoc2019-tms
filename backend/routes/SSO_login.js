@@ -28,7 +28,7 @@ router.post("/login/callback",
             userId: user.id
           },
           process.env.JWT_KEY,
-          { expiresIn: '1h' }
+          { expiresIn: '72h' }
         );
         console.log("to token einai" + token)
          req.user = user;
