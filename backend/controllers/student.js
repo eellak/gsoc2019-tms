@@ -379,8 +379,8 @@ exports.get_accepted_pending_byId =(req,res,next) => {
 exports.confirm_pending = (req,res,next) => { 
     Pending.find({_id:req.params.pendingId , creator:req.userData.userId})
     .exec()
-    .then(doc => { console.log(doc)
-      if(doc) { 
+    .then(doc => {  
+      if(doc.length>0) { console.log(doc)
         Thesis.updateOne({ _id:doc[0].thesis },{professor:doc[0].professor , pending:false }, {new:true} )
         .exec()
         .then(result => {

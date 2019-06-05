@@ -26,8 +26,20 @@ router.post("/thesis",checkAuth,professorController.isProfessor,professorControl
 router.delete("/thesis/:thesisId",checkAuth,professorController.delete_thesis) //delete thesis he owns
 
 
-//router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
+router.get("/university",checkAuth,professorController.get_professors) // get all professors from the same university
 
+// routes for supervisors
+router.get("/supervise",checkAuth,professorController.get_supervise) //get the thesis that professor supervises
+router.post("/supervise",checkAuth,professorController.post_supervise) // accept request for supervision
+
+router.post("/propose_supervisor/:supervisorId/:thesisId",checkAuth,professorController.propose_supervisor) //propose another professor to supervise a thesis
+
+
+//router.get()
+
+
+
+//router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
 //router.delete("/:userId", checkAuth, thesisController.user_delete); // 
 //search thesis
 module.exports = router;

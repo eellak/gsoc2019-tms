@@ -4,6 +4,8 @@ const Professor= require('../models/user');
 const Request=require('../models/request');    
 const Assigned_Thesis=require('../models/assigned_thesis');
 const Pending=require('../models/pending');
+const University= require('../models/university');
+const Supervision_Request= require('../models/supervision_requests');
 
 exports.get_request= (req,res,next) => {
     Request.find({professor:req.userData.userId})
@@ -357,3 +359,85 @@ exports.accept_pending= (req,res,next) => {
         });
       });
   };
+
+
+exports.get_professors= (req,res,next) => {
+  Professor.find({_id:req.userData.userId})
+  .exec()
+  .then( user => { 
+    if(user.length>0) {
+        Professor.find({university:user[0].university , role:'Professor'})
+        .exec()
+        .then( results=> {
+          if(results.length>0) {
+            res.status(200).json(results)
+          }
+          else res.status(404).json({Message: 'No professors found'})
+        })
+      }
+    else res.status(404).json({Message: 'No user found'})
+    })
+    .catch(err => {
+      console.log(err+"wjat");
+      res.status(500).json({
+          error: err 
+        })
+    })
+  }
+
+
+
+exports.get_supervise = (req,res,next) => {
+
+
+
+}
+
+exports.post_supervise = (req,res,next) => {
+
+
+
+}
+
+exports.propose_supervisor =(req,res,next) => {
+   Professor.findById({_id:req.params.supervisorId})
+   .exec()
+   .then(doc => { 
+     if(doc!=null) {
+          Thesis.findById({_id:req.params.thesisId , professor:req.userData.userId})
+          .exec()
+          .then(thesis => {
+                if(thesis!=null) {
+                  var supervision_request = new Supervision_Request({
+                      _id: new mongoose.Types.ObjectId(),
+                      student: thesis.student,
+                      professor: thesis.professor,
+                      dst_professor : req.params.supervisorId,
+                      thesis: thesis._id,
+                      text : req.body.text,
+                      created_time : new Date(),
+                      accepted_fromProfessor: false
+                  })
+                  supervision_request
+                  .save()
+                  .then(result => {
+                    res.status(200).json(result);
+                  })
+                }
+                else {
+                  res.status(404).json({
+                    message: 'Thesis not found'
+                  });
+                }
+            })
+      }
+      else {
+          res.status(404).json({
+            message: 'Professor not found'
+          });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error:err})
+    })
+    }
