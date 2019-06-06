@@ -19,7 +19,8 @@ const professorRoutes=require('./routes/professor');
 dotenv.config();
 // connect with database
 mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cluster0-wyycr.mongodb.net/test?retryWrites=true'
-, {useNewUrlParser: true})
+, {useNewUrlParser: true ,   useCreateIndex: true,
+})
   .catch(err => {
     console.log('error in database:'+err);
   

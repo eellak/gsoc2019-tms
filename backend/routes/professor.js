@@ -28,12 +28,16 @@ router.delete("/thesis/:thesisId",checkAuth,professorController.delete_thesis) /
 
 router.get("/university",checkAuth,professorController.get_professors) // get all professors from the same university
 
-// routes for supervisors
-router.get("/supervise",checkAuth,professorController.get_supervise) //get the thesis that professor supervises
-router.post("/supervise",checkAuth,professorController.post_supervise) // accept request for supervision
+// routes for professor to be supervisor
+router.get("/supervise_pending",checkAuth,professorController.get_supervise_pending) //get the supervise request from other professors to userId 
+router.get("/supervise_pending/:supervise_requestId",checkAuth,professorController.get_supervise_pending_byId) //get the supervise request from other professors to userId 
+router.post("/supervise_pending/:supervise_requestId",checkAuth,professorController.post_supervise_pending) // accept request for supervision
 
-router.post("/propose_supervisor/:supervisorId/:thesisId",checkAuth,professorController.propose_supervisor) //propose another professor to supervise a thesis
-router.get("/accept_supervisor",checkAuth,professorController.get_accepted_supervisor_requests)
+//routes for professor to propose another supervisor
+router.post("/propose_supervisor/:supervisorId/:thesisId",checkAuth,professorController.check_supervisor_request,
+                                                        professorController.propose_supervisor) //propose another professor to supervise a thesis
+router.get("/accept_supervisor",checkAuth,professorController.get_accepted_supervisor_requests) // get accepted supervisors before confirm
+router.get("/accept_supervisor/:supervise_requestId",checkAuth,professorController.get_accepted_supervisor_request_byId) // get accepted supervisors before confirm
 router.post("/accept_supervisor/:supervise_requestId",checkAuth,professorController.accept_supervisor,
                                                     professorController.delete_supervisor_request) // professor confirms the supervisor
 

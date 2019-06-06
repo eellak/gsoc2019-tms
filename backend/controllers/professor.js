@@ -488,7 +488,7 @@ exports.get_accepted_supervisor_requests=(req,res,next) => {
     Supervision_Request.find({professor:req.userData.userId, accepted_fromProfessor:true})
     .exec()
     .then(result => { 
-      if(result) {
+      if(result.length>0) {
         res.status(200).json(result)
       }
       else { 
@@ -497,3 +497,92 @@ exports.get_accepted_supervisor_requests=(req,res,next) => {
     })
 
 }
+
+exports.get_accepted_supervisor_request_byId=(req,res,next) => { 
+  Supervision_Request.find({professor:req.userData.userId, accepted_fromProfessor:true, _id:req.params.supervise_requestId})
+  .exec()
+  .then(result => {  
+    if(result.length>0) {
+      res.status(200).json(result)
+    }
+    else { 
+      res.status(404).json({message: 'No supervisor requests'})
+    }
+  })
+
+}
+
+
+
+exports.get_supervise_pending= (req,res,next) => {
+  Supervision_Request.find({dst_professor:req.userData.userId})
+  .exec()
+  .then(results => {
+    if(results!=null) {
+      res.status(200).json(results)
+    }
+    else {
+      res.status(404).json({message:'Not found'})
+    }
+  })
+  .catch(err=> {
+    res.status(500).json({error:err})
+  })
+
+}
+
+
+exports.get_supervise_pending_byId= (req,res,next) => {
+  Supervision_Request.find({dst_professor:req.userData.userId , _id:req.params.supervise_requestId})
+  .exec()
+  .then(results => {
+    if(results!=null) {
+      res.status(200).json(results)
+    }
+    else {
+      res.status(404).json({message:'Not found'})
+    }
+  })
+  .catch(err=> {
+    res.status(500).json({error:err})
+  })
+
+}
+
+
+exports.post_supervise_pending= (req,res,next) => {
+  Supervision_Request.findOneAndUpdate({dst_professor:req.userData.userId , _id:req.params.supervise_requestId}
+                                        ,{ accepted_fromProfessor:true} , {new:true} )
+      .exec()
+      .then(result => {
+        if(result!=null) {
+          res.status(200).json(result)
+        }
+        else {
+          res.status(404).json({message: 'Not found'})
+        }
+      })
+      .catch(err=> {
+        res.status(500).json({error:err})
+      })
+}
+
+exports.check_supervisor_request = (req,res,next) => { 
+  Supervision_Request.find({professor:req.userData.userId , dst_professor:req.params.supervisorId})
+  .exec()
+  .then(docs=>{ console.log(docs)
+    if(docs.length>0) {
+      res.status(404).json({
+        message:'You have already applied for this pending thesis'
+      })
+    }
+    else {
+      next();
+    } 
+  })
+    .catch(err=> {
+      res.status(500).json({
+        error: err
+      });
+    })
+};
