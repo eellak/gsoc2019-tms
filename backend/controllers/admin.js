@@ -23,23 +23,38 @@ exports.is_admin= (req,res,next) => {
 }
  
 exports.get_externals=(req,res,next) => {
-    External.find()
-    .exec()
-    .then(docs => { 
-          if(docs!=null)
-            res.status(200).json(docs);
-          else
-            res.status(404).json({
-                message: 'No entries found'
+    var perPage = 5
+    var page = req.query.page || 1  
+    var count;
+    External.countDocuments()
+    .then( result => {
+            count=result
+        External.find()
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec()
+        .then(docs => { 
+            if(docs!=null){
+                const response = {
+                    docs:docs,
+                    count:count,
+                    pages: Math.ceil(count / perPage),
+                }
+                res.status(200).json(response);
+            }
+            else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
             })
         })
-        .catch(err => {
-          console.log(err+"wjat");
-          res.status(500).json({
-            error: err
-          });
-        });
-    };
+            .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+                error: err
+            });
+            });
+        };
 
 exports.get_external_byId= (req,res,next) => {
     External.findById({_id:req.params.userId})
@@ -84,23 +99,38 @@ exports.delete_external = (req, res, next) => {
 
  
 exports.get_users=(req,res,next) => {
-    User.find()
-    .exec()
-    .then(docs => { 
-          if(docs!=null)
-            res.status(200).json(docs);
-          else
-            res.status(404).json({
-                message: 'No entries found'
+    var perPage = 5
+    var page = req.query.page || 1  
+    var count;
+    User.countDocuments()
+    .then( result => {
+        count=result
+        User.find()
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec()
+        .then(docs => { 
+            if(docs!=null) {
+                const response = {
+                    docs:docs,
+                    count:count,
+                    pages: Math.ceil(count / perPage),
+                }
+             res.status(200).json(response);
+            }
+            else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
             })
         })
-        .catch(err => {
-          console.log(err+"wjat");
-          res.status(500).json({
-            error: err
-          });
-        });
-    };
+            .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+                error: err
+            });
+            });
+        };
 
  
 exports.get_user_byId= (req,res,next) => {
