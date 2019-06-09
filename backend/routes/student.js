@@ -27,6 +27,10 @@ router.post("/pending",checkAuth,studentController.create_pending); //create pen
 
 router.get("/thesis",checkAuth,studentController.get_thesis); //get thesis student
 
+router.get("/draft",checkAuth,studentController.get_drafts);
+router.get("/draft/:draftId",checkAuth,studentController.get_draft_byId);
+router.post("/draft/:thesisId",checkAuth,studentController.post_draft);
+
 //router.get("/completed", studentController.thesis_completed_get_all); //get all completed thesis-digital repository
 
 //router.delete("/:userId", checkAuth, thesisController.user_delete); // 
