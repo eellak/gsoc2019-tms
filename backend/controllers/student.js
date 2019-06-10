@@ -4,6 +4,7 @@ const Student= require('../models/user');
 const Request=require('../models/request');                   
 const Assigned_Thesis=require('../models/assigned_thesis');    
 const Pending= require("../models/pending")
+const Draft= require("../models/draft");
 
                                         //check if student university is the same with thesis university
 
@@ -431,5 +432,87 @@ exports.delete_all_pendings = (req,res,next) => { console.log('inside delete')
     res.status(500).json({
       error:err
     });
+  })
+}
+
+
+exports.check_thesis=(req,res,next) => {   //check if thesis id belongs to student
+  Assigned_Thesis.find({_id:req.params.assigned_thesisId , student:req.userData.userId})
+  .exec()
+  .then(result => {
+    if(result!=null) {
+        return next();
+    }
+    else {
+      return res.status(401).json({
+        message: 'Auth failed: thesis doesnt belong to user'
+    })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+
+exports.get_drafts=(req,res,next) => {
+    Draft.find({assigned_thesis:req.params.assigned_thesisId})
+    .exec()
+    .then(result => {
+      if(result!=null ) {
+        res.status(200).json(result)
+      }
+      else {
+        res.status(404).json({
+          message: 'Not found drafts'
+        })
+      }
+    })
+    .catch(err => {
+      res.status(500).json({error:err})
+    })
+}
+
+exports.get_draft_byId=(req,res,next) => {
+  Draft.find({assigned_thesis:req.params.assigned_thesisId , _id:req.params.draftId})
+  .exec()
+  .then(result => {
+    if(result!=null ) {
+      res.status(200).json(result)
+    }
+    else {
+      res.status(404).json({
+        message: 'Not found drafts'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+exports.post_draft=(req,res,next) => {
+  
+  const draft = new Draft({
+    _id: new mongoose.Types.ObjectId(),
+    url: req.body.url,
+    created_time : new Date(),
+    assigned_thesis : req.params.assigned_thesisId
+  })
+  draft
+  .save()
+  .then(result => {
+    if(result!=null ) {
+      console.log('Draft created successfully')
+      res.status(200).json(result)
+    }
+    else {
+      res.status(404).json({
+        message: 'Error in creation of draft'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
   })
 }
