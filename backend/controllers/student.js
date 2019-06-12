@@ -5,6 +5,7 @@ const Request=require('../models/request');
 const Assigned_Thesis=require('../models/assigned_thesis');    
 const Pending= require("../models/pending")
 const Draft= require("../models/draft");
+const Time_period=require("../models/time_period");
 
                                         //check if student university is the same with thesis university
 
@@ -22,7 +23,7 @@ exports.checkUniversity= (req,res,next) => {
                 if(user.university.equals(doc.university) && user.role=='Student') {
                     console.log("okay in checkUniversity")
                     res.locals.professorId=doc.professor
-                    next();
+                    return next();
                 }
                 else {
                     return res.status(401).json({
@@ -30,8 +31,42 @@ exports.checkUniversity= (req,res,next) => {
                     })
                 }
             })
+            .catch(err => {
+              res.status(500).json({error:err})
+            })
+        })
+        .catch(err => {
+          res.status(500).json({error:err})
         })
        };
+
+
+
+exports.checkApply_period= (req,res,next) => { 
+  var currentDate=new Date()
+  Time_period.find()
+  .exec()
+  .then(result => {  
+    if(result[0].apply_period_start<= currentDate && currentDate <= result[0].apply_period_end)
+        {
+          console.log("We are currently in application period ")
+          return next()
+        }
+      else {
+        console.log("Currently not in application period")
+        res.status(400).json({message: 'Currently not in application period'})
+      }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+
+
+
+
+
 
                                         // Student apply for thesis. 
                                         //create a new request in db
@@ -45,16 +80,16 @@ exports.apply_thesis= (req,res,next) => {
                 message: 'You have already applied for this thesis'
             })
         }
-    })
-    var thesisId=req.params.thesisId;
-    const request = new Request({
-        _id: new mongoose.Types.ObjectId(),
-        student: req.userData.userId,
-        professor: res.locals.professorId,
-        thesis: req.params.thesisId,
-        accepted_fromStudent: false,
-        accepted_fromProfessor: false
-      });
+        else {
+        var thesisId=req.params.thesisId;
+         const request = new Request({
+            _id: new mongoose.Types.ObjectId(),
+            student: req.userData.userId,
+            professor: res.locals.professorId,
+            thesis: req.params.thesisId,
+            accepted_fromStudent: false,
+            accepted_fromProfessor: false
+          });
       request
         .save() 
         .then(result => {
@@ -69,6 +104,8 @@ exports.apply_thesis= (req,res,next) => {
             error: err
           });
         });
+      }
+    })
     };
  
     
