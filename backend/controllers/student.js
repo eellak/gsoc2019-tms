@@ -68,6 +68,8 @@ exports.checkApply_period= (req,res,next) => {
 
 
 
+
+
                                         // Student apply for thesis. 
                                         //create a new request in db
 exports.apply_thesis= (req,res,next) => {   

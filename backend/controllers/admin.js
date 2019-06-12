@@ -208,35 +208,4 @@ exports.apply_period= (req,res,next) => {
     })
 
 }
-
-exports.create_thesis_period= (req,res,next) => {
-    const update_object= {create_thesis_period_start: req.body.create_thesis_period_start,
-                         create_thesis_period_end: req.body.create_thesis_period_end}
-
-    Time_period.findOneAndUpdate({admin:req.userData.userId} , update_object, {new:true})
-    .exec()
-    .then(doc => {
-        if(doc==null) {
-            console.log("create new")
-            var time_period= new Time_period({
-                _id: new mongoose.Types.ObjectId(),
-                admin: req.userData.userId,
-                create_thesis_period_start: req.body.create_thesis_period_start,
-                create_thesis_period_end: req.body.create_thesis_period_end
-            })
-            time_period
-            .save()
-            .then(result => {
-                res.status(200).json(result)
-            })
-        }
-        else {
-                console.log("found")
-                res.status(200).json(doc)
-        }
-    })
-    .catch(err => {
-        res.status(500).json({error :err})
-    })
-
-}
+ 
