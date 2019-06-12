@@ -5,12 +5,16 @@ const Thesis= require('../models/thesis');
 
 exports.thesis_get_all= (req,res,next) => {
   var perPage = 2
-  var page = req.query.page || 1  
+  var page = req.query.page || 1
+  var query= {pending:false}
+  if(req.query.university!=null)
+     query['university']=req.query.university
   var count;
-  Thesis.countDocuments({pending:false})
+  console.log(query)
+  Thesis.countDocuments(query)
   .then(result=> { 
     count=result
-    Thesis.find({pending:false})
+    Thesis.find(query)
       .skip((perPage * page) - perPage)
       .limit(perPage)
       .exec()
