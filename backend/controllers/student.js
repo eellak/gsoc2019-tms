@@ -42,12 +42,12 @@ exports.checkUniversity= (req,res,next) => {
 
 
 
-exports.checkApply_period= (req,res,next) => { 
+exports.checkApplication_period= (req,res,next) => { 
   var currentDate=new Date()
   Time_period.find()
   .exec()
   .then(result => {  
-    if(result[0].apply_period_start<= currentDate && currentDate <= result[0].apply_period_end)
+    if(result[0].application_period_start<= currentDate && currentDate <= result[0].application_period_end)
         {
           console.log("We are currently in application period ")
           return next()
