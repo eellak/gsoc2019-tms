@@ -4,6 +4,8 @@ const External= require('../models/external');
 const Request=require('../models/request');                       
 const User=require('../models/user');
 const Time_period=require("../models/time_period");
+const University=require('../models/university');
+
 
 exports.is_admin= (req,res,next) => {
     adminId=req.userData.userId
@@ -177,9 +179,9 @@ exports.delete_user = (req, res, next) => {
 
 
 
-exports.apply_period= (req,res,next) => {
-    const update_object= {apply_period_start: req.body.apply_period_start,
-                         apply_period_end: req.body.apply_period_end}
+exports.application_period= (req,res,next) => {
+    const update_object= {application_period_start: req.body.application_period_start,
+                         application_period_end: req.body.application_period_end}
 
     Time_period.findOneAndUpdate({admin:req.userData.userId} , update_object, {new:true})
     .exec()
@@ -189,8 +191,8 @@ exports.apply_period= (req,res,next) => {
             var time_period= new Time_period({
                 _id: new mongoose.Types.ObjectId(),
                 admin: req.userData.userId,
-                apply_period_start: req.body.apply_period_start,
-                apply_period_end: req.body.apply_period_end
+                application_period_start: req.body.application_period_start,
+                application_period_end: req.body.application_period_end
             })
             time_period
             .save()
@@ -208,4 +210,29 @@ exports.apply_period= (req,res,next) => {
     })
 
 }
+ 
+
+
+exports.create_university= (req,res,next) => {
+    var university= new University({
+        _id: new mongoose.Types.ObjectId(),
+        name: req.body.name
+    })
+    university
+    .save()
+    .then(result => {
+        if(result!=null) {
+            console.log('university created')
+            res.status(200).json(result)
+        }
+        else {
+            res.status(500).json({message: 'Error in creation of university'})
+        }
+
+    })
+    .catch(err => {
+        res.status(500).json({error:err})
+    })
+}
+
  
