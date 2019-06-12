@@ -15,6 +15,7 @@ const thesisRoutes=require('./routes/thesis');
 const studentRoutes=require('./routes/student');
 const adminRoutes=require('./routes/admin');
 const professorRoutes=require('./routes/professor');
+const universityRoutes=require('./routes/university');
 
 dotenv.config();
 // connect with database
@@ -41,6 +42,7 @@ app.use('/thesis',thesisRoutes);
 app.use('/student',studentRoutes);
 app.use('/admin',adminRoutes);
 app.use('/professor',professorRoutes);
+app.use('/university',universityRoutes);
 
 
 // Error handling
