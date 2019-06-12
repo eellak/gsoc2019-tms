@@ -35,6 +35,28 @@ exports.thesis_get_all= (req,res,next) => {
       })
 }
 
+
+
+exports.get_byId= (req,res,next) => {
+    Thesis.findById({_id:req.params.thesisId})
+      .exec()
+      .then(doc => {
+        if(doc!=null)
+          res.status(200).json(doc);
+        else 
+          res.status(404).json({message : 'Thesis not found'})
+      })
+      .catch(err => {
+        console.log(err+"wjat");
+        res.status(500).json({
+          error: err
+        });
+      })
+}
+
+
+
+
 exports.thesis_completed_get_all= (req,res,next) => {
     Thesis.find({completed:true})
       //.select("name price _id productImage")

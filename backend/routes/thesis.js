@@ -7,7 +7,8 @@ const checkAuth = require('../middleware/check-auth');
 
 //URL: /thesis
 
-router.get("/", thesisController.thesis_get_all);    //get all thesis
+router.get("/", thesisController.thesis_get_all);    //get all thesis  //queries url: page,university
+router.get("/:thesisId",thesisController.get_byId)  //get by id
 
 router.get("/completed", thesisController.thesis_completed_get_all); //get all completed thesis-digital repository
 
