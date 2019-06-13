@@ -23,6 +23,7 @@ router.post("/pending/:pendingId",checkAuth,professorController.check_pending,pr
 router.get("/thesis",checkAuth,professorController.get_thesis) // get all thesis he owns
 router.get("/thesis/:thesisId",checkAuth,professorController.get_thesis_byId) // get thesis he owns by id
 router.post("/thesis",checkAuth,professorController.isProfessor,professorController.create_thesis) // create thesis
+router.put("/thesis/:thesisId",checkAuth,professorController.update_thesis) //update current thesis
 router.delete("/thesis/:thesisId",checkAuth,professorController.delete_thesis) //delete thesis he owns
 
 

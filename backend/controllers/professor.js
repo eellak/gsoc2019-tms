@@ -201,6 +201,31 @@ exports.delete_thesis=(req,res,next) => {
           });
         });
     };
+
+
+exports.update_thesis=(req,res,next) => {
+  updateObj={};
+  if(req.body.title!=null)
+      updateObj['title']=req.body.title
+  if(req.body.description!=null)
+      updateObj['description']=req.body.description
+  if(req.body.prerequisites!=null)
+      updateObj['prerequisites']=req.body.prerequisites
+  if(req.body.tags!=null)
+      updateObj['tags']=req.body.tags
+  Thesis.findOneAndUpdate({_id:req.params.thesisId,professor:req.userData.userId},updateObj,{new:true})
+  .exec()
+  .then(result => {
+    if(result!=null) {
+      res.status(200).json(result)
+    }
+    else 
+      res.status(404).json({message : 'Not found'})
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
  
 
 exports.isProfessor=(req,res,next) => {
