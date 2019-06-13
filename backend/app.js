@@ -11,6 +11,7 @@ const passport =require('passport');
 const dotenv = require('dotenv');
 const auth = require('./ssoauth');
 const jwt = require('jsonwebtoken');
+const rateLimit = require("express-rate-limit");
 const thesisRoutes=require('./routes/thesis');
 const studentRoutes=require('./routes/student');
 const adminRoutes=require('./routes/admin');
@@ -27,12 +28,18 @@ mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cl
   
 })
 
+// limit request from ip
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 200 // limit each IP to 200 requests per windowMs
+});
 
 app.use(morgan("dev"));
 //app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors);
+app.use(limiter);
 
 
 // Routes which should handle requests
