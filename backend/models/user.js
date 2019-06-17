@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
     lastname: String,
     role: { 
             type: String,
-            enum: ['Guest','Admin','Professor','Student','Secreteriat']
+            enum: ['Guest','Admin','Professor','Student','Secretariat']
     },
     university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     
