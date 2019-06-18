@@ -3,7 +3,7 @@ const Student= require('../models/user');
 const Time_period=require("../models/time_period");
 const Notification=require("../models/notification");
 const Secretariat=require("../models/user");
-
+const Assigned_Thesis=require('../models/assigned_thesis');
 
 
 exports.is_secretariat=(req,res,next) => {
@@ -32,8 +32,36 @@ exports.is_secretariat=(req,res,next) => {
     })
 }
 
+
+
+exports.get_students_not_assigned=(req,res,next) => {
+    Assigned_Thesis.find()
+    .select('student')
+    .exec()
+    .then( result => { console.log(result)
+        var student_array= []
+        for (var i = 0; i < result.length; i++) {
+             student_array.push(result[i].student);
+        }
+        Student.find({role:'Student' , _id: { $nin: student_array  } })
+        .exec()
+        .then(docs => { 
+            if(docs.length>0)
+                res.status(200).json(docs)
+            else {
+                res.status(200).json({message:'All students have assigned for thesis'})
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error:err
+            });
+        })
+    })
+}
+
 exports.notify_student = (req, res, next) => {
-    Student.findById({ _id: req.params.studentId })
+    Student.findById({ _id: req.params.studentId , role:'Student' })
         .exec()
         .then(doc => {
             if (doc.university.equals(res.locals.university)) {
