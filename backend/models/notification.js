@@ -10,4 +10,4 @@ const notificationSchema = mongoose.Schema({
     ccreated_time: Date
 });
 
-module.exports = mongoose.model('Pending', notificationSchema,'pending');
+module.exports = mongoose.model('Notification', notificationSchema);
