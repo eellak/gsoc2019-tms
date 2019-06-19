@@ -32,6 +32,7 @@ router.get("/draft/:assigned_thesisId",checkAuth,studentController.check_thesis,
 router.get("/draft/:assigned_thesisId/:draftId",checkAuth,studentController.check_thesis,studentController.get_draft_byId); //get draft by id of thesis
 router.post("/draft/:assigned_thesisId",checkAuth,studentController.check_thesis,studentController.post_draft); //create draft 
 
+router.get("/notification",checkAuth,studentController.get_notifications);
 
 //router.delete("/:userId", checkAuth, thesisController.user_delete); // 
 //search thesis
