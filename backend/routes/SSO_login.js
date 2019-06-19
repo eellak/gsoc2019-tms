@@ -25,7 +25,9 @@ router.post("/login/callback",
         const token = jwt.sign(
           {
             email: user.email,
-            userId: user.id
+            userId: user.id,
+            role: user.role,
+            university: user.university
           },
           process.env.JWT_KEY,
           { expiresIn: '72h' }
