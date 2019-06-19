@@ -7,6 +7,8 @@ const checkAuth = require('../middleware/check-auth');
 
 //url secretariat 
 
+router.all("/*",checkAuth,secretariatController.is_secretariat)
+
 
 router.get("/get_students",checkAuth,secretariatController.is_secretariat,secretariatController.get_students_not_assigned) //get students that have not assigned  a thesis
 

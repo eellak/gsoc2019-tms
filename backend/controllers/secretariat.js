@@ -6,44 +6,28 @@ const Secretariat=require("../models/user");
 const Assigned_Thesis=require('../models/assigned_thesis');
 
 
+
+
 exports.is_secretariat=(req,res,next) => {
-    Secretariat.findById({_id:req.userData.userId})
-    .exec()
-    .then(doc => {
-        if(doc) {
-            if(doc.role=='Secretariat') { 
-                res.locals.university=doc.university;
-                console.log('Auth passed: User is secretariat')
-                return next();
-            }
-            else {
-                return res.status(401).json({
-                    message: 'Auth failed not Secretariat'
-                })
-            }
+        if(req.userData.role!='Secretariat') {
+          console.log("You are not a secretariat")
+          res.status(400).json({message:'You are not a student'})
         }
-        else { res.status(401).json({
-                 message: 'Auth failed user not found'
-            })
-        }
-    })
-    .catch(err => {
-        res.status(500).json({error:err});
-    })
+        else 
+          next();
 }
 
 
-
 exports.get_students_not_assigned=(req,res,next) => {
-    Assigned_Thesis.find()
-    .select('student')
+    Assigned_Thesis.find({university:req.userData.university})
+    .select('student ')
     .exec()
     .then( result => { console.log(result)
         var student_array= []
         for (var i = 0; i < result.length; i++) {
              student_array.push(result[i].student);
         }
-        Student.find({role:'Student' , _id: { $nin: student_array  } })
+        Student.find({role:'Student' , university:req.userData.university, _id: { $nin: student_array  } })
         .exec()
         .then(docs => { 
             if(docs.length>0)
@@ -61,10 +45,9 @@ exports.get_students_not_assigned=(req,res,next) => {
 }
 
 exports.notify_student = (req, res, next) => {
-    Student.findById({ _id: req.params.studentId , role:'Student' })
+    Student.findById({ _id: req.params.studentId , role:'Student' ,university:req.userData.university })
         .exec()
         .then(doc => {
-            if (doc.university.equals(res.locals.university)) {
                 const notification = new Notification({
                     _id: new mongoose.Types.ObjectId(),
                     creator_user: req.userData.userId,
@@ -85,10 +68,6 @@ exports.notify_student = (req, res, next) => {
                             error:err
                         });
                     })
-            }
-            else {
-                res.status(404).json({ message: "The student doesnt belong to your university" })
-            }
         })
         .catch(err => {
             console.log(err);

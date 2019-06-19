@@ -6,6 +6,7 @@ const Assigned_Thesis=require('../models/assigned_thesis');
 const Pending= require("../models/pending")
 const Draft= require("../models/draft");
 const Time_period=require("../models/time_period");
+const Notification=require("../models/notification");
 
                                         //check if student university is the same with thesis university
 
@@ -40,6 +41,14 @@ exports.checkUniversity= (req,res,next) => {
         })
        };
 
+exports.is_student= (req,res,next) => {
+  if(req.userData.role!='Student') {
+    console.log("You are not a student")
+    res.status(400).json({message:'You are not a student'})
+  }
+  else 
+    next();
+}
 
 
 exports.checkApplication_period= (req,res,next) => { 
@@ -211,6 +220,7 @@ exports.post_accepted_request=(req,res,next) => { //student confirms his request
                     _id: new mongoose.Types.ObjectId(),
                     student:docs.student,
                     professor:docs.professor,
+                    university:req.userData.university,
                     thesis:docs.thesis,
                     created_time: new Date(),
                     completed: false,
@@ -554,4 +564,33 @@ exports.post_draft=(req,res,next) => {
   .catch(err => {
     res.status(500).json({error:err})
   })
+}
+
+
+exports.get_notifications=(req,res,next) => {
+  var perPage = 2
+  var page = req.query.page || 1
+  var count;
+  Notification.countDocuments({receiver_user:req.userData.userId})
+  .then(result=> { 
+    count=result
+    Notification.find({receiver_user:req.userData.userId})
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .exec()
+      .then(docs => {
+        const response = {
+            docs:docs,
+            count:count,
+            pages: Math.ceil(count / perPage),
+        }
+        res.status(200).json(response);
+    })
+  })
+      .catch(err => {
+        console.log(err+"wjat");
+        res.status(500).json({
+          error: err
+        });
+      })
 }

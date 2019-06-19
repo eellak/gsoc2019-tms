@@ -184,7 +184,7 @@ exports.delete_thesis=(req,res,next) => {
         created_time: req.body.created_time,
         completed: false,
         pending: false,
-        university: res.locals.university
+        university: req.userData.university
       });
       thesis
         .save() 
@@ -229,22 +229,12 @@ exports.update_thesis=(req,res,next) => {
  
 
 exports.isProfessor=(req,res,next) => {
-    Professor.findById({_id:req.userData.userId})
-    .select('role university')
-    .exec()
-    .then(doc => {
-        if(doc) {
-            if(doc.role=='Professor') { 
-                console.log('Auth passed: User is professor')
-                res.locals.university=doc.university
-                console.log(doc.university)
-                return next();
-            }
-        }
-            return res.status(401).json({
-                message: 'Auth failed not Professor'
-            })
-    })
+  if(req.userData.role!='Professor') {
+    console.log("You are not a professor")
+    res.status(400).json({message:'You are not a student'})
+  }
+  else 
+    next();
 }
 
 exports.get_assigned=(req,res,next) => {
@@ -291,7 +281,7 @@ exports.get_assigned_byId= (req,res,next) => {
 
 
 exports.get_pending= (req,res,next) => {
-  Thesis.find({pending:true , university:res.locals.university})
+  Thesis.find({pending:true , university:req.userData.university})
     .exec()
     .then(docs => { 
           if(docs!=null)
