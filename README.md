@@ -39,6 +39,19 @@
  - Mentor: Theodoros Karounos
  - Mentor: Iraklis Varlamis
  - Organization: [GFOSS](https://gfoss.eu/)
+ 
+ 
+ <h2> Technologies used </h2>
+ 
+The data are stored in MongoDB (document-oriented database schema) and is accessible through a RESTful API.
+
+The <b>backend</b> is written in node js, using the following libraries: "bcrypt" , "body-parser" , "dotenv" , "express" , "jsonwebtoken", "mongodb" , "mongoose" ,"mongoose-paginate-v2" , "morgan" , "passport" , "passport-saml", "querystringify"
+
+The <b>frontend</b> is written in angular7
+    
+
+<h2> License </h2> 
+The project is opensourced as a part of the Google Summer of Code Program. Here, the MIT license is adopted. For more information see LICENSE.
 
 
 
