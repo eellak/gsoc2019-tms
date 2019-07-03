@@ -1,12 +1,15 @@
 
 
-export class User {
+export class External {
 
     //_id: mongoose.Schema.Types.ObjectId,
     public email: string; 
     public name: string;
+    public password: string;
     public lastname: string;
-    public role: 'Guest' | 'Admin' | 'Professor' | 'Student' | 'Secretariat';
+    public role: "External";
     //public university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     
-}
+     constructor(email) { this.email=email };
+
+    }
