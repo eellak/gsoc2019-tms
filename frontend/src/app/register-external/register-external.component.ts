@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, EmailValidator } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -35,7 +35,9 @@ export class RegisterExternalComponent implements OnInit {
 
   ngOnInit() {
       this.registerForm = this.formBuilder.group({
-          email: ['', Validators.required],
+          email: ['', Validators.compose([Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$')])],
+          name: ['', Validators.required],
+          lastname: ['', Validators.required],
           password: ['', [Validators.required, Validators.required]]
       });
   }
@@ -57,7 +59,7 @@ export class RegisterExternalComponent implements OnInit {
           .subscribe(
               data => {
                   this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/external-login']);
+                  this.router.navigate(['/login-external']);
               },
               error => {
                   this.alertService.error(error);
