@@ -33,7 +33,7 @@ exports.get_students_not_assigned=(req,res,next) => {
             if(docs.length>0)
                 res.status(200).json(docs)
             else {
-                res.status(200).json({message:'All students have assigned for thesis'})
+                res.status(200).json({message:"All students have been assigned to a thesis"})
             }
         })
         .catch(err => {
@@ -60,7 +60,7 @@ exports.notify_student = (req, res, next) => {
                     .then(result => {
                         console.log(result);
                         res.status(201).json({
-                            message: "Created notification successfully",
+                            message: "Notification successfully created"
                         })
                     })
                     .catch(err => {

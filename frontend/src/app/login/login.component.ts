@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {External} from '../shared/models/external.model';
+
+import {Router, ActivatedRoute } from '@angular/router' ;
+
 
 @Component({
   selector: 'app-login',
@@ -8,15 +10,18 @@ import {External} from '../shared/models/external.model';
 })
 export class LoginComponent implements OnInit {
 
-  user:External = new External("some@gmail.com");
+    constructor(private router: Router,  private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.user.email="new@gmail.com";
-    this.user.password="123456";
+    ngOnInit() {
 
-  }
-  tryLogin() {
+    }
 
-    console.log("inside try login");
-  }
+    login_sso() {
+      this.router.navigate(['/new'], {relativeTo: this.route});
+    }
+
+    login_external() {
+        this.router.navigate(['/login-external']);
+    }
+
 }

@@ -16,7 +16,6 @@ const thesisSchema = mongoose.Schema({
     pending: Boolean, // external,student wait for approval from professor. 
     creator_student: { type: mongoose.Schema.Types.ObjectId, ref:'User' },
     creator_external:{ type: mongoose.Schema.Types.ObjectId, ref:'External'},
-    supervisor: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }]
     });
 
     

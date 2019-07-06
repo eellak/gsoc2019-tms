@@ -1,7 +1,23 @@
-import { NgModule } from '@angular/core';
+
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { HomeComponent } from './home/home.component';
+import { RegisterExternalComponent } from './register-external/register-external.component';
+import { LoginExternalComponent } from './login/login-external/login-external.component';
+import { LoginComponent } from './login/login.component';
+
+
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login' , component: LoginComponent},
+  { path: 'login-external', component: LoginExternalComponent },
+  { path: 'register-external', component: RegisterExternalComponent },
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
