@@ -8,16 +8,18 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+ 
 
-    constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-        this.currentUser = this.currentUserSubject.asObservable();
+    constructor(private http: HttpClient) {}
+
+     getToken() {
+        return localStorage.getItem('currentUser');
     }
 
-    public get currentUserValue(): User {
-        return this.currentUserSubject.value;
+    isLoggedIn() {
+        if(localStorage.getItem('currentUser')!=null) 
+            return true;
+        else return false;
     }
 
     login(email: string, password: string) {
@@ -27,7 +29,6 @@ export class AuthenticationService {
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
                 }
                  
                 return user;
@@ -36,12 +37,15 @@ export class AuthenticationService {
 
     sso_login(token) {
         localStorage.setItem('currentUser', JSON.stringify(token));
-        this.currentUserSubject.next(token);
+    }
+    
+    sso_logout() {
+        localStorage.removeItem('currentUser');
+        window.location.href='https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:4200/sso_logout';    
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
     }
 }

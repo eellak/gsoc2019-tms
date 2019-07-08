@@ -13,12 +13,14 @@ export const environment = {
     // the auth0 domain to login - see https://auth0.com/docs/api-auth/tutorials/client-credentials
     domain: 'dev-i5mfll-2.auth0.com',
     audience: 'https://dev-i5mfll-2.auth0.com/api/v2/',
-    logoutRedirectUri: `${window.location.origin}/#/logout`,
+    logoutRedirectUri: 'http://localhost:4200/sso_logout',
 
     hooks: {
       // before the redirect to the redirectUri happens (with fallback to logoutRedirectUri and then to window.location.href)
       // if the user information is stored in a backend store, it's best to clean that before the redirect happens
       logout(redirectUri) {
+       // localStorage.removeItem('currentUser');
+
         // implement what should happen at logout
         // a typical use case is to remove the auth token from your storage (memory, cookie, local store), or perform other cleanup tasks
       },
@@ -30,6 +32,7 @@ export const environment = {
       },
       // the auth token was retrieved, this is an option to store the token for later use
       tokenRefreshed() {
+
         // once a new token was retrieved from auth0, this happens right before expiry.  When using getIdToken(), it may be an unnecessary hook.
       },
       // called before logout or when there's a problem with the current user, for example an invalid token
