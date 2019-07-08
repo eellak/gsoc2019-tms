@@ -32,7 +32,7 @@ mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cl
 // limit request from ip
 const limiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 200 // limit each IP to 200 requests per windowMs
+  max: 500 // limit each IP to 200 requests per windowMs
 });
 
 app.use(morgan("dev"));

@@ -50,16 +50,16 @@ exports.user_signup = (req, res, next) => {
 exports.user_login = (req, res, next) => {   
   External.find({ email: req.body.email })
     .exec()
-    .then(user => { console.log(user[0].password)
+    .then(user => { 
       if (user.length < 1) {console.log("not user")
         return res.status(401).json({
-          message: "Auth failed"
+          message: "Auth failed, Wrong email or password"
         });
       }
       bcrypt.compare(req.body.password, user[0].password, (err, result) => { console.log(result)
         if (err) {
           return res.status(401).json({
-            message: "Auth failedd"
+            message: "Auth failed, Wrong email or password"
           });
         }
         if (result) { 

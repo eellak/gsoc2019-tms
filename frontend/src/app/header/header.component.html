@@ -10,7 +10,7 @@
           <a routerLink="/login">Login</a>
         </li>
         <li routerLinkActive="active" *ngIf="currentUser">
-          <a class="nav-item nav-link" (click)="logout()">Logout</a>
+          <a class="nav-item nav-link"  (click)="logout()">Logout</a>
         </li>
         <li routerLinkActive="active" *ngIf="!currentUser">
           <a routerLink="/register-external">Register </a>

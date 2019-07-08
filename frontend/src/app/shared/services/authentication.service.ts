@@ -34,6 +34,11 @@ export class AuthenticationService {
             }));
     }
 
+    sso_login(token) {
+        localStorage.setItem('currentUser', JSON.stringify(token));
+        this.currentUserSubject.next(token);
+    }
+
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
