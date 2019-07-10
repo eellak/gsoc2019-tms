@@ -34,11 +34,16 @@ router.post("/login/callback",
         );
         console.log("token:" + token)
          req.user = user;
-
+         req.token=token;
         next();
       })(req, res, next);
     });
- 
+
+    router.post("/login/callback",
+    bodyParser.urlencoded({ extended: false }),
+    (req, res, next) => { 
+        res.redirect("http://localhost:4200/#access_token="+req.token);
+    });
       
 
     router.get('/logout', (req, res) => {
