@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UrlSegment, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
+import { AuthenticationService } from './../shared/services/authentication.service';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,15 +12,19 @@ import { Location } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private location: Location, private router : Router) { }
+  constructor(private location: Location, private router : Router
+              ,private authenticationService: AuthenticationService,
+            ) { }
 
   ngOnInit() {
-    console.log(this.router.url);
       const url=this.router.url;
       if(url.startsWith("/#access_token")) {
          const token=url.slice(15); 
         localStorage.setItem('currentUser', token);
       }
   }
+
+
+  sso_login() { this.authenticationService.sso_login() ;}
 
 }

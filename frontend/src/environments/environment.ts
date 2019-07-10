@@ -9,7 +9,7 @@ export const environment = {
     
     // the auth0 client ID to be used - see https://auth0.com/docs/api-auth/tutorials/client-credentials
     clientId: 'ISe3r0XrgUoKgchkvExvSPlqGecxhN67',
-     
+
     // the auth0 domain to login - see https://auth0.com/docs/api-auth/tutorials/client-credentials
     domain: 'dev-i5mfll-2.auth0.com',
     audience: 'https://dev-i5mfll-2.auth0.com/api/v2/',
@@ -29,6 +29,7 @@ export const environment = {
         // once the profile is refreshed, which includes the auth0 sub and other meta data
         // a typical use case is to show the username on screen
         // or use getProfile()
+        
       },
       // the auth token was retrieved, this is an option to store the token for later use
       tokenRefreshed() {

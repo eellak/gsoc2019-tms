@@ -14,6 +14,8 @@ import { AuthenticationService } from './../shared/services/authentication.servi
 })
 export class LoginComponent implements OnInit {
 
+    auth: Auth
+    result
     constructor(private router: Router,  
       private route: ActivatedRoute,
       private http: HttpClient,
@@ -26,21 +28,20 @@ export class LoginComponent implements OnInit {
 
    async login_sso_config() {
       let config = environment.config;
-      let auth = new Auth(config);
+      this.auth = new Auth(config);
       let defaultConfiguration = {
         enabledHostedLogin: true,  // if Auth0's SSO fails, use the hosted login screen
         forceTokenRefresh: false, // force refresh even if there is a valid token available
         redirectUri: window.location.href // specify an override
       };
       try { 
-        let result = await auth.ensureLoggedIn(defaultConfiguration)
-        let token= auth.getIdToken();
-        console.log(token);
+        this.result = await this.auth.ensureLoggedIn(defaultConfiguration)
+        let token= this.auth.getIdToken();
         localStorage.setItem('currentUser', token);
         console.log('user is logged in, if a previous redirect was saved direct the user to the redirect location');
         // The redirect saved in the configuration passed in will not be correct, as it was generated in "this" session instead of the session which created the correct redirect.
-        if (result.redirectUri) {
-          window.location.replace(result.redirectUri);
+        if (this.result.redirectUri) {
+          window.location.replace(this.result.redirectUri);
           
         }
       } catch (error) {
@@ -54,7 +55,12 @@ export class LoginComponent implements OnInit {
       };
     }
 
-    
+    login_sso() {
+      this.http.post(environment.apiUrl+'/SSO/login/callback2',{ } )
+      .subscribe(user => {
+          console.log(user)
+    })
+  }
 
     login_external() {
         this.router.navigate(['/login-external']);
