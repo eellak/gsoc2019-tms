@@ -35,13 +35,7 @@ export class AuthenticationService {
             }));
     }
 
-    sso_login() {
-            this.http.post(environment.apiUrl+'/SSO/login/callback',{ })
-            .pipe(map(user => {}))
-            .subscribe(user => {
-                console.log(user)
-            })
-    }
+    
     
     sso_logout() {
         localStorage.removeItem('currentUser');

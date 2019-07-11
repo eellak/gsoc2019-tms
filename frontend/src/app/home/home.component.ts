@@ -25,6 +25,5 @@ export class HomeComponent implements OnInit {
   }
 
 
-  sso_login() { this.authenticationService.sso_login() ;}
 
 }

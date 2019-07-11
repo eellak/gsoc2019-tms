@@ -19,6 +19,10 @@ export class UserService {
         return this.http.post(environment.apiUrl+'/external/signup', user);
     }
 
+    getUser() {
+        return this.http.get(environment.apiUrl+'/user');
+    }
+
    /*  update(user: User) {
         return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
     }

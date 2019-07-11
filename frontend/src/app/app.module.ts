@@ -13,6 +13,7 @@ import { AlertComponent } from './alert/alert.component';
 import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { LoginComponent } from './login/login.component';
     AlertComponent,
     HomeComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
