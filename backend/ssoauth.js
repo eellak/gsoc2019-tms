@@ -66,10 +66,15 @@ passport.use(new SamlStrategy({
                     return done(err);
                 }
                 if (!user) { //o user den uparxie ton dhmiourgoume sthn bash
+                    let name_lastname= profile["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"].split(" ");
+                    let name = name_lastname[0];
+                    let lastname=name_lastname[1];
                     const user = new User({
                         _id: new mongoose.Types.ObjectId(),
                         email: profile["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"],
-                        role: profile["http://schemas.auth0.com/roles"]
+                        role: profile["http://schemas.auth0.com/roles"],
+                        name: name,
+                        lastname:lastname 
                     });
                     user
                     .save()
@@ -77,7 +82,6 @@ passport.use(new SamlStrategy({
                 }
                 else //o user uparxei kai ton brhkame
                     console.log("first" +user)
-                console.log('Ending Method for profiling');
                 //generate token 
                 console.log("O USER EINAI OOO" +user);
                 

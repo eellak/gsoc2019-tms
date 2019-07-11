@@ -27,7 +27,9 @@ router.post("/login/callback",
             email: user.email,
             userId: user.id,
             role: user.role,
-            university: user.university
+            university: user.university,
+            name: user.name,
+            lastname: user.lastname
           },
           process.env.JWT_KEY,
           { expiresIn: '72h' }
