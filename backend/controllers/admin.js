@@ -24,6 +24,27 @@ exports.is_admin= (req,res,next) => {
             })
     })
 }
+
+exports.is_admin2= (req,res,next) => {
+    adminId=req.userData.userId
+    External.findById(adminId)
+    .select('role')
+    .exec()
+    .then(doc => {
+        if(doc) {
+            if(doc.role=='Admin') { 
+                console.log('Auth passed: User is admin')
+                return res.status(200).json({
+                    message: 'Authenticated',
+                })
+            }
+        }
+            return res.status(404).json({
+                message: 'Auth failed not ADMIN'
+            })
+    })
+}
+
  
 exports.get_externals=(req,res,next) => {
     var perPage = 5
@@ -33,6 +54,7 @@ exports.get_externals=(req,res,next) => {
     .then( result => {
             count=result
         External.find()
+        .select('email name lastname role')
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec()
@@ -109,6 +131,7 @@ exports.get_users=(req,res,next) => {
     .then( result => {
         count=result
         User.find()
+        .select("email role university name lastname")
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec()

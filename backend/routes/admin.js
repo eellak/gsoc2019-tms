@@ -7,6 +7,8 @@ const externalController= require('../controllers/external')
 
 //URL: /admin
 
+router.get("/",checkAuth,adminController.is_admin2); //check if user is admin
+
 router.all("/*",checkAuth,adminController.is_admin); // check if user is admin. For all routes
 
 router.post("/create_external",externalController.user_signup); //create external

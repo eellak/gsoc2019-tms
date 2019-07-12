@@ -78,11 +78,12 @@ exports.user_login = (req, res, next) => {
           );
           return res.status(200).json({
             message: "Auth successful",
-            token: token
+            token: token,
+            role: user[0].role
           });
         }
         res.status(401).json({
-          message: "Auth failed3"
+          message: "Auth failed"
         });
       });
     })
