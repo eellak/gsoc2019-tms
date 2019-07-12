@@ -9,13 +9,16 @@
           <a routerLink="/login">Login</a>
         </li>
         <li routerLinkActive="active" *ngIf="isLoggedIn()">
-          <a class="nav-item nav-link"  (click)="logout()">Logout</a>
+          <a class="nav-item nav-link logout"  (click)="logout()">Logout</a>
         </li>
         <li routerLinkActive="active" *ngIf="!isLoggedIn()">
           <a routerLink="/register-external">Register </a>
         </li>
         <li routerLinkActive="active" *ngIf="isLoggedIn()">
           <a routerLink="/profile">My Profile </a>
+        </li>
+        <li routerLinkActive="active" *ngIf="isLoggedIn() && isAdmin() ">
+            <a routerLink="/admin">Admin</a>
         </li>
       </ul>
     </div>

@@ -12,6 +12,7 @@ import { User } from '../shared/models/user.model';
 })
 export class HeaderComponent implements OnInit {
   currentUser: User;
+  message:any;
 
   constructor(
     private router: Router,
@@ -25,11 +26,23 @@ export class HeaderComponent implements OnInit {
   logout() {
     //this.authenticationService.logout();
     //this.router.navigate(['/login']);
-    this.authenticationService.sso_logout();
-
+    const role=this.authenticationService.getRole()
+    if(role==="External" || role==="Admin") {
+      this.authenticationService.logout();
+    }
+    else {
+      this.authenticationService.sso_logout();
+    }
   }
 
   isLoggedIn() {
     return this.authenticationService.isLoggedIn();
+  }
+
+  isAdmin() {    
+    if(localStorage.getItem('Role')==="Admin")
+      return true;
+    else
+      return false;
   }
 }
