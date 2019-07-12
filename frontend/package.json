@@ -28,6 +28,7 @@
     "crypto": "^1.0.1",
     "hammerjs": "^2.0.8",
     "jquery": "^3.4.1",
+    "lodash": "^4.17.14",
     "querystringify": "^2.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.9.0",
