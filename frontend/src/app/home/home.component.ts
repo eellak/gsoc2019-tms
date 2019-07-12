@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UrlSegment, Router } from '@angular/router';
+import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AuthenticationService } from './../shared/services/authentication.service';
@@ -12,18 +12,23 @@ import { AuthenticationService } from './../shared/services/authentication.servi
 })
 export class HomeComponent implements OnInit {
 
+
   constructor(private location: Location, private router : Router
               ,private authenticationService: AuthenticationService,
+              private route: ActivatedRoute
             ) { }
 
   ngOnInit() {
       const url=this.router.url;
-      if(url.startsWith("/#access_token")) {
-         const token=url.slice(15); 
-        localStorage.setItem('currentUser', token);
-      }
+      if(url.startsWith("/?access_token")) {
+        this.route.queryParams
+        .subscribe(params => {
+          localStorage.setItem('Token',params.access_token);
+          localStorage.setItem('Role',params.role);
+        });
+    }
   }
-
-
-
 }
+
+
+

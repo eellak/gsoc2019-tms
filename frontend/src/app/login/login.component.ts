@@ -26,35 +26,6 @@ export class LoginComponent implements OnInit {
 
     }
 
-   async login_sso_config() {
-      let config = environment.config;
-      this.auth = new Auth(config);
-      let defaultConfiguration = {
-        enabledHostedLogin: true,  // if Auth0's SSO fails, use the hosted login screen
-        forceTokenRefresh: false, // force refresh even if there is a valid token available
-        redirectUri: window.location.href // specify an override
-      };
-      try { 
-        this.result = await this.auth.ensureLoggedIn(defaultConfiguration)
-        let token= this.auth.getIdToken();
-        localStorage.setItem('currentUser', token);
-        console.log('user is logged in, if a previous redirect was saved direct the user to the redirect location');
-        // The redirect saved in the configuration passed in will not be correct, as it was generated in "this" session instead of the session which created the correct redirect.
-        if (this.result.redirectUri) {
-          window.location.replace(this.result.redirectUri);
-          
-        }
-      } catch (error) {
-          console.error('an unexpected error occurred while logging in');
-          // perform application specific steps to handle this situation
-          // this should happen only rarely, since the user will either
-          // be logged in automatically through Auth0's SSO feature, or
-          // the Universal Hosted Login page, and only succeed after the
-          // user successfully logged in.  In the case of the redirect,
-          // the redirectUri will be loaded
-      };
-    }
-
     login_sso() {
       this.http.post(environment.apiUrl+'/SSO/login/callback2',{ } )
       .subscribe(user => {
