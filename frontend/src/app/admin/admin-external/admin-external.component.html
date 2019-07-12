@@ -1,0 +1,48 @@
+<table class="table table-striped users">
+    <thead > 
+        <caption> <h3>Externals Users</h3></caption>
+      <tr>
+        <th>User Id</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="users!=null">
+      <tr *ngFor="let user of users">
+        <td>{{user._id}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.role}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+<div>
+       <a routerLink='../external_create'> <i class="material-icons">person_add</i> Create External</a> 
+</div>
+
+
+
+  <div class="card-footer pb-0 pt-3">
+      <ul *ngIf="pager.pages>1" class="pagination">
+          <li class="page-item first-item">
+              <button  [disabled]="pager.currentPage === 1" (click)="getExternals(1)" class="pagination btn-default">First  </button>
+          </li>
+          <li class="page-item previous-item">
+              <button  [disabled]="pager.currentPage === 1" (click)="getExternals(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
+          </li>
+          <li class="page-item previous-item">
+              <button (click)="getExternals(pager.currentPage-1)" class="pagination btn-default">{{pager.currentPage}}</button>
+          </li>
+          <li class="page-item next-item">
+              <button  [disabled]="pager.currentPage === pager.pages" (click)="getExternals(pager.currentPage+1)" class="pagination btn-default">Next </button>
+          </li>
+          <li class="page-item last-item">
+              <button  [disabled]="pager.currentPage === pager.pages" (click)="getExternals(pager.pages)" class="pagination btn-default">Last </button>
+          </li>
+      </ul>
+  </div>
