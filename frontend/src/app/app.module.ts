@@ -22,6 +22,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
+import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CreateExternalComponent } from './admin/admin-external/create-external/
     AdminExternalComponent,
     AdminUserComponent,
     CreateExternalComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
+import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 
 
 const routes: Routes = [
@@ -27,8 +28,8 @@ const routes: Routes = [
       children :[ 
         { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
         { path:'external_create', component:CreateExternalComponent , pathMatch:'full'},
-        { path:'user' , component:AdminUserComponent , pathMatch:'full' }
-
+        { path:'user' , component:AdminUserComponent , pathMatch:'full' },
+        { path:'user_create' , component:CreateUserComponent , pathMatch:'full' }
       ] 
   },
 

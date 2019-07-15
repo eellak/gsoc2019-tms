@@ -13,6 +13,7 @@ import {
   } from '@angular/router';
 
 import { User } from '../models/user.model';
+import { getLocaleTimeFormat } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -29,6 +30,15 @@ export class AuthenticationService {
 
     isLoggedIn() {
         if("Token" in localStorage) {
+             // check if token has expired 
+            var mydate=localStorage.Timestamp;
+            var token_length= 3* 60 * 60 * 1000; //3 hours
+            mydate= new Date(mydate+token_length);
+            if(mydate>=new Date()) {
+                // token expired
+                localStorage.clear();
+                return false;
+            }
             return true;
         }
         else { 
@@ -44,6 +54,7 @@ export class AuthenticationService {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('Token', user.token);
                     localStorage.setItem('Role',user.role);
+                    localStorage.setItem('Timestamp',''+new Date());
                 }
                  
                 return user;

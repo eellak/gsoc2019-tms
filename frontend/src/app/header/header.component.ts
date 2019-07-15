@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { User } from '../shared/models/user.model';
@@ -19,6 +19,8 @@ export class HeaderComponent implements OnInit {
     private authenticationService: AuthenticationService
 ) {
 }
+
+
 
   ngOnInit() {
   }
@@ -45,4 +47,7 @@ export class HeaderComponent implements OnInit {
     else
       return false;
   }
+ 
+  
+
 }

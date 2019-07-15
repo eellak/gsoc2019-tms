@@ -2,6 +2,21 @@
     cursor: pointer;
 }
 
+.navbar {
+    background-color:rgb(88, 173, 226);
+    
+
+}
+
+.active2
+{
+    background-color: #195fc9 ;
+}
+
+ 
+ .nav-item {
+    color: white !Important;
+}
 
  .logout {
     position:fixed;

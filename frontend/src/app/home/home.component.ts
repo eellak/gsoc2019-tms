@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
         .subscribe(params => {
           localStorage.setItem('Token',params.access_token);
           localStorage.setItem('Role',params.role);
+          localStorage.setItem('Timestamp',''+new Date());
         });
     }
   }
