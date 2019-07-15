@@ -35,8 +35,8 @@
           <li class="page-item previous-item">
               <button  [disabled]="pager.currentPage === 1" (click)="getExternals(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
           </li>
-          <li class="page-item previous-item">
-              <button (click)="getExternals(pager.currentPage-1)" class="pagination btn-default">{{pager.currentPage}}</button>
+          <li class="page-item current-item">
+              <button (click)="getExternals(pager.currentPage)" class="pagination btn-default">{{pager.currentPage}}</button>
           </li>
           <li class="page-item next-item">
               <button  [disabled]="pager.currentPage === pager.pages" (click)="getExternals(pager.currentPage+1)" class="pagination btn-default">Next </button>
