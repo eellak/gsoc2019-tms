@@ -39,13 +39,14 @@
  - Mentor: Theodoros Karounos
  - Mentor: Iraklis Varlamis
  - Organization: [GFOSS](https://gfoss.eu/)
- 
+
  
  <h2> Technologies used </h2>
  
 The data are stored in MongoDB (document-oriented database schema) and is accessible through a RESTful API.
 
-The <b>backend</b> is written in node js, using the following libraries: "bcrypt" , "body-parser" , "dotenv" , "express" , "jsonwebtoken", "mongodb" , "mongoose" ,"mongoose-paginate-v2" , "morgan" , "passport" , "passport-saml", "querystringify"
+The <b>backend</b> is written in node js, using the following libraries: [bcrypt](https://www.npmjs.com/package/bcrypt) , [body-parser](https://www.npmjs.com/package/body-parser) , [dotenv](https://www.npmjs.com/package/dotenv) , [express](https://www.npmjs.com/package/express) ,
+ [form-data](https://www.npmjs.com/package/form-data) ,[formidable](https://www.npmjs.com/package/formidable),[lodash](https://www.npmjs.com/package/lodash) , [multer](https://www.npmjs.com/package/multer) , [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken), [mongodb](https://www.npmjs.com/package/mongodb) , [mongoose](https://www.npmjs.com/package/mongoose) , [mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2) , [morgan](https://www.npmjs.com/package/morgan) , [passport](https://www.npmjs.com/package/passport) , [passport-saml](https://www.npmjs.com/package/passport-saml), [querystringify](https://www.npmjs.com/package/querystringify)
 
 The <b>frontend</b> is written in angular7, using the following modules: @angular/core @angular/common @angular/compiler @angular/compiler-cli @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/platform-server @angular/router @angular/animations @angular/upgrade @angular/material rxjs tslib zone.js bootstrap@3 @ng-bootstrap/ng-bootstrap 
     
