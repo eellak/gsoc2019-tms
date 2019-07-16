@@ -1,4 +1,3 @@
-
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -16,7 +15,7 @@ import { AdminExternalComponent } from './admin/admin-external/admin-external.co
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
 import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
-
+import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +28,9 @@ const routes: Routes = [
         { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
         { path:'external_create', component:CreateExternalComponent , pathMatch:'full'},
         { path:'user' , component:AdminUserComponent , pathMatch:'full' },
-        { path:'user_create' , component:CreateUserComponent , pathMatch:'full' }
+        { path:'user_create' , component:CreateUserComponent , pathMatch:'full' },
+        { path:'create_university' , component:CreateUniversityComponent , pathMatch:'full' }
+
       ] 
   },
 

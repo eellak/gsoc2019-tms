@@ -1,6 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 import { AuthenticationService } from '../shared/services/authentication.service';
@@ -18,6 +19,7 @@ export class AdminComponent implements OnInit {
   constructor( ) {}
 
   ngOnInit() {
+    
   }
 
  

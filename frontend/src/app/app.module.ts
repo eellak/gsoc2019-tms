@@ -6,6 +6,7 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +24,8 @@ import { AdminExternalComponent } from './admin/admin-external/admin-external.co
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
 import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
+import { CreateUniversityComponent } from './admin/create-university/create-university.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 @NgModule({
@@ -41,6 +44,8 @@ import { CreateUserComponent } from './admin/admin-user/create-user/create-user.
     AdminUserComponent,
     CreateExternalComponent,
     CreateUserComponent,
+    CreateUniversityComponent,
+    SidenavComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +55,8 @@ import { CreateUserComponent } from './admin/admin-user/create-user/create-user.
     HttpClientModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
-    
+    MatCheckboxModule,
+    MatSidenavModule
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
                {provide:HTTP_INTERCEPTORS, useClass:HttpErrorInterceptor,multi:true}
