@@ -32,7 +32,7 @@ router.post("/login/callback",
             lastname: user.lastname
           },
           process.env.JWT_KEY,
-          { expiresIn: '72h' }
+          { expiresIn: '3h' }
         );
         console.log("token:" + token)
          req.user = user;
