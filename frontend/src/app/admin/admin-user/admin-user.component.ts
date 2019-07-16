@@ -47,6 +47,20 @@ export class AdminUserComponent implements OnInit {
      });
    }
 
+   deleteUser(user) {
+    this.adminService.deleteUser(user)
+    .subscribe(
+     (data:any) => {
+          //this.alertService.success('Get user information successful', true);
+        console.log(data.message)
+        this.getUsers(this.pager.currentPage)
+      },
+     error => {
+         this.alertService.error(error);
+         this.loading = false;
+     });
+   }
+
  
   }
 

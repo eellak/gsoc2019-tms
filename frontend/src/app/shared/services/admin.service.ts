@@ -44,12 +44,23 @@ export class AdminService {
         return this.http.get(environment.apiUrl+`/admin/get_external/${id}`);
     }
 
-   /*  update(user: User) {
+    deleteExternal(user) {
+        if(confirm("Are you sure to delete user with email "+user.email)) {
+            return this.http.delete(environment.apiUrl+`/admin/delete_external/${user._id}`);
+
+        }
+    } 
+
+    deleteUser(user) {
+        if(confirm("Are you sure to delete user with email "+user.email)) {
+            return this.http.delete(environment.apiUrl+`/admin/delete_user/${user._id}`);
+
+        }
+    } 
+
+    /*  update(user: User) {
         return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
     }
-
-    delete(id: number) {
-        return this.http.delete(`${config.apiUrl}/users/${id}`);
-    } */
+    */
 }
 

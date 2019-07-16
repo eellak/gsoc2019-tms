@@ -16,6 +16,8 @@
         <td>{{user.name}}</td>
         <td>{{user.lastname}}</td>
         <td>{{user.role}}</td>
+        <td><button (click)="deleteExternal(user)"><i class="material-icons">delete_forever</i></button>
+        </td>
       </tr>
     </tbody>
   </table>

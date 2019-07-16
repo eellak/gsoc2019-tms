@@ -41,13 +41,29 @@ export class AdminExternalComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
-         console.log(this.users);
      },
      error => {
          this.alertService.error(error);
          this.loading = false;
      });
    }
+
+   deleteExternal(user) {
+    this.adminService.deleteExternal(user)
+    .subscribe(
+     (data:any) => {
+          //this.alertService.success('Get user information successful', true);
+        console.log(data.message)
+        this.getExternals(this.pager.currentPage)
+      },
+     error => {
+         this.alertService.error(error);
+         this.loading = false;
+     });
+   }
+
+
+
 
  
   }

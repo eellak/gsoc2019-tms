@@ -109,7 +109,7 @@ exports.delete_external = (req, res, next) => {
             message: "External deleted"
             })
         }
-        else { res.status(200).json({
+        else { res.status(404).json({
             message:"No external found"
             })
         }
