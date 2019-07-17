@@ -5,7 +5,7 @@ const universityController = require('../controllers/university');
 const checkAuth = require('../middleware/check-auth');
 
 
-//URL: /thesis
+//URL: /university
 
 router.get("/", universityController.get_all);    //get all universities
 router.get("/:universityId", universityController.get_byId) //get university by id

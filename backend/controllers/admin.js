@@ -246,7 +246,7 @@ exports.create_university= (req,res,next) => {
     .save()
     .then(result => {
         if(result!=null) {
-            console.log('university created')
+            console.log('University created')
             res.status(200).json(result)
         }
         else {
@@ -255,8 +255,30 @@ exports.create_university= (req,res,next) => {
 
     })
     .catch(err => {
+        console.log(err)
         res.status(500).json({error:err})
     })
 }
 
  
+exports.delete_university = (req, res, next) => {
+    University.findByIdAndDelete({ _id: req.params.universityId })
+    .exec()
+    .then(result => {
+        if(result) {
+            res.status(200).json({
+            message: "University deleted"
+            })
+        }
+        else { res.status(200).json({
+            message:"Not university found"
+            })
+        }
+      })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+};
