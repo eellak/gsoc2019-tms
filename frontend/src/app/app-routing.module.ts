@@ -16,8 +16,11 @@ import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
 import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
+import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
 
-const routes: Routes = [
+
+
+ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login' , component: LoginComponent , canActivate: [LoginGuard] },
   { path: 'login-external', component: LoginExternalComponent, canActivate: [LoginGuard] },
@@ -29,7 +32,8 @@ const routes: Routes = [
         { path:'external_create', component:CreateExternalComponent , pathMatch:'full'},
         { path:'user' , component:AdminUserComponent , pathMatch:'full' },
         { path:'user_create' , component:CreateUserComponent , pathMatch:'full' },
-        { path:'create_university' , component:CreateUniversityComponent , pathMatch:'full' }
+        { path:'university_create' , component:CreateUniversityComponent , pathMatch:'full' },
+        { path:'university' , component:AdminUniversityComponent , pathMatch:'full' }
 
       ] 
   },
