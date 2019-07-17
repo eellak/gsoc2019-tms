@@ -26,6 +26,7 @@ import { CreateExternalComponent } from './admin/admin-external/create-external/
 import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     CreateUserComponent,
     CreateUniversityComponent,
     SidenavComponent,
+    AdminUniversityComponent,
   ],
   imports: [
     BrowserModule,
