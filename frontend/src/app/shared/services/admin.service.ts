@@ -56,7 +56,17 @@ export class AdminService {
             return this.http.delete(environment.apiUrl+`/admin/delete_user/${user._id}`);
 
         }
-    } 
+    }
+    
+    createUniversity(name) {
+        return this.http.post(environment.apiUrl+`/admin/create_university`,{name:name});
+    }
+
+    deleteUniversity(university) {
+        if(confirm("Are you sure to delete university: "+university.name)) {
+            return this.http.delete(environment.apiUrl+`/admin/delete_university/${university._id}`)
+        }
+    }
 
     /*  update(user: User) {
         return this.http.put(`${config.apiUrl}/users/${user.id}`, user);
