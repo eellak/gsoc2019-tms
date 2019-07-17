@@ -3,6 +3,7 @@
     position: fixed;
     border-radius: 0;
     height: 100%;
+    text-align: left;
   }
   
   .navbar-fixed-left .navbar-nav > li {
