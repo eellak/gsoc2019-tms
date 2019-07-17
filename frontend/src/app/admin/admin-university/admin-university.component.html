@@ -1,0 +1,44 @@
+<table class="table table-striped ">
+  <thead > 
+      <caption> <h3>Universities</h3></caption>
+    <tr>
+      <th>University Id</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="universities!=null">
+    <tr *ngFor="let university of universities">
+      <td>{{university._id}}</td>
+      <td>{{university.name}}</td>
+      <td><button (click)="deleteUniversity(university)"><i class="material-icons">delete_forever</i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div>
+     <a routerLink='../university_create'> <i class="material-icons">person_add</i> Add University</a> 
+</div>
+
+
+
+<div class="card-footer pb-0 pt-3">
+    <ul *ngIf="pager.pages>1" class="pagination">
+        <li class="page-item first-item">
+            <button  [disabled]="pager.currentPage === 1" (click)="getUniversities(1)" class="pagination btn-default">First  </button>
+        </li>
+        <li class="page-item previous-item">
+            <button  [disabled]="pager.currentPage === 1" (click)="getUniversities(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
+        </li>
+        <li class="page-item current-item">
+            <button (click)="getUniversities(pager.currentPage)" class="pagination btn-default">{{pager.currentPage}}</button>
+        </li>
+        <li class="page-item next-item">
+            <button  [disabled]="pager.currentPage === pager.pages" (click)="getUniversities(pager.currentPage+1)" class="pagination btn-default">Next </button>
+        </li>
+        <li class="page-item last-item">
+            <button  [disabled]="pager.currentPage === pager.pages" (click)="getUniversities(pager.pages)" class="pagination btn-default">Last </button>
+        </li>
+    </ul>
+</div>
