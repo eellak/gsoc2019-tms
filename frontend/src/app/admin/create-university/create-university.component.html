@@ -1,3 +1,21 @@
-<p>
-  create-university works!
-</p>
+<h2>Create University</h2>
+<br>
+<form [formGroup]="CreateUniversityForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="name">University Name</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
+<div class="row"  *ngIf="message!=null ">
+  <div class="col-xs-12">
+    <p class="alert alert-success">
+        <strong>University created successfully!</strong>
+    </p>    
+  </div>
+</div>
