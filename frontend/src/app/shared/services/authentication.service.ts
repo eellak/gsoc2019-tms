@@ -31,10 +31,10 @@ export class AuthenticationService {
     isLoggedIn() {
         if("Token" in localStorage) {
              // check if token has expired 
-            var mydate=localStorage.Timestamp;
+            var expired_date=new Date(localStorage.Timestamp)
             var token_length= 3* 60 * 60 * 1000; //3 hours
-            mydate= new Date(mydate+token_length);
-            if(mydate>=new Date()) {
+            expired_date= new Date(expired_date.getTime()+token_length);
+            if(expired_date<=new Date()) {
                 // token expired
                 localStorage.clear();
                 return false;
