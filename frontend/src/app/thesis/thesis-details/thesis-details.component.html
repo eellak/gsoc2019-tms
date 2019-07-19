@@ -1,3 +1,31 @@
-<p>
-  thesis-details works!
-</p>
+
+ 
+<div class="container">
+  <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="well well-sm">
+              <div class="row">
+                  <div class="col-sm-6 col-md-8 " >
+                      <h4>Thesis Information</h4>
+                      <p *ngIf="isLoaded">
+                          <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time}} </dd> </dl>
+                          <br/>
+                          <dl> <dt>Title: </dt> <dd>{{thesis.title}} </dd> </dl>
+                          <br/>
+                          <dl> <dt>Professor:</dt> <dd>{{thesis.professor?.name}} {{thesis.professor?.lastname}} </dd> </dl>
+                          <br/>
+                          <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
+                          </dl>
+                          <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
+                          </dl>
+                          <dl> <dt>Description:</dt> <dd>{{thesis.description}} </dd> </dl>
+                          <br/>
+                          <dl> <dt>Prerequisites:</dt> <dd>{{thesis.prerequisites}} </dd> </dl>
+                          <br/>
+                          <dl> <dt>University:</dt> <dd>{{thesis.university?.name}} </dd> </dl>                        
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -37,8 +37,8 @@ import { ThesisProfessorComponent } from './thesis/thesis-professor/thesis-profe
         { path:'university' , component:AdminUniversityComponent , pathMatch:'full' },
       ] 
   },
-  { path:'thesis_details' , component:ThesisDetailsComponent , pathMatch:'full' },
-  { path:'thesis_professor' , component:ThesisProfessorComponent , pathMatch:'full' },
+  { path:'thesis_details/:id' , component:ThesisDetailsComponent , pathMatch:'full' },
+  { path:'thesis_professor/:id' , component:ThesisProfessorComponent , pathMatch:'full' },
 
 
 

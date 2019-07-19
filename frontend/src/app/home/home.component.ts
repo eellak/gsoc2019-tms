@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
+ 
 import { AuthenticationService } from './../shared/services/authentication.service';
 import { SharedService } from './../shared/services/shared.service';
 import { AlertService } from './../shared/services/alert.service';
@@ -18,12 +17,11 @@ export class HomeComponent implements OnInit {
   loading=false;
   pager:any={}
 
-  constructor(private location: Location, 
-              private router : Router
+  constructor( private router : Router
               ,private authenticationService: AuthenticationService,
-              private route: ActivatedRoute,
-              private sharedService:SharedService,
-              private alertService:AlertService ) {}
+               private route: ActivatedRoute,
+               private sharedService:SharedService,
+               private alertService:AlertService ) {}
 
   ngOnInit() {
       const url=this.router.url;
