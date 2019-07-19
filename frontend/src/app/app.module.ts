@@ -27,7 +27,9 @@ import { CreateUserComponent } from './admin/admin-user/create-user/create-user.
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
-
+import { ThesisDetailsComponent } from './thesis/thesis-details/thesis-details.component';
+import { ThesisProfessorComponent } from './thesis/thesis-professor/thesis-professor.component';
+ 
 
 @NgModule({
   declarations: [
@@ -48,6 +50,9 @@ import { AdminUniversityComponent } from './admin/admin-university/admin-univers
     CreateUniversityComponent,
     SidenavComponent,
     AdminUniversityComponent,
+    ThesisDetailsComponent,
+    ThesisProfessorComponent,
+ 
   ],
   imports: [
     BrowserModule,

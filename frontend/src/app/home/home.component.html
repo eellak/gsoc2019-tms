@@ -1,1 +1,43 @@
-<p>home works </p>
+<table class="table table-striped users">
+    <thead > 
+        <caption> <h3>Theses Results </h3></caption>
+      <tr>
+        <th>Created Time</th>
+        <th>Title</th>
+        <th>Professor</th>
+        <th>Prerequisites</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="theses!=null">
+      <tr *ngFor="let thesis of theses">
+        <td>{{thesis.created_time}}</td>
+        <td> <a routerLink='../thesis_details'> {{thesis.title}} </a> </td>
+        <td><a routerLink='../thesis_professor'>{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
+        <td>{{thesis.prerequisites}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  
+ 
+
+
+  <div class="card-footer pb-0 pt-3">
+      <ul *ngIf="pager.pages>1" class="pagination">
+          <li class="page-item first-item">
+              <button  [disabled]="pager.currentPage === 1" (click)="getThesis(1)" class="pagination btn-default">First  </button>
+          </li>
+          <li class="page-item previous-item">
+              <button  [disabled]="pager.currentPage === 1" (click)="getThesis(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
+          </li>
+          <li class="page-item current-item">
+              <button (click)="getThesis(pager.currentPage)" class="pagination btn-default">{{pager.currentPage}}</button>
+          </li>
+          <li class="page-item next-item">
+              <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.currentPage+1)" class="pagination btn-default">Next </button>
+          </li>
+          <li class="page-item last-item">
+              <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.pages)" class="pagination btn-default">Last </button>
+          </li>
+      </ul>
+  </div>

@@ -3,6 +3,8 @@ import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { AuthenticationService } from './../shared/services/authentication.service';
+import { SharedService } from './../shared/services/shared.service';
+import { AlertService } from './../shared/services/alert.service';
 
 
 @Component({
@@ -11,12 +13,17 @@ import { AuthenticationService } from './../shared/services/authentication.servi
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+ 
+  theses:any=[];
+  loading=false;
+  pager:any={}
 
-
-  constructor(private location: Location, private router : Router
+  constructor(private location: Location, 
+              private router : Router
               ,private authenticationService: AuthenticationService,
-              private route: ActivatedRoute
-            ) { }
+              private route: ActivatedRoute,
+              private sharedService:SharedService,
+              private alertService:AlertService ) {}
 
   ngOnInit() {
       const url=this.router.url;
@@ -28,7 +35,25 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('Timestamp',''+new Date());
         });
     }
+    this.getThesis(1);
   }
+  
+  getThesis(page) {
+    this.sharedService.getThesis(page)
+    .subscribe(
+     (data:any) => {
+          //this.alertService.success('Get user information successful', true);
+         this.theses=data.docs;
+         console.log(this.theses)
+         this.pager.count=data.count;
+         this.pager.pages= data.pages;
+         this.pager.currentPage=page;
+     },
+     error => {
+         this.alertService.error(error);
+         this.loading = false;
+     });
+   }
 }
 
 

@@ -24,6 +24,17 @@ export class SharedService {
         return this.http.get(environment.apiUrl+`/university?page=${page}`);
     }
 
+    getThesis(page) {
+        return this.http.get(environment.apiUrl+`/thesis?page=${page}`);
+    }
+
+    getThesisById(id) {
+        return this.http.get(environment.apiUrl+`/thesis/${id}`);
+    }
+    getCompleted(page) {
+        return this.http.get(environment.apiUrl+`/thesis/completed?page=${page}`); //digital repository
+    }
+
 
 
 

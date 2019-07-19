@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
@@ -17,7 +17,8 @@ import { CreateExternalComponent } from './admin/admin-external/create-external/
 import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
-
+import { ThesisDetailsComponent } from './thesis/thesis-details/thesis-details.component';
+import { ThesisProfessorComponent } from './thesis/thesis-professor/thesis-professor.component';
 
 
  const routes: Routes = [
@@ -33,10 +34,11 @@ import { AdminUniversityComponent } from './admin/admin-university/admin-univers
         { path:'user' , component:AdminUserComponent , pathMatch:'full' },
         { path:'user_create' , component:CreateUserComponent , pathMatch:'full' },
         { path:'university_create' , component:CreateUniversityComponent , pathMatch:'full' },
-        { path:'university' , component:AdminUniversityComponent , pathMatch:'full' }
-
+        { path:'university' , component:AdminUniversityComponent , pathMatch:'full' },
       ] 
   },
+  { path:'thesis_details' , component:ThesisDetailsComponent , pathMatch:'full' },
+  { path:'thesis_professor' , component:ThesisProfessorComponent , pathMatch:'full' },
 
 
 
