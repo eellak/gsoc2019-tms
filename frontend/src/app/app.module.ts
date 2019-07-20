@@ -29,7 +29,11 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
 import { ThesisDetailsComponent } from './thesis/thesis-details/thesis-details.component';
 import { ThesisProfessorComponent } from './thesis/thesis-professor/thesis-professor.component';
- 
+import { ProfessorComponent } from './professor/professor.component';
+import { ProfessorAssignedComponent } from './professor/professor-assigned/professor-assigned.component';
+import { ProfessorPendingComponent } from './professor/professor-pending/professor-pending.component';
+import { ProfessorRequestsComponent } from './professor/professor-requests/professor-requests.component';
+import { ProfessorThesisComponent } from './professor/professor-thesis/professor-thesis.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,11 @@ import { ThesisProfessorComponent } from './thesis/thesis-professor/thesis-profe
     AdminUniversityComponent,
     ThesisDetailsComponent,
     ThesisProfessorComponent,
+    ProfessorComponent,
+    ProfessorAssignedComponent,
+    ProfessorPendingComponent,
+    ProfessorRequestsComponent,
+    ProfessorThesisComponent
  
   ],
   imports: [

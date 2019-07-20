@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
+ 
+import { AuthenticationService } from './../shared/services/authentication.service';
+import { SharedService } from './../shared/services/shared.service';
+import { AlertService } from './../shared/services/alert.service';
+
 
 @Component({
   selector: 'app-sidenav',
@@ -7,8 +13,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
-
+  constructor( private router : Router
+    ,private authenticationService: AuthenticationService,
+     private route: ActivatedRoute,
+     private sharedService:SharedService,
+     private alertService:AlertService ) {}
   ngOnInit() {
   }
 
@@ -17,6 +26,13 @@ export class SidenavComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  isProfessor() {
+  if(localStorage.getItem('Role')==="Professor")
+    return true;
+  else
+    return false;
   }
 
 }

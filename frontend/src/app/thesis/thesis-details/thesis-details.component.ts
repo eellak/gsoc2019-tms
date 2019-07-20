@@ -31,13 +31,10 @@ export class ThesisDetailsComponent implements OnInit , OnDestroy{
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
-      console.log(params) //log the entire params object
-      console.log(params['id']) //log the value of id
       this.id=params['id'];
       this.sharedService.getThesisById(this.id)
       .subscribe(
        (data:any) => {
-         console.log(data)
             //this.alertService.success('Get user information successful', true);
            this.thesis=data;
            this.professor=data.professor;

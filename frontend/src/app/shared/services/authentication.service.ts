@@ -67,7 +67,7 @@ export class AuthenticationService {
                 .pipe(take(1))
     }
 
-    
+   
     
     sso_logout() {
         localStorage.clear();

@@ -12,7 +12,7 @@
       <tr *ngFor="let thesis of theses">
         <td>{{thesis.created_time}}</td>
         <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
-        <td><a routerLink="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
+        <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
         <td>{{thesis.prerequisites}}</td>
     </tr>
     </tbody>
