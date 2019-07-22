@@ -42,6 +42,12 @@
  - Mentor: Theodoros Karounos
  - Mentor: Iraklis Varlamis
  - Organization: [GFOSS](https://gfoss.eu/)
+ 
+ <h2> Overview </h2>
+ 
+ - [Architecture Design](https://github.com/eellak/gsoc2019-tms/wiki/Architecture-Design)
+ - [API Documentation](https://github.com/eellak/gsoc2019-tms/wiki/API-Documentation)
+ - [SSO Documentation](https://github.com/eellak/gsoc2019-tms/wiki/Single-Sign-On-Documentation)
 
  
  <h2> Technologies used </h2>
