@@ -1,4 +1,4 @@
- <h1> :rocket: Google Summer Of Code 2019 </h1>
+ <h1> :rocket: Google Summer Of Code 2019 - Thesis Management System </h1>
 
 <h2> Problem Statement </h2>
  The process of thesis writing can play a significant role to a student’s life. So much consideration is required during this process, from the topic selection to final submission. Hard work, proper research and writing skills are obligatory for a successful outcome. The existing bureaucracy adds more complexity to thesis procedure, since thesis topics are not gathered in a specific website. Therefore each student have to contact every professor separately to learn his available thesis or in best case to visit professor’s website if he has uploaded them there. Moreover, every professor has many thesis topics assigned to supervised students and the tracking of their progress is difficult.
