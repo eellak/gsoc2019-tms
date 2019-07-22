@@ -4,17 +4,22 @@ const Thesis= require('../models/thesis');
 
 
 exports.thesis_get_all= (req,res,next) => {
-  var perPage = 2
+  var perPage = 5
   var page = req.query.page || 1
   var query= {pending:false}
   if(req.query.university!=null)
      query['university']=req.query.university
+  if(req.query.professor!=null) {
+    query['professor']=req.query.professor
+    console.log(req.query.professor)
+  }
   var count;
   console.log(query)
   Thesis.countDocuments(query)
   .then(result=> { 
     count=result
     Thesis.find(query)
+      .populate('professor')
       .skip((perPage * page) - perPage)
       .limit(perPage)
       .exec()
@@ -39,6 +44,10 @@ exports.thesis_get_all= (req,res,next) => {
 
 exports.get_byId= (req,res,next) => {
     Thesis.findById({_id:req.params.thesisId})
+      .populate('professor')
+      .populate('university')
+      .populate({path:'creator_student', select: 'name lastname email'})
+      .populate({path:'creator_external',select:'name lastname email'})
       .exec()
       .then(doc => {
         if(doc!=null)

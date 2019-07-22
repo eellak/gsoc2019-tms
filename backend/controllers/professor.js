@@ -95,44 +95,53 @@ exports.accept_request= (req,res,next) => {      //sent notification to student:
 
 
 exports.get_thesis= (req,res,next) => {
-    Thesis.find({professor:req.userData.userId})
-    .exec()
-      .then(docs => {
-        const response = {
-          count: docs.length,
-          thesis: docs.map(doc => {
-            return {
-              title: doc.title,
-              description: doc.description,
-              prerequisites: doc.prerequisites,
-              _id: doc._id,
-              created_time: doc.created_time,
-              published: doc.published,
-              student: doc.student,
-              university: doc.university,
-              professor: doc.professor,
-              creator_student: doc.creator_student,
-              creator_external: doc.creator_external,
-              request: {
-                type: "GET",
-                url: "http://localhost:3000/thesis/" + doc._id
-              }
-            };
-          })
-        };
-        res.status(200).json(response);
-      })
-      .catch(err => {
-        console.log(err+"wjat");
-        res.status(500).json({
-          error: err
+    var perPage = 5
+    var page = req.query.page || 1
+    var count;
+    var query={professor:req.userData.userId,pending:false}
+    Thesis.countDocuments(query)
+    .then(result=> { 
+      count=result
+      Thesis.find(query)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .populate({ path: 'professor', select:'name lastname email'})
+      .exec()
+        .then(docs => {
+          const response = {
+            count: count,
+            pages: Math.ceil(count / perPage),
+            theses: docs.map(doc => {
+              return {
+                title: doc.title,
+                description: doc.description,
+                prerequisites: doc.prerequisites,
+                _id: doc._id,
+                created_time: doc.created_time,
+                published: doc.published,
+                student: doc.student,
+                university: doc.university,
+                professor: doc.professor,
+                creator_student: doc.creator_student,
+                creator_external: doc.creator_external
+              };
+            })
+          };
+          res.status(200).json(response);
+        })
+        .catch(err => {
+          console.log(err+"wjat");
+          res.status(500).json({
+            error: err
         });
       });
+    })
 }
 
 
 exports.get_thesis_byId= (req,res,next) => {
     Thesis.findOne({_id:req.params.thesisId, professor:req.userData.userId})
+    .populate({ path: 'university', select:'name'})
     .exec()
       .then(doc => {
         if(doc)
@@ -205,14 +214,14 @@ exports.delete_thesis=(req,res,next) => {
 
 exports.update_thesis=(req,res,next) => {
   updateObj={};
-  if(req.body.title!=null)
-      updateObj['title']=req.body.title
-  if(req.body.description!=null)
-      updateObj['description']=req.body.description
-  if(req.body.prerequisites!=null)
-      updateObj['prerequisites']=req.body.prerequisites
-  if(req.body.tags!=null)
-      updateObj['tags']=req.body.tags
+  if(req.body.thesis.title!=null)
+      updateObj['title']=req.body.thesis.title
+  if(req.body.thesis.description!=null)
+      updateObj['description']=req.body.thesis.description
+  if(req.body.thesis.prerequisites!=null)
+      updateObj['prerequisites']=req.body.thesis.prerequisites
+  if(req.body.thesis.tags!=null)
+      updateObj['tags']=req.body.thesis.tags
   Thesis.findOneAndUpdate({_id:req.params.thesisId,professor:req.userData.userId},updateObj,{new:true})
   .exec()
   .then(result => {

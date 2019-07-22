@@ -1,9 +1,26 @@
-.mt-auto {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 50px;
-}
+ .footer {
+         
+    height:24px; 
+    width: 100%; 
+    background-image: none;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    position: fixed;
+    bottom: 0pt;
+    left: 0pt;
+
+ }
+
+ .footer_contents {
+         
+    height:24px; 
+    width: 1000px; 
+    margin:auto;
+
+
+ }
+
 .pull-right {
         float: right !important;
       }
@@ -13,3 +30,4 @@
         width: 80%;
         height: 60%;      
 }
+

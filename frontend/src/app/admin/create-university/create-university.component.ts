@@ -51,7 +51,10 @@ export class CreateUniversityComponent implements OnInit {
         .subscribe(
             (data:any) => {
                 this.message=data;
-                this.router.navigate(['../university'], { relativeTo: this.route})
+                setTimeout(() =>  {
+                    this.router.navigate(['../university'], { relativeTo: this.route})
+                }
+                ,1500);
             },
             error => {
               console.log(error)

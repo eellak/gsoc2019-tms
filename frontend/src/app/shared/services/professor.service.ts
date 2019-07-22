@@ -15,7 +15,7 @@ import {
 
 
 @Injectable({ providedIn: 'root' })
-export class SharedService {
+export class ProfessorService {
  
     constructor(private http: HttpClient) {}
         
@@ -59,8 +59,8 @@ export class SharedService {
     }
 
 // get all thesis he owns
-    getThesis() {
-        return this.http.get(environment.apiUrl+`/professor/thesis`);
+    getThesis(page) {
+        return this.http.get(environment.apiUrl+`/professor/thesis?page=${page}`);
     }
 
 // get thesis he owns by id
@@ -124,7 +124,7 @@ export class SharedService {
     // professor confirms the supervisor
     postConfirmSupervisor(id,confirm) {
         return this.http.post(environment.apiUrl+`/professor/accept_supervisor/${id}`,{confirm:confirm});
-}
+    }
 
 
 

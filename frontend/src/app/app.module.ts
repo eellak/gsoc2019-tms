@@ -1,3 +1,4 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginGuard } from './shared/guards/login.guard';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
@@ -5,9 +6,9 @@ import { NgModule } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 import {MatSidenavModule} from '@angular/material/sidenav';
-
+ 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -34,6 +35,12 @@ import { ProfessorAssignedComponent } from './professor/professor-assigned/profe
 import { ProfessorPendingComponent } from './professor/professor-pending/professor-pending.component';
 import { ProfessorRequestsComponent } from './professor/professor-requests/professor-requests.component';
 import { ProfessorThesisComponent } from './professor/professor-thesis/professor-thesis.component';
+import { ProfessorThesisEditComponent } from './professor/professor-thesis-edit/professor-thesis-edit.component';
+import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.component';
+import {MatSelectModule} from '@angular/material';
+import {AutosizeModule} from 'ngx-autosize';
+
+
 
 @NgModule({
   declarations: [
@@ -60,7 +67,9 @@ import { ProfessorThesisComponent } from './professor/professor-thesis/professor
     ProfessorAssignedComponent,
     ProfessorPendingComponent,
     ProfessorRequestsComponent,
-    ProfessorThesisComponent
+    ProfessorThesisComponent,
+    ProfessorThesisEditComponent,
+    ThesisCreateComponent
  
   ],
   imports: [
@@ -72,7 +81,12 @@ import { ProfessorThesisComponent } from './professor/professor-thesis/professor
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    AutosizeModule
+ 
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
                {provide:HTTP_INTERCEPTORS, useClass:HttpErrorInterceptor,multi:true}

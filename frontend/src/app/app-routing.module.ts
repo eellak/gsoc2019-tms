@@ -12,6 +12,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { LoginGuard } from './shared/guards/login.guard';
 import {AuthGuard} from './shared/guards/auth.guard';
+import { ProfessorGuard } from './shared/guards/professor.guard';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
@@ -25,6 +26,8 @@ import { ProfessorThesisComponent } from './professor/professor-thesis/professor
 import { ProfessorRequestsComponent } from './professor/professor-requests/professor-requests.component';
 import { ProfessorPendingComponent } from './professor/professor-pending/professor-pending.component';
 import { ProfessorAssignedComponent } from './professor/professor-assigned/professor-assigned.component';
+import { ProfessorThesisEditComponent } from './professor/professor-thesis-edit/professor-thesis-edit.component';
+import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.component';
 
  const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +37,7 @@ import { ProfessorAssignedComponent } from './professor/professor-assigned/profe
   { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard] },
   { path:'thesis_details/:id' , component:ThesisDetailsComponent , pathMatch:'full' },
   { path:'thesis_professor/:id' , component:ThesisProfessorComponent , pathMatch:'full' },
+  { path:'thesis_create' , component:ThesisCreateComponent , pathMatch:'full' },
   { path: 'admin', component: AdminComponent , canActivate: [AdminGuard] , 
       children :[ 
         { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
@@ -44,12 +48,14 @@ import { ProfessorAssignedComponent } from './professor/professor-assigned/profe
         { path:'university' , component:AdminUniversityComponent , pathMatch:'full' },
       ] 
   },
-  { path: 'professor', component: ProfessorComponent , canActivate: [AdminGuard],
+  { path: 'professor', component: ProfessorComponent , canActivate: [ProfessorGuard],
     children :[ 
       { path:'requests' , component:ProfessorRequestsComponent , pathMatch:'full'},
       { path:'assigned', component:ProfessorAssignedComponent , pathMatch:'full'},
       { path:'pending' , component:ProfessorPendingComponent , pathMatch:'full' },
-      { path:'thesis' , component:ProfessorThesisComponent , pathMatch:'full' }
+      { path:'thesis' , component:ProfessorThesisComponent , pathMatch:'full' },
+      { path:'thesis_edit/:id' , component:ProfessorThesisEditComponent , pathMatch:'full' }
+
     ] 
   }, 
 

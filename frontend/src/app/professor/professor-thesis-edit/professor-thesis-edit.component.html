@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-8 " >
+                        <h4>Thesis Edit</h4>
+                        <p *ngIf="isLoaded">
+                            <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time}} </dd> </dl>
+                            <br/>
+                            <dl> <dt>Title:</dt> <dd><input type="text" [(ngModel)] = 'thesis.title'/> </dd> </dl>
+                            <br/>
+                            <dl> <dt>Professor:</dt> <dd>{{thesis.professor?.name}} {{thesis.professor?.lastname}} </dd> </dl>
+                            <br/>
+                            <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
+                            </dl>
+                            <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
+                            </dl>
+                            <dl> <dt>Description:</dt> 
+                              <dd>                                    
+                                        <textarea  
+                                                autosize  cols="69"
+                                                [(ngModel)]='thesis.description'
+                                                >
+                                      </textarea>
+                                    </dd> 
+                            </dl>
+                            <br/>
+                            <dl> <dt>Prerequisites:</dt> <dd><input type="text" [(ngModel)] = 'thesis.prerequisites'/> </dd> </dl>
+                            <br/>
+                            <dl> <dt>University:</dt> <dd>{{thesis.university?.name}} </dd> </dl> 
+                            <button class="btn btn-success" (click)="onSave()" >Save <i class="material-icons">save</i> </button>
+                            <span>
+                                <button class="btn btn-default" (click)="onCancel()" >Cancel <i class="material-icons">cancel</i> </button>                     
+                            </span>  
+                            <div class="row"  *ngIf="message!=null ">
+                                <div class="col-xs-12">
+                                  <p class="alert alert-success">
+                                      <strong>Thesis updated successfully!</strong>
+                                  </p>    
+                                </div>
+                              </div>         
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+   

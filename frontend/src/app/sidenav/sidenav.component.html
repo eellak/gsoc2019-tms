@@ -17,19 +17,20 @@
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="isProfessor()">
         <ul class="nav navbar-nav">
             <li routerLinkActive="active">
-                <a routerLink="/professor/requests">Get Requests</a> 
-            </li>
-            <li routerLinkActive="active">
-                <a routerLink="/professor/assigned">Get Assigned</a>
+                <a routerLink="/professor/thesis">My Theses</a>
             </li>   
             <li routerLinkActive="active">
-              <a routerLink="/professor/pending">Get Pending</a>
+                <a routerLink="/professor/assigned">Assigned Theses</a>
+            </li>   
+            <li routerLinkActive="active">
+              <a routerLink="/professor/pending">Pending Theses</a>
             </li>
             <li routerLinkActive="active">
-                <a routerLink="/professor/thesis">Get Thesis</a>
-            </li>          
+                    <a routerLink="/professor/requests">Requests</a> 
+            </li>
+                
+                 
         </ul>
-        <router-outlet></router-outlet>
       </div>
 
  
