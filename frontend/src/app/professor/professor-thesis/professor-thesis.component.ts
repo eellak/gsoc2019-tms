@@ -36,4 +36,19 @@ export class ProfessorThesisComponent implements OnInit {
         this.loading = false;
     });
   }
+
+  deleteThesis(thesis) {
+    this.professorService.deleteThesis(thesis)
+    .subscribe(
+      (data:any) => {
+        console.log(data)
+        this.getThesis(this.pager.currentPage)
+      },
+      error => {
+        this.alertService.error(error)
+        this.loading=false
+      }
+
+    )
+  }
 }

@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.pagination { 
+    font-weight:bold; 
+    font-size:20px; 
+    color: black; 
+    float: left; 
+    padding: 8px 16px; 
+    text-decoration: none; 
+} 
+ 

@@ -2,4 +2,14 @@
     float:right
 }
 
+.well , .col-md-8 {
+    margin-right: 15%;
+}
  
+
+.text {
+    width: 100%;
+  padding: 3px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}

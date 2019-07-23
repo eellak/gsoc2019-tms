@@ -30,13 +30,17 @@ export class AuthenticationService {
 
     isLoggedIn() {
         if("Token" in localStorage) {
-             // check if token has expired 
-            var expired_date=new Date(localStorage.Timestamp)
-            var token_length= 3* 60 * 60 * 1000; //3 hours
-            expired_date= new Date(expired_date.getTime()+token_length);
-            if(expired_date<=new Date()) {
+            // check if token has expired 
+            if(this.tokenExpired())
+             {
                 // token expired
-                localStorage.clear();
+                const role=this.getRole()
+                if(role==="External" || role==="Admin") {
+                  this.logout();
+                }
+                else {
+                  this.sso_logout();
+                }
                 return false;
             }
             return true;
@@ -44,6 +48,16 @@ export class AuthenticationService {
         else { 
             return false;
         }
+    }
+
+    tokenExpired() {
+        var expired_date=new Date(localStorage.Timestamp)
+        var token_length= 3* 60 * 60 * 1000; //3 hours
+        expired_date= new Date(expired_date.getTime()+token_length);
+        if(expired_date<=new Date()) {
+            return true;
+        }
+        else return false;
     }
 
     login(email: string, password: string) {

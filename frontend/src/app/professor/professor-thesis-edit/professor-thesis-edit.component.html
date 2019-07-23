@@ -1,17 +1,14 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="well well-sm">
+             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-8 " >
                         <h4>Thesis Edit</h4>
+                        <br>
                         <p *ngIf="isLoaded">
-                            <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time}} </dd> </dl>
+                            <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time | date}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Title:</dt> <dd><input type="text" [(ngModel)] = 'thesis.title'/> </dd> </dl>
-                            <br/>
-                            <dl> <dt>Professor:</dt> <dd>{{thesis.professor?.name}} {{thesis.professor?.lastname}} </dd> </dl>
-                            <br/>
+                            <dl> <dt>Title:</dt> <dd><input class="text" type="text" [(ngModel)] = 'thesis.title'/> </dd> </dl>
                             <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
                             </dl>
                             <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
@@ -19,14 +16,14 @@
                             <dl> <dt>Description:</dt> 
                               <dd>                                    
                                         <textarea  
-                                                autosize  cols="69"
+                                                autosize  cols="120"
                                                 [(ngModel)]='thesis.description'
                                                 >
                                       </textarea>
                                     </dd> 
                             </dl>
                             <br/>
-                            <dl> <dt>Prerequisites:</dt> <dd><input type="text" [(ngModel)] = 'thesis.prerequisites'/> </dd> </dl>
+                            <dl> <dt>Prerequisites:</dt> <dd><input class="text" type="text" [(ngModel)] = 'thesis.prerequisites'/> </dd> </dl>
                             <br/>
                             <dl> <dt>University:</dt> <dd>{{thesis.university?.name}} </dd> </dl> 
                             <button class="btn btn-success" (click)="onSave()" >Save <i class="material-icons">save</i> </button>
@@ -42,8 +39,7 @@
                               </div>         
                     </div>
                 </div>
-            </div>
-        </div>
+         </div>
     </div>
   </div>
    

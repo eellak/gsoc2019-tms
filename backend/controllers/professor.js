@@ -186,11 +186,11 @@ exports.delete_thesis=(req,res,next) => {
     const thesis = new Thesis({
         _id: new mongoose.Types.ObjectId(),
         professor: req.userData.userId,
-        title: req.body.title,
-        description: req.body.description,
-        prerequisites: req.body.prerequisites,
-        tags: req.body.tags,
-        created_time: req.body.created_time,
+        title: req.body.thesis.title,
+        description: req.body.thesis.description,
+        prerequisites: req.body.thesis.prerequisites,
+        tags: req.body.thesis.tags,
+        created_time: req.body.thesis.created_time,
         completed: false,
         pending: false,
         university: req.userData.university
@@ -247,18 +247,35 @@ exports.isProfessor=(req,res,next) => {
 }
 
 exports.get_assigned=(req,res,next) => {
-    Assigned_Thesis.find({professor:req.userData.userId})
-    .populate('thesis')
-    .exec()
-    .then(docs => {
-      if(docs) {
-        res.status(200).json(docs);
-      }
-      else 
-        res.status(404).json({
-          message: 'No assigned thesis found'
-      })
-  })
+    var perPage = 5
+    var page = req.query.page || 1
+    var count;
+    query={professor:req.userData.userId}
+    Assigned_Thesis.countDocuments(query)
+    .then(result=> { 
+      count=result
+      Assigned_Thesis.find(query)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .populate('thesis')
+      .populate('professor')
+      .populate('student')
+      .exec()
+      .then(docs => {
+        var response= {
+          count: count,
+          pages: Math.ceil(count / perPage),
+          docs:docs 
+        }
+        if(docs) {
+          res.status(200).json(response);
+        }
+        else 
+          res.status(404).json({
+            message: 'No assigned thesis found'
+        })
+    })
+    })
     .catch(err => {
       console.log(err+"wjat");
       res.status(500).json({

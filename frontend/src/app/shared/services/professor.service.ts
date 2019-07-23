@@ -36,8 +36,8 @@ export class ProfessorService {
     }
     
 //get all assigned thesis to students
-    getAssigned() {
-        return this.http.get(environment.apiUrl+`/professor/assigned`);
+    getAssigned(page) {
+        return this.http.get(environment.apiUrl+`/professor/assigned?page=${page}`);
     }
 
     getAssignedById(id) {
@@ -79,8 +79,10 @@ export class ProfessorService {
     }
 
     //delete thesis he owns
-    deleteThesis(id) {
-        return this.http.delete(environment.apiUrl+`/professor/thesis/${id}`);
+    deleteThesis(thesis) {
+        if(confirm("Are you sure to delete thesis: "+thesis.title)) {
+            return this.http.delete(environment.apiUrl+`/professor/thesis/${thesis._id}`);
+        }
     }
 
 
