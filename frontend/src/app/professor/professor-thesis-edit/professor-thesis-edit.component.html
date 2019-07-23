@@ -9,10 +9,6 @@
                             <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time | date}} </dd> </dl>
                             <br/>
                             <dl> <dt>Title:</dt> <dd><input class="text" type="text" [(ngModel)] = 'thesis.title'/> </dd> </dl>
-                            <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
-                            </dl>
-                            <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
-                            </dl>
                             <dl> <dt>Description:</dt> 
                               <dd>                                    
                                         <textarea  

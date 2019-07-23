@@ -13,11 +13,11 @@
         <tbody *ngIf="count>0">
           <tr *ngFor="let thesis of theses">
             <td>{{thesis.thesis.created_time | date}}</td>
-            <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.thesis.title}} </a> </td>
+            <td> <a [routerLink]="['/thesis_details' ,thesis.thesis._id]"> {{thesis.thesis.title}} </a> </td>
             <td>{{thesis.student.name}} {{thesis.student.lastname}}</td>
             <td>{{thesis.thesis.prerequisites}}</td>
             <td>
-                    <a [routerLink]="['/professor/thesis_edit',thesis._id]" class="create" > <i class="material-icons ">edit</i> Edit Thesis</a> 
+                    <a [routerLink]="['/professor/thesis_edit',thesis.thesis._id]" class="edit" > <i class="material-icons ">edit</i> Edit Thesis</a> 
             </td>
             </tr>
         </tbody>
