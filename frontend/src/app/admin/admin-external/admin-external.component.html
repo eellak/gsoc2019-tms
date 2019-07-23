@@ -7,6 +7,7 @@
         <th>Name</th>
         <th>Lastname</th>
         <th>Role</th>
+        <th>Active</th>
         <th>Delete</th>
       </tr>
     </thead>
@@ -17,18 +18,15 @@
         <td>{{user.name}}</td>
         <td>{{user.lastname}}</td>
         <td>{{user.role}}</td>
+        <td *ngIf="user.active"><i class="material-icons active">done</i></td>
+        <td *ngIf="!user.active"><i class="material-icons not_active">clear</i></td>
         <td><button (click)="deleteExternal(user)"><i class="material-icons">delete_forever</i></button><td>
         </td>
       </tr>
     </tbody>
   </table>
 
-  
-<div>
-       <a routerLink='../external_create'> <i class="material-icons">person_add</i> Create External</a> 
-</div>
-
-
+ 
 
   <div class="card-footer pb-0 pt-3">
       <ul *ngIf="pager.pages>1" class="pagination">
