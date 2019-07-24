@@ -35,3 +35,13 @@
         <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
     </div>
 </form>
+
+ 
+<div class="row"  *ngIf="message!=null ">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+        <strong>You have successfully register!
+                Wait until the administrator confirm your account.
+        </strong>
+      </p>    
+    </div>

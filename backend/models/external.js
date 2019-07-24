@@ -11,6 +11,7 @@ const externalSchema = mongoose.Schema({
     name: String,
     lastname: String,
     role: {type: String, default: "External" },
+    active :{ type: Boolean, default: false }
 
     });
 

@@ -50,11 +50,11 @@ exports.get_externals=(req,res,next) => {
     var perPage = 5
     var page = req.query.page || 1  
     var count;
-    External.countDocuments()
+    External.countDocuments({active:true})
     .then( result => {
             count=result
-        External.find()
-        .select('email name lastname role')
+        External.find({active:true})
+        .select('email name lastname role active')
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec()
@@ -81,8 +81,65 @@ exports.get_externals=(req,res,next) => {
             });
         };
 
+
+exports.get_not_active_externals=(req,res,next) => {
+    var perPage = 5
+    var page = req.query.page || 1  
+    var count;
+    External.countDocuments({active:false})
+    .then( result => {
+            count=result
+        External.find({active:false})
+        .select('email name lastname role active')
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec()
+        .then(docs => { 
+            if(docs!=null){
+                const response = {
+                    docs:docs,
+                    count:count,
+                    pages: Math.ceil(count / perPage),
+                }
+                res.status(200).json(response);
+            }
+            else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
+            })
+        })
+            .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+
+exports.activate_external=(req,res,next) => {
+    External.findByIdAndUpdate({_id:req.params.userId , active:false} , {active:true} , {new:true})
+    .select('email name lastname role active')
+    .exec()
+    .then(docs => { 
+          if(docs!=null)
+            res.status(200).json(docs);
+          else
+            res.status(404).json({
+                message: 'No entries found'
+            })
+        })
+        .catch(err => {
+          console.log(err+"wjat");
+          res.status(500).json({
+            error: err
+          });
+        });
+    };
+
 exports.get_external_byId= (req,res,next) => {
-    External.findById({_id:req.params.userId})
+    External.findById({_id:req.params.userId , active:true})
+    .select('email name lastname role active')
     .exec()
     .then(docs => { 
           if(docs!=null)

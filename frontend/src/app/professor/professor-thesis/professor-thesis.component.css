@@ -2,5 +2,13 @@
     color:rgb(8, 105, 8)
 }
 
+.assigned {
+    color:rgb(8, 105, 8)
+}
+
+.not_assigned {
+    color:red
+}
+
 .material-icons.add { font-size: 36px; }
 a.add {font-size: 33px}

@@ -122,6 +122,7 @@ exports.get_thesis= (req,res,next) => {
                 student: doc.student,
                 university: doc.university,
                 professor: doc.professor,
+                assigned: doc.assigned,
                 creator_student: doc.creator_student,
                 creator_external: doc.creator_external
               };

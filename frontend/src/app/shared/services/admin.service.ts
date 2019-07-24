@@ -35,6 +35,14 @@ export class AdminService {
         return this.http.get(environment.apiUrl+`/admin/get_externals?page=${page}`);
     }
 
+    getNotActiveExternals(page) {
+        return this.http.get(environment.apiUrl+`/admin/get_not_active_externals?page=${page}`);
+    }
+
+    activateExternal(id) {
+        return this.http.get(environment.apiUrl+`/admin/activate_external/${id}`);
+
+    }
     getUsers(page) {
         return this.http.get(environment.apiUrl+`/admin/get_users?page=${page}`);
     }

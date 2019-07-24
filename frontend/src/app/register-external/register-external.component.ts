@@ -19,6 +19,7 @@ export class RegisterExternalComponent implements OnInit {
   registerForm: FormGroup;
   loading = false;
   submitted = false;
+ message;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,12 +59,14 @@ export class RegisterExternalComponent implements OnInit {
           .pipe(first())
           .subscribe(
               data => {
-                  this.alertService.success('Registration successful', true);
-                  this.router.navigate(['/login-external']);
+                  this.message="success";
+                  setTimeout(() =>  {
+                    this.router.navigate(['/login-external']);
+                }
+                ,3000);
               },
               error => {
-                  this.alertService.error(error);
-                  this.loading = false;
+                   this.loading = false;
               });
   }
 }

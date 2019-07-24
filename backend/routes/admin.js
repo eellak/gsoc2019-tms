@@ -15,6 +15,9 @@ router.post("/create_external",externalController.user_signup); //create externa
 router.get("/get_externals",adminController.get_externals); //get all externals
 router.get("/get_external/:userId",adminController.get_external_byId); //get external by id
 router.delete("/delete_external/:userId",adminController.delete_external); //delete external
+router.get("/get_not_active_externals",adminController.get_not_active_externals); //get all not active externals;
+router.get("/activate_external/:userId",adminController.activate_external); //activate external with the specified id;
+
 
 router.get("/get_users",adminController.get_users); //get all users
 router.get("/get_user/:userId",adminController.get_user_byId); //get user by id

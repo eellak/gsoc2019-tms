@@ -7,6 +7,7 @@
             <th>Title</th>
             <th>Professor</th>
             <th>Prerequisites</th>
+            <th>Assigned</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -17,6 +18,8 @@
             <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
             <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
             <td>{{thesis.prerequisites}}</td>
+            <td *ngIf="thesis.assigned"><i class="material-icons assigned">done</i></td>
+            <td *ngIf="!thesis.assigned"><i class="material-icons not_assigned">clear</i></td>
             <td>
                     <a [routerLink]="['/professor/thesis_edit',thesis._id]" class="create" > <i class="material-icons ">edit</i> Edit Thesis</a> 
             </td>

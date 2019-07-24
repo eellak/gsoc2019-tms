@@ -15,8 +15,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
 import { ProfessorGuard } from './shared/guards/professor.guard';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
-import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
-import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
+ import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
 import { ThesisDetailsComponent } from './thesis/thesis-details/thesis-details.component';
@@ -28,8 +27,10 @@ import { ProfessorPendingComponent } from './professor/professor-pending/profess
 import { ProfessorAssignedComponent } from './professor/professor-assigned/professor-assigned.component';
 import { ProfessorThesisEditComponent } from './professor/professor-thesis-edit/professor-thesis-edit.component';
 import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.component';
+import { AdminActivateExternalsComponent } from './admin/admin-activate-externals/admin-activate-externals.component';
 
- const routes: Routes = [
+
+const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login' , component: LoginComponent , canActivate: [LoginGuard] },
   { path: 'login-external', component: LoginExternalComponent, canActivate: [LoginGuard] },
@@ -41,7 +42,7 @@ import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.comp
   { path: 'admin', component: AdminComponent , canActivate: [AdminGuard] , 
       children :[ 
         { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
-        { path:'external_create', component:CreateExternalComponent , pathMatch:'full'},
+        { path:'external_activate', component:AdminActivateExternalsComponent , pathMatch:'full'},
         { path:'user' , component:AdminUserComponent , pathMatch:'full' },
         { path:'user_create' , component:CreateUserComponent , pathMatch:'full' },
         { path:'university_create' , component:CreateUniversityComponent , pathMatch:'full' },

@@ -23,8 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
-import { CreateExternalComponent } from './admin/admin-external/create-external/create-external.component';
-import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
+ import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
@@ -39,6 +38,7 @@ import { ProfessorThesisEditComponent } from './professor/professor-thesis-edit/
 import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.component';
 import {MatSelectModule} from '@angular/material';
 import {AutosizeModule} from 'ngx-autosize';
+import { AdminActivateExternalsComponent } from './admin/admin-activate-externals/admin-activate-externals.component';
 
 
 
@@ -56,7 +56,6 @@ import {AutosizeModule} from 'ngx-autosize';
     AdminComponent,
     AdminExternalComponent,
     AdminUserComponent,
-    CreateExternalComponent,
     CreateUserComponent,
     CreateUniversityComponent,
     SidenavComponent,
@@ -69,7 +68,8 @@ import {AutosizeModule} from 'ngx-autosize';
     ProfessorRequestsComponent,
     ProfessorThesisComponent,
     ProfessorThesisEditComponent,
-    ThesisCreateComponent
+    ThesisCreateComponent,
+    AdminActivateExternalsComponent
  
   ],
   imports: [
