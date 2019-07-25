@@ -1,19 +1,19 @@
-<table class="table table-striped table-bordered users">
+<table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)">
         <caption> <h3>My Theses Results </h3></caption>
 
         <thead > 
           <tr>
-            <th>Created Time</th>
-            <th>Title</th>
+            <th mat-sort-header="created_time">Created Time</th>
+            <th mat-sort-header="title">Title</th>
             <th>Professor</th>
             <th>Prerequisites</th>
-            <th>Assigned</th>
+            <th  mat-sort-header="assigned">Assigned</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
         </thead>
         <tbody *ngIf="count>0">
-          <tr *ngFor="let thesis of theses">
+          <tr *ngFor="let thesis of sortedData">
             <td>{{thesis.created_time | date}}</td>
             <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
             <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>

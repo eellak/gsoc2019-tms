@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
+import {Sort} from '@angular/material/sort';
+ 
 
 @Component({
   selector: 'app-professor-thesis',
@@ -8,15 +10,37 @@ import { ProfessorService } from './../../shared/services/professor.service';
   styleUrls: ['./professor-thesis.component.css']
 })
 export class ProfessorThesisComponent implements OnInit {
-  theses:any=[];
   loading=false;
   count=0;
   pager:any={}
+  sortedData:any=[];
 
-  constructor(private professorService:ProfessorService, private alertService:AlertService) { }
+ 
+
+  constructor(private professorService:ProfessorService, private alertService:AlertService) {
+    }
 
   ngOnInit() {
    this.getThesis(1)
+   }
+
+  compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
+      return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  
+  sortData(sort: Sort) {
+    const data = this.sortedData.slice();
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      console.log(a.title)
+      switch (sort.active) {
+        case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
+        case 'title': return this.compare(a.title, b.title, isAsc);
+        case 'assigned': return this.compare(a.assigned, b.assigned, isAsc);
+        default: return 0;
+      }
+    });
   }
 
   getThesis(page) {
@@ -24,13 +48,12 @@ export class ProfessorThesisComponent implements OnInit {
     .subscribe(
     (data:any) => {
           //this.alertService.success('Get user information successful', true);
-        this.theses=data.theses;
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
-        console.log(this.theses)
-    },
+        this.sortedData=data.theses;
+     },
     error => {
         this.alertService.error(error);
         this.loading = false;

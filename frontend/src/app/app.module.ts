@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSortModule } from '@angular/material';
 import {MatSidenavModule} from '@angular/material/sidenav';
  
 import { AppRoutingModule } from './app-routing.module';
@@ -39,8 +39,6 @@ import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.comp
 import {MatSelectModule} from '@angular/material';
 import {AutosizeModule} from 'ngx-autosize';
 import { AdminActivateExternalsComponent } from './admin/admin-activate-externals/admin-activate-externals.component';
-
-
 
 @NgModule({
   declarations: [
@@ -85,7 +83,8 @@ import { AdminActivateExternalsComponent } from './admin/admin-activate-external
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    AutosizeModule
+    AutosizeModule,
+    MatSortModule
  
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
