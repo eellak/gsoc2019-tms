@@ -1,18 +1,18 @@
-<table class="table table-striped users">
+<table class="table table-striped users" matSort (matSortChange)="sortData($event)">
     <thead > 
         <caption> <h3>Externals Users</h3></caption>
       <tr>
         <th>User Id</th>
-        <th>Email</th>
+        <th mat-sort-header="email">Email</th>
         <th>Name</th>
-        <th>Lastname</th>
-        <th>Role</th>
+        <th mat-sort-header="lastname">Lastname</th>
+        <th mat-sort-header="role">Role</th>
         <th>Active</th>
         <th>Delete</th>
       </tr>
     </thead>
     <tbody *ngIf="users!=null">
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of sortedData">
         <td>{{user._id}}</td>
         <td>{{user.email}}</td>
         <td>{{user.name}}</td>
