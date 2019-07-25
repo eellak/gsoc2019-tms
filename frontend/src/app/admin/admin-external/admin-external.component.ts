@@ -44,6 +44,7 @@ export class AdminExternalComponent implements OnInit {
        switch (sort.active) {
         case 'lastname': return this.compare(a.lastname, b.lastname, isAsc);
         case 'role': return this.compare(a.role, b.role, isAsc);
+        case 'email': return this.compare(a.email, b.email, isAsc);
          default: return 0;
       }
     });

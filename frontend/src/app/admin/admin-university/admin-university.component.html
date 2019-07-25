@@ -1,16 +1,17 @@
-<table class="table table-striped ">
+<table class="table table-striped "  matSort (matSortChange)="sortData($event)">
   <thead > 
       <caption> <h3>Universities</h3></caption>
     <tr>
       <th>University Id</th>
-      <th>Name</th>
+      <th  mat-sort-header="name">Name</th>
+      <th>Delete</th>
     </tr>
   </thead>
   <tbody *ngIf="universities!=null">
-    <tr *ngFor="let university of universities">
+    <tr *ngFor="let university of sortedData">
       <td>{{university._id}}</td>
       <td>{{university.name}}</td>
-      <td><button (click)="deleteUniversity(university)"><i class="material-icons">delete_forever</i></button>
+      <td><button class="btn btn-default" (click)="deleteUniversity(university)"><i class="material-icons">delete_forever</i></button>
       </td>
     </tr>
   </tbody>
