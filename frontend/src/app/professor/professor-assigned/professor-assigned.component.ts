@@ -47,11 +47,11 @@ export class ProfessorAssignedComponent implements OnInit {
         console.log(data)
           //this.alertService.success('Get user information successful', true);
         this.theses=data.docs;
+        this.sortedData=this.theses.slice();
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
-        this.sortedData=this.theses.slice();
         console.log(this.theses)
     },
     error => {
