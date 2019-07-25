@@ -47,7 +47,7 @@ exports.is_admin2= (req,res,next) => {
 
  
 exports.get_externals=(req,res,next) => {
-    var perPage = 5
+    var perPage = 6
     var page = req.query.page || 1  
     var count;
     External.countDocuments({active:true})
@@ -83,7 +83,7 @@ exports.get_externals=(req,res,next) => {
 
 
 exports.get_not_active_externals=(req,res,next) => {
-    var perPage = 5
+    var perPage = 6
     var page = req.query.page || 1  
     var count;
     External.countDocuments({active:false})
@@ -181,7 +181,7 @@ exports.delete_external = (req, res, next) => {
 
  
 exports.get_users=(req,res,next) => {
-    var perPage = 5
+    var perPage = 6
     var page = req.query.page || 1  
     var count;
     User.countDocuments()

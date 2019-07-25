@@ -568,7 +568,7 @@ exports.post_draft=(req,res,next) => {
 
 
 exports.get_notifications=(req,res,next) => {
-  var perPage = 2
+  var perPage = 6
   var page = req.query.page || 1
   var count;
   Notification.countDocuments({receiver_user:req.userData.userId})

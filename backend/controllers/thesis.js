@@ -4,7 +4,7 @@ const Thesis= require('../models/thesis');
 
 
 exports.thesis_get_all= (req,res,next) => {
-  var perPage = 5
+  var perPage = 6
   var page = req.query.page || 1
   var query= {pending:false}
   if(req.query.university!=null)

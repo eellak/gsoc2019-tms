@@ -95,7 +95,7 @@ exports.accept_request= (req,res,next) => {      //sent notification to student:
 
 
 exports.get_thesis= (req,res,next) => {
-    var perPage = 5
+    var perPage = 6
     var page = req.query.page || 1
     var count;
     var query={professor:req.userData.userId,pending:false}
@@ -248,7 +248,7 @@ exports.isProfessor=(req,res,next) => {
 }
 
 exports.get_assigned=(req,res,next) => {
-    var perPage = 5
+    var perPage = 6
     var page = req.query.page || 1
     var count;
     query={professor:req.userData.userId}
