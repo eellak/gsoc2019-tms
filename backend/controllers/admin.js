@@ -50,10 +50,10 @@ exports.get_externals=(req,res,next) => {
     var perPage = 6
     var page = req.query.page || 1  
     var count;
-    External.countDocuments({active:true})
+    External.countDocuments()
     .then( result => {
             count=result
-        External.find({active:true})
+        External.find()
         .select('email name lastname role active')
         .skip((perPage * page) - perPage)
         .limit(perPage)
@@ -138,7 +138,7 @@ exports.activate_external=(req,res,next) => {
     };
 
 exports.get_external_byId= (req,res,next) => {
-    External.findById({_id:req.params.userId , active:true})
+    External.findById({_id:req.params.userId })
     .select('email name lastname role active')
     .exec()
     .then(docs => { 
