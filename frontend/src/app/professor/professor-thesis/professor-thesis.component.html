@@ -21,9 +21,9 @@
             <td *ngIf="thesis.assigned"><i class="material-icons assigned">done</i></td>
             <td *ngIf="!thesis.assigned"><i class="material-icons not_assigned">clear</i></td>
             <td>
-                    <a [routerLink]="['/professor/thesis_edit',thesis._id]" class="create" > <i class="material-icons ">edit</i> Edit Thesis</a> 
+                   <button class="btn btn-default"> <a [routerLink]="['/professor/thesis_edit',thesis._id]"  > <i class="material-icons ">edit</i> Edit Thesis</a></button> 
             </td>
-            <td><button (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button><td>
+            <td><button class="btn btn-default" (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button></td>
             </tr>
         </tbody>
       </table>
@@ -31,7 +31,7 @@
       
     <br>  
     <div>
-        <a [routerLink]="['/thesis_create']" class="create add" > <i class="material-icons add ">add</i> Create Thesis</a> 
+        <button class="btn btn-default" ><a [routerLink]="['/thesis_create']" class="create add" > <i class="material-icons add ">create</i> Create Thesis</a></button>
     </div>
  
     

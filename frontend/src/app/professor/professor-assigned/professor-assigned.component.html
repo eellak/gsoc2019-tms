@@ -1,6 +1,5 @@
 <table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)" >
         <caption> <h3>Assigned Theses Results </h3></caption>
-
         <thead > 
           <tr>
             <th  mat-sort-header="created_time">Assigned Time</th>
@@ -17,12 +16,12 @@
             <td>{{thesis.student.name}} {{thesis.student.lastname}}</td>
             <td>{{thesis.thesis.prerequisites}}</td>
             <td>
-                    <a [routerLink]="['/professor/thesis_edit',thesis.thesis._id]" class="edit" > <i class="material-icons ">edit</i> Edit Thesis</a> 
+            <button  class="btn btn-default" ><a [routerLink]="['/professor/thesis_edit',thesis.thesis._id]" > <i class="material-icons ">edit</i> Edit Thesis</a> </button>
             </td>
             </tr>
         </tbody>
       </table>
-    
+ 
       
     <br>  
     

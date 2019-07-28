@@ -7,7 +7,7 @@
         <th>Name</th>
         <th mat-sort-header="lastname">Lastname</th>
         <th mat-sort-header="role">Role</th>
-        <th>Active</th>
+        <th mat-sort-header="active">Active</th>
         <th>Delete</th>
       </tr>
     </thead>
@@ -20,12 +20,18 @@
         <td>{{user.role}}</td>
         <td *ngIf="user.active"><i class="material-icons active">done</i></td>
         <td *ngIf="!user.active"><i class="material-icons not_active">clear</i></td>
-        <td><button (click)="deleteExternal(user)"><i class="material-icons">delete_forever</i></button><td>
+        <td><button class="btn btn-default" (click)="deleteExternal(user)"><i class="material-icons">delete_forever</i></button><td>
+        <td *ngIf="!user.active"> <button  (click)="onActivate(user._id)"><i class="material-icons active ">check</i>Activate</button>
         </td>
       </tr>
     </tbody>
   </table>
-
+  <div class="row"  *ngIf="message!=null && message!=' ' ">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+              <strong>External has been activated!</strong>
+          </p>    
+</div>
  
 
   <div class="card-footer pb-0 pt-3">

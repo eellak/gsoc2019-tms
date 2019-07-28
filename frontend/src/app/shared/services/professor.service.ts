@@ -46,8 +46,8 @@ export class ProfessorService {
 
     
 // this functions are for thesis proposed from externals or students
-    getPending() {
-        return this.http.get(environment.apiUrl+`/professor/pending`);
+    getPending(page) {
+        return this.http.get(environment.apiUrl+`/professor/pending?page=${page}`);
     }
 
     getPendingById(id) {

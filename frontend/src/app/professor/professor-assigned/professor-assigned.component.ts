@@ -34,7 +34,7 @@ export class ProfessorAssignedComponent implements OnInit {
        switch (sort.active) {
         case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
         case 'title': return this.compare(a.title, b.title, isAsc);
-        case 'student': return this.compare(a.student.lastname, b.student.lastname, isAsc);
+        case 'student': return this.compare(a.lastname, b.lastname, isAsc);
         default: return 0;
       }
     });
@@ -46,13 +46,12 @@ export class ProfessorAssignedComponent implements OnInit {
     (data:any) => {
         console.log(data)
           //this.alertService.success('Get user information successful', true);
-        this.theses=data.docs;
-        this.sortedData=this.theses.slice();
+        this.sortedData=data.docs;
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
-        console.log(this.theses)
+        console.log(this.sortedData)
     },
     error => {
         this.alertService.error(error);

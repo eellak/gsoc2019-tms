@@ -194,6 +194,7 @@ exports.delete_thesis=(req,res,next) => {
         created_time: req.body.thesis.created_time,
         completed: false,
         pending: false,
+        assigned:false,
         university: req.userData.university
       });
       thesis
@@ -308,11 +309,28 @@ exports.get_assigned_byId= (req,res,next) => {
 
 
 exports.get_pending= (req,res,next) => {
-  Thesis.find({pending:true , university:req.userData.university})
+  var perPage = 6
+  var page = req.query.page || 1
+  var count;
+  var query={pending:true,university:req.userData.university}
+  Thesis.countDocuments(query)
+  .then(result => {
+    count=result
+    Thesis.find(query)
+    .populate({path:'creator_student' , select : 'name lastname email role'})
+    .populate({path:'creator_external' , select : 'name lastname email role'})
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
     .exec()
     .then(docs => { 
-          if(docs!=null)
-            res.status(200).json(docs);
+          var response= {
+            count: count,
+            pages: Math.ceil(count / perPage),
+            docs:docs 
+          }
+          if(docs!=null) {
+            res.status(200).json(response);
+          }
           else
             res.status(404).json({
                 message: 'No entries found'
@@ -324,7 +342,9 @@ exports.get_pending= (req,res,next) => {
             error: err
           });
         });
-    };
+    });
+  }
+  
 
 exports.get_pending_byId= (req,res,next) => {
       Thesis.find({pending:true, _id:req.params.pendingId})

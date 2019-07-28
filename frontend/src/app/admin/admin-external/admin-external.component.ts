@@ -1,7 +1,6 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {Sort} from '@angular/material/sort';
-
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { UserService } from '../../shared/services/user.service';
 import { AlertService } from '../../shared/services/alert.service';
@@ -19,13 +18,14 @@ export class AdminExternalComponent implements OnInit {
   loading=false;
   pager:any={}
   sortedData:any=[];
-
+  message;
 
   constructor( private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService,
-    private adminService: AdminService) {}
+    private adminService: AdminService,
+    private route: ActivatedRoute) {}
 
 
   ngOnInit() {
@@ -45,6 +45,7 @@ export class AdminExternalComponent implements OnInit {
         case 'lastname': return this.compare(a.lastname, b.lastname, isAsc);
         case 'role': return this.compare(a.role, b.role, isAsc);
         case 'email': return this.compare(a.email, b.email, isAsc);
+        case 'active': return this.compare(a.active, b.active, isAsc);
          default: return 0;
       }
     });
@@ -67,6 +68,23 @@ export class AdminExternalComponent implements OnInit {
          this.loading = false;
      });
    }
+
+   onActivate(id) {
+    this.adminService.activateExternal(id)
+    .subscribe(
+      (data:any) =>{
+        console.log(data)
+        this.message="success"
+        setTimeout(() =>  {
+          this.message=" "
+          this.getExternals(this.pager.currentPage)
+      }
+      ,2000);
+      },
+      error => {
+      console.log(error)
+      });
+    }
 
    deleteExternal(user) {
     this.adminService.deleteExternal(user)

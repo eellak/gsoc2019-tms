@@ -10,5 +10,12 @@
     color:red
 }
 
-.material-icons.add { font-size: 36px; }
-a.add {font-size: 33px}
+.material-icons.add { 
+    font-size: 36px;
+    text-align:center;
+}
+
+a.add {
+    font-size: 33px;
+    text-align: center;
+}
