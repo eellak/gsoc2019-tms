@@ -385,6 +385,28 @@ exports.check_pending = (req,res,next) => {
     })
 };
 
+exports.check_pending2 = (req,res,next) => {
+  Pending.find({professor:req.userData.userId , thesis:req.params.pendingId})
+  .exec()
+  .then(docs=>{
+    if(docs.length>0) {
+      res.status(200).json({
+        message:'You have already applied for this pending thesis'
+      })
+    }
+    else {
+        res.status(200).json({
+          message:"Success"
+        })
+    } 
+  })
+    .catch(err=> {
+      res.status(500).json({
+        error: err
+      });
+    })
+};
+
 
 exports.accept_pending= (req,res,next) => {
   Thesis.findOne({_id:req.params.pendingId , pending:true})

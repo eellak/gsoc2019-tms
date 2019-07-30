@@ -1,3 +1,4 @@
+import { Router,ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
@@ -14,8 +15,13 @@ export class ProfessorPendingComponent implements OnInit {
   count=0;
   pager:any={}
   sortedData:any=[];
+  message=' ';
 
-  constructor(private professorService:ProfessorService, private alertService:AlertService) { }
+  constructor(private professorService:ProfessorService, 
+              private alertService:AlertService,
+              private router : Router,
+              private route: ActivatedRoute) 
+              { }
 
   ngOnInit() {
     this.getPendingThesis(1);
@@ -44,6 +50,8 @@ export class ProfessorPendingComponent implements OnInit {
     (data:any) => {
          this.sortedData=data.docs;
          for(var i=0;i<this.sortedData.length;i++) {
+           this.checkPending(this.sortedData[i])
+           
            console.log(this.sortedData[0])
            if('creator_student' in this.sortedData[i]) {
                  this.sortedData[i].creator=this.sortedData[i].creator_student
@@ -52,13 +60,10 @@ export class ProfessorPendingComponent implements OnInit {
              this.sortedData[i].creator=this.sortedData[i].creator_external
            }
          }
-        this.theses=data.docs;
-        this.sortedData=this.theses.slice();
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
-        console.log(this.theses)
     },
     error => {
         this.alertService.error(error);
@@ -66,4 +71,41 @@ export class ProfessorPendingComponent implements OnInit {
     });
   }
 
+
+  checkPending(thesis) {
+    var status=0;
+    this.professorService.checkPending(thesis._id)
+    .subscribe(
+      (data:any) => {
+         if(data.message=="Success")
+          thesis.applied=0;
+        else
+          thesis.applied=1;
+      },
+      error => {
+        thesis.applied=1;
+
+      });
+    }
+
+
+  applyPending(thesis) {
+    if(confirm("Are you sure want to apply for this pending thesis: "+thesis.title)) {
+      this.professorService.postPendingById(thesis._id)
+      .subscribe(
+        (data:any) => { 
+            console.log(data)
+            this.message="success";
+            setTimeout(() =>  {
+              this.message=' ';
+            }
+            ,2000);
+            this.getPendingThesis(this.pager.currentPage);
+        },
+        error => {
+            this.alertService.error(error);
+            this.loading = false;
+        });
+      }
+  }
 }

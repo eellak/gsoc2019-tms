@@ -56,7 +56,6 @@ app.use('/secretariat',secretariatRoutes);
 app.get('/user',sendAuth);
 
 
-
 app.get("/",(req,res,next) => {
   res.render()
 })

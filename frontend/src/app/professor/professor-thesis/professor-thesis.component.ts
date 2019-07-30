@@ -61,17 +61,19 @@ export class ProfessorThesisComponent implements OnInit {
   }
 
   deleteThesis(thesis) {
-    this.professorService.deleteThesis(thesis)
-    .subscribe(
-      (data:any) => {
-        console.log(data)
-        this.getThesis(this.pager.currentPage)
-      },
-      error => {
-        this.alertService.error(error)
-        this.loading=false
-      }
+    if(confirm("Are you sure to delete thesis: "+thesis.title)) {
+      this.professorService.deleteThesis(thesis)
+      .subscribe(
+        (data:any) => {
+          console.log(data)
+          this.getThesis(this.pager.currentPage)
+        },
+        error => {
+          this.alertService.error(error)
+          this.loading=false
+        }
 
-    )
+      )
+    }
   }
 }

@@ -20,6 +20,7 @@ router.get("/assigned/:assigned_thesisId",professorController.get_assigned_byId)
 // this routes are for thesis proposed from externals or students
 router.get("/pending",professorController.get_pending);
 router.get("/pending/:pendingId",professorController.get_pending_byId); //pendingId is for thesis
+router.get("/pending/check/:pendingId",professorController.check_pending2); // check if professor has already applied
 router.post("/pending/:pendingId",professorController.check_pending,professorController.accept_pending);
 
 

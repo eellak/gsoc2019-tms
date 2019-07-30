@@ -54,8 +54,12 @@ export class ProfessorService {
         return this.http.get(environment.apiUrl+`/professor/pending/${id}`);
     }
 
-    postPendingById(id,pending) {
-        return this.http.post(environment.apiUrl+`/professor/pending/${id}`,{pending:pending});
+    checkPending(id) {
+        return this.http.get(environment.apiUrl+`/professor/pending/check/${id}`)
+    }
+    
+    postPendingById(id) {
+            return this.http.post(environment.apiUrl+`/professor/pending/${id}`,{});
     }
 
 // get all thesis he owns
@@ -80,11 +84,8 @@ export class ProfessorService {
 
     //delete thesis he owns
     deleteThesis(thesis) {
-        if(confirm("Are you sure to delete thesis: "+thesis.title)) {
             return this.http.delete(environment.apiUrl+`/professor/thesis/${thesis._id}`);
         }
-    }
-
 
     // get all professors from the same university
     getProfessorsFromUniversity() {

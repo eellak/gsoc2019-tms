@@ -19,11 +19,19 @@
         <td >{{thesis.creator.name}} {{thesis.creator.lastname}}</td>
         <td>{{thesis.creator.role}}</td>
         <td>{{thesis.prerequisites}}</td>
-        <td><button class="btn btn-success" (click)="applyPending(thesis)"><i class="material-icons">add</i></button></td>
-         </tr>
+        <td *ngIf="thesis.applied==0"><button class="btn btn-success" (click)="applyPending(thesis)"><i class="material-icons">add</i></button></td>
+        <td *ngIf="thesis.applied==1"><p>You have already applied for this thesis!</p></td>
+     </tr>
     </tbody>
   </table>
 
+  <div class="row"  *ngIf="message!=' ' ">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+          <strong>You have apply for the thesis sucessfully!</strong>
+      </p>    
+    </div>
+  </div>     
   
 <br>  
 
