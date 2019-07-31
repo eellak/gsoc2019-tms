@@ -40,6 +40,7 @@ export class ProfessorPendingComponent implements OnInit {
         case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
         case 'title': return this.compare(a.title, b.title, isAsc);
         case 'student': return this.compare(a.student.lastname, b.student.lastname, isAsc);
+        case 'apply': return this.compare(a.applied, b.applied, isAsc);
         default: return 0;
       }
     });
