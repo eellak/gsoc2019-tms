@@ -20,8 +20,8 @@ export class ProfessorService {
     constructor(private http: HttpClient) {}
         
 //get all requests 
-    getRequests() {
-        return this.http.get(environment.apiUrl+`/professor/request`);
+    getRequests(page) {
+        return this.http.get(environment.apiUrl+`/professor/request?page=${page}`);
     }
 
     getRequestById(id) {

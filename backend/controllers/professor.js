@@ -8,24 +8,40 @@ const University= require('../models/university');
 const Supervision_Request= require('../models/supervision_requests');
 
 exports.get_request= (req,res,next) => {
-    Request.find({professor:req.userData.userId})
-    .populate('thesis')
-    .exec()
-    .then(docs => { console.log(req.userData.userId)
-          if(docs!=null)
-            res.status(200).json(docs);
-          else
-            res.status(404).json({
-                message: 'No entries found'
-            })
-        })
-        .catch(err => {
-          console.log(err+"wjat");
-          res.status(500).json({
-            error: err
+    var perPage = 6
+    var page = req.query.page || 1
+    var count;
+    query={professor:req.userData.userId};
+    Request.countDocuments(query)
+    .then(result => {
+      count=result;
+      Request.find(query)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .populate('thesis')
+      .populate('student')
+      .exec()
+      .then(docs => { 
+            console.log(req.userData.userId)
+            response = {count: count,
+            pages: Math.ceil(count / perPage),
+            docs:docs };
+            if(docs!=null)
+              res.status(200).json(response);
+            else
+              res.status(404).json({
+                  message: 'No entries found'
+              })
+          })
+          .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+              error: err
+            });
           });
-        });
-    };
+      });
+    }
+   
 
 exports.get_request_byId= (req,res,next) => {
       Request.find({professor:req.userData.userId , _id:req.params.requestId})
