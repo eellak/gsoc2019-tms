@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('Token',params.access_token);
           localStorage.setItem('Role',params.role);
           localStorage.setItem('Timestamp',''+new Date());
+          localStorage.setItem('University',params.university);
         });
     }
     this.getThesis(1);
@@ -51,6 +52,7 @@ export class HomeComponent implements OnInit {
         case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
         case 'title': return this.compare(a.title, b.title, isAsc);
         case 'professor': return this.compare(a.professor.lastname, b.professor.lastname, isAsc);
+        case 'university': return this.compare(a.professor.lastname, b.professor.lastname, isAsc);
         default: return 0;
       }
     });
