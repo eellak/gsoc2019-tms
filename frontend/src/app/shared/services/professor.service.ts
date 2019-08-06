@@ -31,8 +31,8 @@ export class ProfessorService {
     deleteRequestById(id) {
         return this.http.delete(environment.apiUrl+`/professor/request/${id}`);
     }
-    postRequestById(id,request) {
-        return this.http.post(environment.apiUrl+`/professor/request/${id}`,{request: request});
+    postRequestById(id) {
+        return this.http.post(environment.apiUrl+`/professor/request/${id}`,{});
     }
     
 //get all assigned thesis to students

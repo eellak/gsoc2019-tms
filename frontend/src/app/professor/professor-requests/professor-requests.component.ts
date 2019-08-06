@@ -17,6 +17,7 @@ export class ProfessorRequestsComponent implements OnInit {
   pager:any={}
   sortedData:any=[];
   message=' ';
+  messageReject=' ';
 
   constructor(private professorService:ProfessorService, 
               private alertService:AlertService,
@@ -68,14 +69,34 @@ export class ProfessorRequestsComponent implements OnInit {
  
 
   acceptRequest(request) {
-    if(confirm("Are you sure want to apply for this pending thesis: "+request.thesis.title)) {
-      this.professorService.postPendingById(request.thesis._id)
+    if(confirm("Are you sure want to accept request from student : " + request.student.lastname +" for thesis :"+request.thesis.title)) {
+      this.professorService.postRequestById(request._id)
       .subscribe(
         (data:any) => { 
             console.log(data)
             this.message="success";
             setTimeout(() =>  {
               this.message=' ';
+            }
+            ,2000);
+            this.getRequests(this.pager.currentPage);
+        },
+        error => {
+            this.alertService.error(error);
+            this.loading = false;
+        });
+      }
+  }
+
+  rejectRequest(request) {
+    if(confirm("Are you sure want to reject request from student : " + request.student.lastname +" for thesis :"+request.thesis.title)) {
+      this.professorService.deleteRequestById(request._id)
+      .subscribe(
+        (data:any) => { 
+            console.log(data)
+            this.messageReject="success";
+            setTimeout(() =>  {
+              this.messageReject=' ';
             }
             ,2000);
             this.getRequests(this.pager.currentPage);
