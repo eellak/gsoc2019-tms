@@ -59,9 +59,16 @@ const routes: Routes = [
 
     ] 
   }, 
+  { path: 'student', component: ProfessorComponent , canActivate: [ProfessorGuard],
+    children :[ 
+      { path:'requests' , component:ProfessorRequestsComponent , pathMatch:'full'},
+      { path:'assigned', component:ProfessorAssignedComponent , pathMatch:'full'},
+      { path:'pending' , component:ProfessorPendingComponent , pathMatch:'full' },
+      { path:'thesis' , component:ProfessorThesisComponent , pathMatch:'full' },
+      { path:'thesis_edit/:id' , component:ProfessorThesisEditComponent , pathMatch:'full' }
 
- 
-
+    ] 
+  },
 
 
   // otherwise redirect to home
