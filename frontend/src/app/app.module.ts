@@ -39,6 +39,11 @@ import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.comp
 import {MatSelectModule} from '@angular/material';
 import {AutosizeModule} from 'ngx-autosize';
 import { AdminActivateExternalsComponent } from './admin/admin-activate-externals/admin-activate-externals.component';
+import { StudentComponent } from './student/student.component';
+import { StudentThesisComponent } from './student/student-thesis/student-thesis.component';
+import { StudentAssignedComponent } from './student/student-assigned/student-assigned.component';
+import { StudentRequestsComponent } from './student/student-requests/student-requests.component';
+import { StudentPendingComponent } from './student/student-pending/student-pending.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +72,12 @@ import { AdminActivateExternalsComponent } from './admin/admin-activate-external
     ProfessorThesisComponent,
     ProfessorThesisEditComponent,
     ThesisCreateComponent,
-    AdminActivateExternalsComponent
+    AdminActivateExternalsComponent,
+    StudentComponent,
+    StudentThesisComponent,
+    StudentAssignedComponent,
+    StudentRequestsComponent,
+    StudentPendingComponent
  
   ],
   imports: [
