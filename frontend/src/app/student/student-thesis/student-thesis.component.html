@@ -1,23 +1,25 @@
-<h3>Theses of Professor {{theses[0]?.professor.name}}  {{theses[0]?.professor.lastname}} </h3> 
-
-<table class="table table-striped users">
-  <thead> 
-      <caption> <h3> Results </h3></caption>
-      <tr>
-      <th>Created Time</th>
-      <th>Title</th>
-      <th>University</th>
-      <th>Professor</th>
-      <th>Prerequisites</th>
+<table class="table table-striped users" matSort (matSortChange)="sortData($event)">
+  <thead > 
+      <caption> <h3>Available Theses Results </h3></caption>
+    <tr>
+      <th mat-sort-header="created_time"> <h4><b>Created Time</b></h4></th>
+      <th mat-sort-header="title"><h4><b>Title</b></h4></th>
+      <th mat-sort-header="university"><h4><b>University</b></h4></th>
+      <th mat-sort-header="professor"><h4><b>Professor</b></h4></th>
+      <th><h4><b>Prerequisites</b></h4></th>
+      <th mat-sort-header="apply"><h4><b>Apply</b></h4></th>
     </tr>
   </thead>
   <tbody *ngIf="theses!=null">
-    <tr *ngFor="let thesis of theses">
+    <tr *ngFor="let thesis of sortedData">
       <td>{{thesis.created_time | date}}</td>
       <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
-      <td>{{thesis.university.name}}</td>
+      <td> {{thesis.university.name}}</td>
       <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
       <td>{{thesis.prerequisites}}</td>
+      <td *ngIf="thesis.applied==0"><button class="btn btn-success" (click)="applyThesis(thesis)"><i class="material-icons">add</i></button></td>
+      <td *ngIf="thesis.applied==1"><p>You have already applied for this thesis!</p></td>
+
   </tr>
   </tbody>
 </table>
