@@ -1,4 +1,5 @@
 
+
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -13,6 +14,7 @@ import { AuthenticationService } from './shared/services/authentication.service'
 import { LoginGuard } from './shared/guards/login.guard';
 import {AuthGuard} from './shared/guards/auth.guard';
 import { ProfessorGuard } from './shared/guards/professor.guard';
+import { StudentGuard } from './shared/guards/student.guard';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
  import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
@@ -28,6 +30,13 @@ import { ProfessorAssignedComponent } from './professor/professor-assigned/profe
 import { ProfessorThesisEditComponent } from './professor/professor-thesis-edit/professor-thesis-edit.component';
 import { ThesisCreateComponent } from './thesis/thesis-create/thesis-create.component';
 import { AdminActivateExternalsComponent } from './admin/admin-activate-externals/admin-activate-externals.component';
+import { StudentComponent } from './student/student.component';
+import { StudentThesisComponent } from './student/student-thesis/student-thesis.component';
+import { StudentRequestsComponent } from './student/student-requests/student-requests.component';
+import { StudentPendingComponent } from './student/student-pending/student-pending.component';
+import { StudentAssignedComponent } from './student/student-assigned/student-assigned.component';
+
+
 
 
 const routes: Routes = [
@@ -59,13 +68,12 @@ const routes: Routes = [
 
     ] 
   }, 
-  { path: 'student', component: ProfessorComponent , canActivate: [ProfessorGuard],
+  { path: 'student', component: StudentComponent , canActivate: [StudentGuard],
     children :[ 
-      { path:'requests' , component:ProfessorRequestsComponent , pathMatch:'full'},
-      { path:'assigned', component:ProfessorAssignedComponent , pathMatch:'full'},
-      { path:'pending' , component:ProfessorPendingComponent , pathMatch:'full' },
-      { path:'thesis' , component:ProfessorThesisComponent , pathMatch:'full' },
-      { path:'thesis_edit/:id' , component:ProfessorThesisEditComponent , pathMatch:'full' }
+      { path:'requests' , component:StudentRequestsComponent , pathMatch:'full'},
+      { path:'assigned', component:StudentAssignedComponent , pathMatch:'full'},
+      { path:'pending' , component:StudentPendingComponent , pathMatch:'full' },
+      { path:'thesis' , component:StudentThesisComponent , pathMatch:'full' },
 
     ] 
   },
