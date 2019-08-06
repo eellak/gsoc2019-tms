@@ -27,10 +27,25 @@
             </li>
             <li routerLinkActive="active">
                     <a routerLink="/professor/requests">Requests</a> 
-            </li>
-                
-                 
+            </li>       
         </ul>
-      </div>
+</div>
 
+<!--Student sidenav -->
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="isStudent()">
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/student/thesis">Search for Theses</a>
+        </li>   
+        <li routerLinkActive="active">
+            <a routerLink="/student/assigned">Assigned Thesis</a>
+        </li>   
+        <li routerLinkActive="active">
+          <a routerLink="/student/pending">Pending Theses</a>
+        </li>
+        <li routerLinkActive="active">
+                <a routerLink="/student/requests">Requests</a> 
+        </li>       
+    </ul>
+</div>
  

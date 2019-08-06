@@ -35,4 +35,11 @@ export class SidenavComponent implements OnInit {
     return false;
   }
 
+  isStudent() {
+    if(localStorage.getItem('Role')==="Student")
+      return true;
+    else
+      return false;
+    }
+
 }
