@@ -8,6 +8,7 @@ const checkAuth = require('../middleware/check-auth');
 
 router.all("/*",checkAuth,studentController.is_student);   //verify token, check if user is student
 
+router.get("/check/:thesisId",studentController.checkRequest);//check if student has applied in a specific thesis
 
 router.get("/request",studentController.get_request);//get all requests of userId
 router.post("/request/:thesisId",studentController.checkApplication_period,studentController.checkUniversity,studentController.apply_thesis);    //check if he is logged in-apply for thesis

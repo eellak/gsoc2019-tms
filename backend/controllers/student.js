@@ -79,6 +79,30 @@ exports.checkApplication_period= (req,res,next) => {
 
 
 
+exports.checkRequest= (req,res,next) => {
+    // check if student has already applied for the thesis
+    Request.find({student : req.userData.userId, thesis: req.params.thesisId })
+    .exec()
+    .then(doc => {
+        if(doc.length>0) {
+            return res.status(200).json({
+                message: 'You have already applied for this thesis'
+            })
+        }
+        else {
+          res.status(200).json({
+            message:"Success"
+          })
+        }
+  })
+  .catch(err=> {
+    res.status(500).json({
+      error: err
+    });
+  });
+
+}
+
                                         // Student apply for thesis. 
                                         //create a new request in db
 exports.apply_thesis= (req,res,next) => {   

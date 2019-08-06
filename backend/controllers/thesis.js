@@ -20,6 +20,7 @@ exports.thesis_get_all= (req,res,next) => {
     count=result
     Thesis.find(query)
       .populate('professor')
+      .populate('university')
       .skip((perPage * page) - perPage)
       .limit(perPage)
       .exec()

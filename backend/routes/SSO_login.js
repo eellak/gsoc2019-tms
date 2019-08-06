@@ -44,7 +44,7 @@ router.post("/login/callback",
     router.post("/login/callback",
     bodyParser.urlencoded({ extended: false }),
     (req, res, next) => { 
-        res.redirect("http://localhost:4200/?access_token="+req.token+"&role="+req.user.role);
+        res.redirect("http://localhost:4200/?access_token="+req.token+"&role="+req.user.role+"&university="+req.user.university);
     });
       
 
