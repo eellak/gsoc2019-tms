@@ -1,3 +1,48 @@
-<p>
-  student-requests works!
-</p>
+<h3> <p>You have applied to these theses:</p> </h3>
+<table class="table table-striped users" matSort (matSortChange)="sortData($event)">
+  <thead > 
+      <caption></caption>
+    <tr>
+      <th mat-sort-header="created_time"> <h4><b>Created Time</b></h4></th>
+      <th mat-sort-header="title"><h4><b>Title</b></h4></th>
+       <th mat-sort-header="professor"><h4><b>Professor</b></h4></th>
+      <th mat-sort-header="text"><h4><b>Text</b></h4></th>
+      <th mat-sort-header="accepted"><h4><b>Accepted from Professor</b></h4></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="requests!=null">
+    <tr *ngFor="let request of sortedData">
+      <td>{{request.created_time | date}}</td>
+      <td> <a [routerLink]="['/thesis_details' ,request.thesis._id]"> {{request.thesis.title}} </a> </td>
+       <td><a [routerLink]="['/thesis_professor',request.professor._id]">{{request.professor.name}} {{request.professor.lastname}} </a> </td>
+       <td>{{request.text}}</td>
+       <td>{{request.accepted_fromProfessor}}</td>
+ 
+
+  </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<div class="card-footer pb-0 pt-3">
+    <ul *ngIf="pager.pages>1" class="pagination">
+        <li class="page-item first-item">
+            <button  [disabled]="pager.currentPage === 1" (click)="getThesis(1)" class="pagination btn-default">First  </button>
+        </li>
+        <li class="page-item previous-item">
+            <button  [disabled]="pager.currentPage === 1" (click)="getThesis(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
+        </li>
+        <li class="page-item current-item">
+            <button (click)="getThesis(pager.currentPage)" class="pagination btn-default">{{pager.currentPage}}</button>
+        </li>
+        <li class="page-item next-item">
+            <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.currentPage+1)" class="pagination btn-default">Next </button>
+        </li>
+        <li class="page-item last-item">
+            <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.pages)" class="pagination btn-default">Last </button>
+        </li>
+    </ul>
+</div>

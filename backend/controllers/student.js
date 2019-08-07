@@ -123,7 +123,8 @@ exports.apply_thesis= (req,res,next) => {
             professor: res.locals.professorId,
             thesis: req.params.thesisId,
             accepted_fromStudent: false,
-            accepted_fromProfessor: false
+            accepted_fromProfessor: false,
+            created_time: new Date()
           });
       request
         .save() 
@@ -145,23 +146,42 @@ exports.apply_thesis= (req,res,next) => {
  
     
     exports.get_request= (req,res,next) => {
-        Request.find({student:req.userData.userId})
-        .populate('thesis')
-        .exec()
-        .then(docs => { console.log(req.userData.userId)
-              if(docs!=null)
-                res.status(200).json(docs);
-              else
-                res.status(404).json({
-                    message: 'No entries found'
-                })
-            })
-            .catch(err => {
-              console.log(err+"wjat");
-              res.status(500).json({
-                error: err
+        var perPage = 6
+        var page = req.query.page || 1
+        var count;
+        var query= {student:req.userData.userId}
+        Request.countDocuments(query)
+        .then(result => {
+          count=result
+          Request.find(query)
+          .populate('thesis')
+          .populate({path:'professor' , select:'name lastname email'})
+          .skip((perPage * page) - perPage)
+          .limit(perPage)
+          .exec()
+          .then(docs => { console.log(req.userData.userId)
+                if(docs!=null) {
+                  var response= {
+                    count: count,
+                    pages: Math.ceil(count / perPage),
+                    docs:docs 
+                  }
+                  res.status(200).json(response);
+                }
+                else
+                  res.status(404).json({
+                      message: 'No entries found'
+                  })
+              })
+              .catch(err => {
+                console.log(err+"wjat");
+                res.status(500).json({
+                  error: err
+                });
               });
-            });
+
+        })
+      
         };
     
      

@@ -33,26 +33,29 @@ export class StudentService {
         return this.http.post(environment.apiUrl+`/student/request/${thesisId}`,{})
     }
 
-
-
-
-
-
-
     getRequests(page) {
-        return this.http.get(environment.apiUrl+`/professor/request?page=${page}`);
+        return this.http.get(environment.apiUrl+`/student/request?page=${page}`);
     }
 
-    getRequestById(id) {
-        return this.http.get(environment.apiUrl+`/professor/request/${id}`);
+    deleteRequest(id) {
+        return this.http.get(environment.apiUrl+`/student/request/${id}`);
     }
 
-    deleteRequestById(id) {
-        return this.http.delete(environment.apiUrl+`/professor/request/${id}`);
+    getAcceptedRequests() {
+        return this.http.get(environment.apiUrl+`/student/request/accepted`);
     }
-    postRequestById(id) {
-        return this.http.post(environment.apiUrl+`/professor/request/${id}`,{});
+
+    getAcceptedRequestById(id) {
+        return this.http.get(environment.apiUrl+`/student/request/${id}/accepted`);
     }
+
+   postAcceptedRequest(id) {
+    return this.http.post(environment.apiUrl+`/student/request/${id}/accepted`,{});
+   }
+
+
+
+   //pending
     
 //get all assigned thesis to students
     getAssigned(page) {
