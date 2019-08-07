@@ -47,6 +47,13 @@ export class HeaderComponent implements OnInit {
     else
       return false;
   }
+
+  isStudent() {
+    if(localStorage.getItem('Role')==="Student")
+    return true;
+  else
+    return false;
+  }
  
   
 

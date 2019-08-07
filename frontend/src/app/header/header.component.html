@@ -17,6 +17,9 @@
         <li routerLinkActive="active2" *ngIf="isLoggedIn()">
           <a routerLink="/profile" class="nav-item" >My Profile </a>
         </li>
+        <li routerLinkActive="active2" *ngIf="isStudent()">
+          <a routerLink="/student/assigned" class="nav-item" >My Thesis</a>
+      </li> 
         <li routerLinkActive="active2" *ngIf="isLoggedIn() && isAdmin() ">
             <a routerLink="/admin" class="nav-item" >Admin</a>
         </li>
