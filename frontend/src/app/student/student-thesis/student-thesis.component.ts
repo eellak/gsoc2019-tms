@@ -90,8 +90,9 @@ checkApplied(thesis) {
   }
 
   applyThesis(thesis) {
-    if(confirm("Are you sure want to apply for this thesis: "+thesis.title)) {
-      this.studentService.applyThesis(thesis._id)
+    var text;
+    if(text=prompt("Are you sure want to apply for this thesis: "+thesis.title)) {
+      this.studentService.applyThesis(thesis._id,text)
       .subscribe(
         (data:any) => { 
             console.log(data)

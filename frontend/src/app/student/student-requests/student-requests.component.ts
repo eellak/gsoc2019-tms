@@ -46,7 +46,7 @@ export class StudentRequestsComponent implements OnInit {
         case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
         case 'title': return this.compare(a.title, b.title, isAsc);
         case 'professor': return this.compare(a.professor.lastname, b.professor.lastname, isAsc);
-        case 'university': return this.compare(a.university.name, b.university.name, isAsc);
+        case 'accepted': return this.compare(a.accepted_fromProfessor, b.accepted_fromProfessor, isAsc);
         default: return 0;
       }
     });
@@ -68,23 +68,28 @@ export class StudentRequestsComponent implements OnInit {
          this.alertService.error(error);
          this.loading = false;
      });
-   }
-
-   checkApplied(thesis) {
-    var status=0;
-    this.studentService.checkApplied(thesis._id)
-    .subscribe(
-      (data:any) => {
-         if(data.message=="Success")
-          thesis.applied=0;
-        else
-          thesis.applied=1;
-      },
-      error => {
-        thesis.applied=1;
-  
-      });
+   
     }
 
+    confirm(request) {
+      if(confirm("Are you sure you want to comfirm this thesis: "+request.thesis.title+". All other requests will be deleted and you will be assigned to this thesis. ")) 
+      {
+        this.studentService.postAcceptedRequest(request._id)
+        .subscribe(
+          (data:any) => { 
+              console.log(data)
+              this.message="success";
+              setTimeout(() =>  {
+                this.message=' ';
+              }
+              ,2000);
+              this.router.navigate(['/my_thesis'])
+            },
+          error => {
+              this.alertService.error(error);
+              this.loading = false;
+          });
+        }
+    }
 
 }

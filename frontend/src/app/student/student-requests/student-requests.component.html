@@ -16,8 +16,9 @@
       <td> <a [routerLink]="['/thesis_details' ,request.thesis._id]"> {{request.thesis.title}} </a> </td>
        <td><a [routerLink]="['/thesis_professor',request.professor._id]">{{request.professor.name}} {{request.professor.lastname}} </a> </td>
        <td>{{request.text}}</td>
-       <td>{{request.accepted_fromProfessor}}</td>
- 
+       <td align="center" *ngIf="request.accepted_fromProfessor==true"><button class="btn btn-success" (click)="confirm(request)" >Confirm Thesis</button> </td> 
+       <td align="center" *ngIf="request.accepted_fromProfessor==false"> <i class="material-icons not_accepted">clear</i> </td>
+
 
   </tr>
   </tbody>

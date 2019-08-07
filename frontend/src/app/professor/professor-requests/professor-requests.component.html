@@ -8,6 +8,7 @@
       <th mat-sort-header="title">Title</th>
       <th mat-sort-header="student">Applied Student</th>
       <th >Prerequisites</th>
+      <th>Message from student</th>
       <th mat-sort-header="accept">Accept</th>
       <th mat-sort-header="reject">Reject</th>
 
@@ -19,6 +20,7 @@
       <td> <a [routerLink]="['/thesis_details' ,request.thesis._id]"> {{request.thesis.title}} </a> </td>
       <td >{{request.student.name}} {{request.student.lastname}}</td>
       <td>{{request.thesis.prerequisites}}</td>
+      <td>{{request.text}}</td>
       <td *ngIf="request.accepted_fromProfessor==false"><button class="btn btn-success" (click)="acceptRequest(request)"><i class="material-icons">done</i></button></td>
       <td *ngIf="request.accepted_fromProfessor==true"><p>You have already accept this request!</p></td>
       <td *ngIf="true"><button class="btn btn-default" (click)="rejectRequest(request)"><i class="material-icons">delete</i></button></td>

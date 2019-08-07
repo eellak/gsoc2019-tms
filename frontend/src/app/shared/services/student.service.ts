@@ -29,8 +29,8 @@ export class StudentService {
         return this.http.get(environment.apiUrl+`/student/check/${thesisId}`)
     }
 
-    applyThesis(thesisId) {
-        return this.http.post(environment.apiUrl+`/student/request/${thesisId}`,{})
+    applyThesis(thesisId,text) {
+        return this.http.post(environment.apiUrl+`/student/request/${thesisId}`,{text:text})
     }
 
     getRequests(page) {

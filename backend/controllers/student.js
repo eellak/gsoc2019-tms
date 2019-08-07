@@ -124,6 +124,7 @@ exports.apply_thesis= (req,res,next) => {
             thesis: req.params.thesisId,
             accepted_fromStudent: false,
             accepted_fromProfessor: false,
+            text:req.body.text,
             created_time: new Date()
           });
       request
