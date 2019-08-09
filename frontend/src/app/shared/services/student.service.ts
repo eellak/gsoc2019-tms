@@ -98,9 +98,12 @@ export class StudentService {
         return this.http.post(environment.apiUrl+`/student/pending/${id}/accepted`,{});
     }
 
-// get all thesis he owns
-    getThesis(page) {
-        return this.http.get(environment.apiUrl+`/professor/thesis?page=${page}`);
+
+
+
+// get thesis he owns
+    getThesis() {
+        return this.http.get(environment.apiUrl+`/student/thesis`);
     }
 
 // get thesis he owns by id
