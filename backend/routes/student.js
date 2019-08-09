@@ -25,8 +25,9 @@ router.get("/pending/:pendingId/accepted",studentController.get_accepted_pending
 router.post("/pending/:pendingId/accepted",studentController.confirm_pending,studentController.delete_all_pendings) // thesis is now confirmed for a specific professor
 
 router.get("/pending",studentController.get_pending);  //get pending thesis of userId returns from thesis collection
-router.get("/pending/:pendingId",studentController.get_pending_byId); //get pending thesis by id
+router.get("/pending/:thesisId",studentController.get_pending_byId); //get pending thesis by id
 router.post("/pending",studentController.create_pending); //create pending thesis
+router.delete("/pending/:thesisId",studentController.delete_pending) //delete pending thesis
 
 router.get("/thesis",studentController.get_thesis); //get thesis student
 
