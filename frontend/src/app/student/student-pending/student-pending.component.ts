@@ -52,11 +52,13 @@ export class StudentPendingComponent implements OnInit {
     });
   }
   getPendingThesis(page) {
+    this.loading=true;
     this.studentService.getPendings(page)
     .subscribe(
     (data:any) => {
       console.log(data)
          this.sortedData=data.docs;
+         this.loading=false;
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
