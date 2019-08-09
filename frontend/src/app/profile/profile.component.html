@@ -1,28 +1,22 @@
-
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-8 " >
+        <div class="row">
+                 <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-8">
                         <h4>User Information</h4>
                         <p *ngIf="user!=null">
-                            <dl > <dt>User Id: </dt> <dd>{{user.userId}} </dd> </dl>
+                            <dl > <dt>User Id: </dt> <dd><i class="material-icons">person</i> {{user.userId}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Email: </dt> <dd>{{user.email}} </dd> </dl>
+                            <dl> <dt>Email: </dt> <dd><i class="material-icons">email</i> {{user.email}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Name:</dt> <dd>{{user.name}} </dd> </dl>
+                            <dl> <dt>Name:</dt> <dd><i class="material-icons">person_pin</i>{{user.name}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Lastname:</dt> <dd>{{user.lastname}} </dd> </dl>
+                            <dl> <dt>Lastname:</dt> <dd><i class="material-icons">person_pin</i>{{user.lastname}} </dd> </dl>
                             <br/>
                             <dl> <dt>Role:</dt> <dd>{{user.role}} </dd> </dl>
                             <br/>
-                            <dl> <dt>University:</dt> <dd>{{user.university}} </dd> </dl>                        
+                            <dl> <dt>University:</dt> <dd><i class="material-icons">school</i> {{user.university}} </dd> </dl>                        
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
 </div>

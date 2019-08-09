@@ -5,22 +5,23 @@
                     <div class="col-sm-6 col-md-8 " *ngIf="isLoaded">
                         <h3>My Thesis Information</h3>
                         <br>
-                            <dl > <dt>Created Time: </dt> <dd>{{assigned.created_time | date}} </dd> </dl>
+                            <dl > <dt>Created Time: </dt> <dd><i class="material-icons">date_range</i> {{assigned.created_time | date}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Title: </dt> <dd>{{assigned.thesis?.title}} </dd> </dl>
+                            <dl> <dt>Title: </dt> <dd><i class="material-icons">title</i>{{assigned.thesis?.title}} </dd> </dl>
                             <br/>
                             <dl> <dt>Professor:</dt>
-                              <td><a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}} {{assigned.professor.lastname}} </a> </td> </dl>
+                              <td> <i class="material-icons">person</i>
+                                <a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}} {{assigned.professor.lastname}} </a> </td> </dl>
                             <br/>
                             <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{assigned.thesis.creator_student?.name}} {{assigned.thesis.creator_student?.lastname}} </dd>                           <br/>
                             </dl>
                             <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{assigned.thesis.creator_external?.name}} {{assigned.thesis.creator_external?.lastname}} </dd>                          <br/>
                             </dl>
-                            <dl> <dt>Description:</dt> <dd>{{assigned.thesis?.description}} </dd> </dl>
+                            <dl> <dt>Description:</dt> <dd> <i class="material-icons">description</i>{{assigned.thesis?.description}} </dd> </dl>
                             <br/>
-                            <dl> <dt>Prerequisites:</dt> <dd>{{assigned.thesis?.prerequisites}} </dd> </dl>
+                            <dl> <dt>Prerequisites:</dt> <dd><i class="material-icons">short_text</i>{{assigned.thesis?.prerequisites}} </dd> </dl>
                             <br/>
-                            <dl> <dt>University:</dt> <dd>{{assigned.university?.name}} </dd> </dl>                        
+                            <dl> <dt>University:</dt> <dd><i class="material-icons">school</i> {{assigned.university?.name}} </dd> </dl>                        
                     </div>
              </div>
         </div>
