@@ -1,3 +1,4 @@
+import { StudentCreatePendingComponent } from './student/student-create-pending/student-create-pending.component';
 
 
 import { NgModule, Component } from '@angular/core';
@@ -74,7 +75,7 @@ const routes: Routes = [
       { path:'assigned', component:StudentAssignedComponent , pathMatch:'full'},
       { path:'pending' , component:StudentPendingComponent , pathMatch:'full' },
       { path:'thesis' , component:StudentThesisComponent , pathMatch:'full' },
-
+      { path:'create_pending',component:StudentCreatePendingComponent, pathMatch:'full'}
     ] 
   },
 
