@@ -312,6 +312,8 @@ function update(thesis) { console.log('somethinaaa')
  exports.get_thesis=(req,res,next) => {
      Assigned_Thesis.find({student:req.userData.userId})
      .populate('thesis')
+     .populate({path:'professor' , select:'name lastname'})
+     .populate('university')
      .exec()
      .then( doc=> {
          if(doc) {
@@ -352,28 +354,44 @@ exports.get_accepted_request_byId= (req,res,next) => {
 
 
     exports.get_pending= (req,res,next) => {
-        Thesis.find({creator_student: req.userData.userId})
-        .exec()
-        .then(docs=> { 
-          if(docs) {
-            res.status(200).json(docs)
-          }
-          else {
-            res.status(404).json({
-              message: 'Not found'
-            })
-          }
-        })
-        .catch(err => {
-          res.status(500).json({
-            error:err
+        var perPage = 6
+        var page = req.query.page || 1
+        var count;
+        var query= {creator_student:req.userData.userId,pending:true}
+        Thesis.countDocuments(query)
+        .then(result=>{
+          count=result;
+          Thesis.find(query)
+          .skip((perPage * page) - perPage)
+          .limit(perPage)
+          .exec()
+          .then(docs=> { 
+            if(docs) {
+              var response= {
+                count: count,
+                pages: Math.ceil(count / perPage),
+                docs:docs 
+              }
+              res.status(200).json(response)
+            }
+            else {
+              res.status(404).json({
+                message: 'Not found'
+              })
+            }
           })
-        })
-      };
+          .catch(err => {
+            res.status(500).json({
+              error:err
+            })
+          })
+          })
+      }
+        
     
 
 exports.get_pending_byId= (req,res,next) => {
-        Thesis.find({creator_student: req.userData.userId , _id:req.params.pendingId})
+        Thesis.find({creator_student: req.userData.userId , _id:req.params.thesisId})
         .exec()
         .then(docs=> {
           if(docs) {
@@ -392,18 +410,38 @@ exports.get_pending_byId= (req,res,next) => {
         })
   };
 
+exports.delete_pending=(req,res,next) => {
+  Thesis.deleteOne({_id:req.params.thesisId , creator_student:req.userData.userId})
+  .exec()
+  .then(doc => { 
+    if(doc.deletedCount>0) {
+      res.status(200).json(doc)
+    }
+    else {
+      res.status(404).json({
+        message: 'Error in delete'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({
+      error:err
+    });
+  })
+}
+
   
 exports.create_pending= (req,res,next) => {
     const thesis = new Thesis({
       _id: new mongoose.Types.ObjectId(),
-      title: req.body.title,
-      description: req.body.description,
-      prerequisites: req.body.prerequisites,
-      tags: req.body.tags,
-      created_time: req.body.created_time,
+      title: req.body.thesis.title,
+      description: req.body.thesis.description,
+      prerequisites: req.body.thesis.prerequisites,
+      tags: req.body.thesis.tags,
+      created_time: req.body.thesis.created_time,
       completed: false,
       pending: true,
-      university: req.body.university,       // student should add university 
+      university: req.body.thesis.university,       // student should add university 
       creator_student: req.userData.userId
     });
     thesis

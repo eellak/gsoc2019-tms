@@ -440,6 +440,7 @@ exports.accept_pending= (req,res,next) => {
             creator:creator,
             professor:req.userData.userId,
             thesis:docs.id,
+            created_time: new Date()
           });
           pending_thesis
           .save()
