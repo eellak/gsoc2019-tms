@@ -5,10 +5,10 @@
     </caption>
     <thead > 
       <tr>
-        <th  mat-sort-header="created_time">Created Time</th>
-        <th mat-sort-header="title">Title</th>
-          <th >Prerequisites</th>
-          <th>Delete</th>
+        <th  mat-sort-header="created_time" class="table_header"> <i class="material-icons">date_range</i>Created Time</th>
+        <th mat-sort-header="title" class="table_header"><i class="material-icons">title</i>Title</th>
+          <th class="table_header">Prerequisites</th>
+          <th class="table_header">Delete</th>
        </tr>
     </thead>
     <tbody *ngIf="count>0">
@@ -37,10 +37,10 @@
   <caption></caption>
    <thead > 
     <tr>
-      <th mat-sort-header="created_time">Created Time</th>
-      <th mat-sort-header="title">Title</th>
-      <th >Professor</th>
-      <th mat-sort-header="confirm" > Confirm </th>
+      <th mat-sort-header="created_time" class="table_header" ><i class="material-icons">date_range</i>Created Time</th>
+      <th mat-sort-header="title" class="table_header" ><i class="material-icons">title</i>Title</th>
+      <th class="table_header"><i class="material-icons">person</i> Professor</th>
+      <th mat-sort-header="confirm" class="table_header" > Confirm </th>
     </tr>
   </thead>
   <tbody *ngIf="acceptedCount>0">

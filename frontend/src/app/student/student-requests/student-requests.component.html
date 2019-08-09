@@ -1,13 +1,16 @@
-<h3> <p>You have applied to these theses:</p> </h3>
-<table class="table table-striped users" matSort (matSortChange)="sortData($event)">
-  <thead > 
-      <caption></caption>
+<table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)">
+       <caption>
+        <h3> 
+              <p>You have applied to these theses:</p> 
+        </h3>
+      </caption>
+      <thead> 
     <tr>
-      <th mat-sort-header="created_time"> <h4><b>Created Time</b></h4></th>
-      <th mat-sort-header="title"><h4><b>Title</b></h4></th>
-       <th mat-sort-header="professor"><h4><b>Professor</b></h4></th>
-      <th mat-sort-header="text"><h4><b>Text</b></h4></th>
-      <th mat-sort-header="accepted"><h4><b>Accepted from Professor</b></h4></th>
+      <th mat-sort-header="created_time" class="table_header"><i class="material-icons">date_range</i> Created Time</th>
+      <th mat-sort-header="title" class="table_header"><i class="material-icons">title</i>Title</th>
+       <th mat-sort-header="professor" class="table_header"><i class="material-icons">person</i>Professor</th>
+      <th mat-sort-header="text" class="table_header" >Text</th>
+      <th mat-sort-header="accepted" class="table_header">Accepted from Professor</th>
     </tr>
   </thead>
   <tbody *ngIf="requests!=null">

@@ -1,12 +1,12 @@
-<table class="table table-striped users" matSort (matSortChange)="sortData($event)">
+<table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)">
+    <caption> <h3>Theses From Universities Results </h3></caption>
     <thead > 
-        <caption> <h3>Theses From Universities Results </h3></caption>
       <tr>
-        <th mat-sort-header="created_time"><i class="material-icons">date_range</i> Created Time</th>
-        <th mat-sort-header="title"><i class="material-icons">title</i> Title</th>
-        <th mat-sort-header="university"><i class="material-icons">school</i> University</th>
-        <th mat-sort-header="professor"><i class="material-icons">person</i> Professor</th>
-        <th>Prerequisites</th>
+        <th mat-sort-header="created_time" class="table_header" ><i class="material-icons">date_range</i> Created Time</th>
+        <th mat-sort-header="title" class="table_header"><i class="material-icons">title</i> Title</th>
+        <th mat-sort-header="university" class="table_header"><i class="material-icons">school</i> University</th>
+        <th mat-sort-header="professor" class="table_header"><i class="material-icons">person</i> Professor</th>
+        <th class="table_header">Prerequisites</th>
       </tr>
     </thead>
     <tbody *ngIf="theses!=null">
