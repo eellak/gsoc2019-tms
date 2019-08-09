@@ -68,20 +68,34 @@ export class StudentService {
 
     
 // this functions are for thesis proposed from externals or students
-    getPending(page) {
-        return this.http.get(environment.apiUrl+`/professor/pending?page=${page}`);
+    getPendings(page) {
+        return this.http.get(environment.apiUrl+`/student/pending?page=${page}`);
     }
 
     getPendingById(id) {
-        return this.http.get(environment.apiUrl+`/professor/pending/${id}`);
+        return this.http.get(environment.apiUrl+`/student/pending/${id}`);
     }
 
-    checkPending(id) {
-        return this.http.get(environment.apiUrl+`/professor/pending/check/${id}`)
+    createPending(thesis) {
+        return this.http.post(environment.apiUrl+`/student/pending`,{thesis:thesis})
+    }
+
+    deletePending(thesis) {
+         return this.http.delete(environment.apiUrl+`/student/pending/${thesis._id}`)
     }
     
-    postPendingById(id) {
-            return this.http.post(environment.apiUrl+`/professor/pending/${id}`,{});
+    //get accepted pending
+
+    getAcceptedPendings() {
+            return this.http.get(environment.apiUrl+`/student/pending/accepted`);
+    }
+
+    getAcceptedPendingById(id) {
+        return this.http.get(environment.apiUrl+`/student/pending/${id}/accepted`);
+    }
+
+    postAcceptedPending(id) {
+        return this.http.post(environment.apiUrl+`/student/pending/${id}/accepted`,{});
     }
 
 // get all thesis he owns
