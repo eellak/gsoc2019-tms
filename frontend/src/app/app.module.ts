@@ -44,6 +44,7 @@ import { StudentThesisComponent } from './student/student-thesis/student-thesis.
 import { StudentAssignedComponent } from './student/student-assigned/student-assigned.component';
 import { StudentRequestsComponent } from './student/student-requests/student-requests.component';
 import { StudentPendingComponent } from './student/student-pending/student-pending.component';
+import { StudentCreatePendingComponent } from './student/student-create-pending/student-create-pending.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { StudentPendingComponent } from './student/student-pending/student-pendi
     StudentThesisComponent,
     StudentAssignedComponent,
     StudentRequestsComponent,
-    StudentPendingComponent
+    StudentPendingComponent,
+    StudentCreatePendingComponent
  
   ],
   imports: [
