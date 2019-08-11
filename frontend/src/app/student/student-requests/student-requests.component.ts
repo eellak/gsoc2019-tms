@@ -20,7 +20,7 @@ export class StudentRequestsComponent implements OnInit {
   pager:any={}
   sortedData:any=[];
   message=' ';
-
+  count=0;
   
   constructor( private router : Router
     ,private authenticationService: AuthenticationService,
@@ -54,15 +54,18 @@ export class StudentRequestsComponent implements OnInit {
 
   
   getRequests(page) {
+    this.loading=true;
     this.studentService.getRequests(page)
     .subscribe(
      (data:any) => {
           //this.alertService.success('Get user information successful', true);
          this.sortedData=data.docs;
+         this.count=data.count;
          console.log(this.sortedData);
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
      },
      error => {
          this.alertService.error(error);

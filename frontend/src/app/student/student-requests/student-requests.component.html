@@ -1,4 +1,4 @@
-<table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)">
+<table class="table table-striped table-bordered users" *ngIf="count>0" matSort (matSortChange)="sortData($event)">
        <caption>
         <h3> 
               <p>You have applied to these theses:</p> 
@@ -28,6 +28,7 @@
 </table>
 
 
+<h3 *ngIf="count==0 && loading==false">You have not any requests for theses !</h3>
 
 
 

@@ -586,6 +586,30 @@ exports.check_thesis=(req,res,next) => {   //check if thesis id belongs to stude
   })
 }
 
+exports.check_assigned_thesis=(req,res,next) => {
+  Assigned_Thesis.find({student:req.userData.userId})
+  .exec()
+  .then(result => {
+    if(result.length>0) {
+        return res.status(200).json({
+          message:"A thesis has been assigned to student",
+          doc:result
+        })
+    }
+    else {
+      return next();
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+exports.endrequest=(req,res,next) => {
+  res.status(200).json({
+    message:"success"
+  })
+}
 
 exports.get_drafts=(req,res,next) => {
     Draft.find({assigned_thesis:req.params.assigned_thesisId})

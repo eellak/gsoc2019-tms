@@ -99,7 +99,9 @@ export class StudentService {
     }
 
 
-
+    checkAssigned() {
+        return this.http.get(environment.apiUrl+`/student/check_assigned`);
+    }
 
 // get thesis he owns
     getThesis() {

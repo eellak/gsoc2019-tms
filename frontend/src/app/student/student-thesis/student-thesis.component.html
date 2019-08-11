@@ -18,12 +18,15 @@
       <td> {{thesis.university.name}}</td>
       <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
       <td>{{thesis.prerequisites}}</td>
-      <td *ngIf="thesis.applied==0"><button class="btn btn-success" (click)="applyThesis(thesis)"><i class="material-icons">add</i></button></td>
-      <td *ngIf="thesis.applied==1"><p>You have already applied for this thesis!</p></td>
+      <td *ngIf="thesis.applied==0 && assigned==false"><button class="btn btn-success" (click)="applyThesis(thesis)"><i class="material-icons">add</i></button></td>
+      <td *ngIf="thesis.applied==1 && assigned==false "><p>You have already applied for this thesis!</p></td>
+      <td *ngIf="assigned"><p>You have already been assigned to a thesis!</p></td>
+
 
   </tr>
   </tbody>
 </table>
+
 
 
 

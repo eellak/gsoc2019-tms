@@ -20,6 +20,7 @@ export class StudentThesisComponent implements OnInit {
   pager:any={}
   sortedData:any=[];
   message=' ';
+  assigned=false;
 
   constructor( private router : Router
               ,private authenticationService: AuthenticationService,
@@ -29,6 +30,7 @@ export class StudentThesisComponent implements OnInit {
                private studentService:StudentService ) {}
 
   ngOnInit() {
+    this.checkAssigned();
     this.getTheses(1,localStorage.getItem('University'));
   }
 
@@ -91,7 +93,7 @@ checkApplied(thesis) {
 
   applyThesis(thesis) {
     var text;
-    if(text=prompt("Are you sure want to apply for this thesis: "+thesis.title)) {
+    if(text=prompt("Are you sure want to apply for this thesis: "+thesis.title+" ? Write a message to professor and owner of the thesis ")) {
       this.studentService.applyThesis(thesis._id,text)
       .subscribe(
         (data:any) => { 
@@ -109,5 +111,22 @@ checkApplied(thesis) {
         });
       }
   }
- }
- 
+
+  checkAssigned() {
+    this.studentService.checkAssigned()
+    .subscribe(
+      (data:any) => { 
+          console.log(data)
+          if(data.message=="A thesis has been assigned to student")
+          {
+            this.assigned=true;
+          }
+          else this.assigned=false;
+      },
+      error => {
+          this.alertService.error(error);
+          this.loading = false;
+      });
+    }
+  }
+  
