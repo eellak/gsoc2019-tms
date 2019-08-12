@@ -70,11 +70,12 @@
     <div class="columns">
         <h3>Draft upload</h3>
             <div class="form-group" id="uploadDraft">
-                    <label for="file">Choose File</label>
+                    <label for="file">Choose File<i class="material-icons">attach_file</i> </label>
                          <input type="file"
                             id="file"
                             (change)="handleFileInput($event.target.files)">
-                     <button class="btn btn-success" (click)="uploadFileToActivity()" [disabled]="!fileToUpload"> Upload </button> 
+                        <br>
+                     <button class="btn btn-success btn-lg" (click)="uploadFileToActivity()" [disabled]="!fileToUpload"> Upload </button> 
                     <div *ngIf="message==' '">   
                         <br><br>
                     </div>
@@ -89,13 +90,16 @@
             </div>
         <br>
         <div id="getDrafts">
-                <button class="btn btn-success" (click)="getDrafts()" > Show my drafts</button> 
-                <br>
+                <button class="btn btn-success btn-lg" (click)="getDrafts()" > Show my drafts</button> 
+                <br><br>
                 <ul>
                     <span *ngFor="let draft of drafts">
-                         <a class="item"> <li (click)="downloadDraft(draft)">{{draft.name}}</li> </a>
+                         <a class="item"> <li class="itemlist" (click)="downloadDraft(draft)">{{draft.name}}</li> </a>
                     </span>
                 </ul>
+                <div *ngIf="loading">
+                        <p>Loading...</p>
+                </div>
         </div>
     </div>
 </div>

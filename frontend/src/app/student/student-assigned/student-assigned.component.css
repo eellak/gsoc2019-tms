@@ -30,6 +30,9 @@ div.columns div   { width: 300px; height: 100px; float: left; }
 .item {
     cursor:pointer;
 }
+.itemlist {
+    font-size:16px;    
+}
 
 #getDrafts {
     float:right;

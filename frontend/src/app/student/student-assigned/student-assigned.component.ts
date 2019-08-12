@@ -18,6 +18,7 @@ export class StudentAssignedComponent implements OnInit {
   fileToUpload: File = null;
   message=' ';
   drafts;
+  loading;
 
   constructor(private studentService:StudentService, 
     private alertService:AlertService,
@@ -63,12 +64,14 @@ export class StudentAssignedComponent implements OnInit {
     }
 
     getDrafts() {
+      this.loading=true;
       this.studentService.getDrafts(this.assigned._id)
       .subscribe(
         (drafts:any) => {
              console.log(drafts)
              this.drafts=drafts
-        },
+            this.loading=false;
+          },
         error => {
             this.alertService.error(error);
          });
@@ -100,6 +103,7 @@ export class StudentAssignedComponent implements OnInit {
     downloadDraft(draft) {
         console.log(draft.name)
         console.log(draft.data.data)
-         this.createAndDownloadBlobFile(draft.data.data, draft.name);
+        var byteArray = new Uint8Array(draft.data.data);
+         this.createAndDownloadBlobFile(byteArray, draft.name);
     }
 }
