@@ -21,6 +21,7 @@ export class StudentRequestsComponent implements OnInit {
   sortedData:any=[];
   message=' ';
   count=0;
+  assigned=false;
   
   constructor( private router : Router
     ,private authenticationService: AuthenticationService,
@@ -32,6 +33,7 @@ export class StudentRequestsComponent implements OnInit {
     
   ngOnInit() {
     this.getRequests(1);
+    this.checkAssigned();
   }
 
   compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
@@ -95,4 +97,21 @@ export class StudentRequestsComponent implements OnInit {
         }
     }
 
-}
+    checkAssigned() {
+      this.studentService.checkAssigned()
+      .subscribe(
+        (data:any) => { 
+            console.log(data)
+            if(data.message=="A thesis has been assigned to student")
+            {
+              this.assigned=true;
+            }
+            else this.assigned=false;
+        },
+        error => {
+            this.alertService.error(error);
+            this.loading = false;
+        });
+      }
+    }
+
