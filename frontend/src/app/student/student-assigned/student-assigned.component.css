@@ -1,0 +1,36 @@
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    font-family: serif;
+    font-size: 38px;
+    font-family: 'Times New Roman';
+}
+
+.content {
+    margin: 100px;
+}
+
+.margin25 {
+    margin: 25px;
+}
+
+.upload {
+    cursor: pointer;
+}
+
+.message {
+    position: relative;
+}
+
+div.centered      { width: 900px; }
+div.columns div   { width: 300px; height: 100px; float: left; }
+ 
+.item {
+    cursor:pointer;
+}
+
+#getDrafts {
+    float:right;
+}

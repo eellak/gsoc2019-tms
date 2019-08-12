@@ -1,35 +1,102 @@
-<div class="container"  *ngIf="isLoaded && count>0">
+<div class="container" *ngIf="isLoaded && count>0">
     <div class="row">
-             <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-8 ">
-                        <h3>My Thesis Information</h3>
-                        <br>
-                            <dl > <dt>Created Time: </dt> <dd><i class="material-icons">date_range</i> {{assigned.created_time | date}} </dd> </dl>
-                            <br/>
-                            <dl> <dt>Title: </dt> <dd><i class="material-icons">title</i>{{assigned.thesis?.title}} </dd> </dl>
-                            <br/>
-                            <dl> <dt>Professor:</dt>
-                              <td> <i class="material-icons">person</i>
-                                <a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}} {{assigned.professor.lastname}} </a> </td> </dl>
-                            <br/>
-                            <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{assigned.thesis.creator_student?.name}} {{assigned.thesis.creator_student?.lastname}} </dd>                           <br/>
-                            </dl>
-                            <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{assigned.thesis.creator_external?.name}} {{assigned.thesis.creator_external?.lastname}} </dd>                          <br/>
-                            </dl>
-                            <dl> <dt>Description:</dt> <dd> <i class="material-icons">description</i>{{assigned.thesis?.description}} </dd> </dl>
-                            <br/>
-                            <dl> <dt>Prerequisites:</dt> <dd><i class="material-icons">short_text</i>{{assigned.thesis?.prerequisites}} </dd> </dl>
-                            <br/>
-                            <dl> <dt>University:</dt> <dd><i class="material-icons">school</i> {{assigned.university?.name}} </dd> </dl>                        
-                    </div>
-             </div>
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-sm-6 col-md-8 ">
+                    <h3>My Thesis Information</h3>
+                    <br>
+                    <dl>
+                        <dt>Created Time: </dt>
+                        <dd>
+                            <i class="material-icons">date_range</i> {{assigned.created_time | date}} </dd>
+                    </dl>
+                    <br/>
+                    <dl>
+                        <dt>Title: </dt>
+                        <dd>
+                            <i class="material-icons">title</i>{{assigned.thesis?.title}} </dd>
+                    </dl>
+                    <br/>
+                    <dl>
+                        <dt>Professor:</dt>
+                        <td>
+                            <i class="material-icons">person</i>
+                            <a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}} {{assigned.professor.lastname}} </a>
+                        </td>
+                    </dl>
+                    <br/>
+                    <dl *ngIf="creator_student!=null">
+                        <dt>Creator Student:</dt>
+                        <dd>{{assigned.thesis.creator_student?.name}} {{assigned.thesis.creator_student?.lastname}} </dd>
+                        <br/>
+                    </dl>
+                    <dl *ngIf="creator_external!=null">
+                        <dt>Creator External:</dt>
+                        <dd>{{assigned.thesis.creator_external?.name}} {{assigned.thesis.creator_external?.lastname}} </dd>
+                        <br/>
+                    </dl>
+                    <dl>
+                        <dt>Description:</dt>
+                        <dd>
+                            <i class="material-icons">description</i>{{assigned.thesis?.description}} </dd>
+                    </dl>
+                    <br/>
+                    <dl>
+                        <dt>Prerequisites:</dt>
+                        <dd>
+                            <i class="material-icons">short_text</i>{{assigned.thesis?.prerequisites}} </dd>
+                    </dl>
+                    <br/>
+                    <dl>
+                        <dt>University:</dt>
+                        <dd>
+                            <i class="material-icons">school</i> {{assigned.university?.name}} </dd>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
+</div>
 
 
-  <div *ngIf="count==0 && isLoaded==true">
-      <h3><p>You have not been assigned to a thesis</p></h3>
+<div *ngIf="count==0 && isLoaded==true">
+    <h3>
+        <p>You have not been assigned to a thesis</p>
+    </h3>
+</div>
 
-  </div>
+
+<div class="centered">
+    <div class="columns">
+        <h3>Draft upload</h3>
+            <div class="form-group" id="uploadDraft">
+                    <label for="file">Choose File</label>
+                         <input type="file"
+                            id="file"
+                            (change)="handleFileInput($event.target.files)">
+                     <button class="btn btn-success" (click)="uploadFileToActivity()" [disabled]="!fileToUpload"> Upload </button> 
+                    <div *ngIf="message==' '">   
+                        <br><br>
+                    </div>
+                    <div *ngIf="message=='loading' ">
+                        <p>Draft is uploading...</p>
+                    </div>
+                    <div *ngIf="message=='success' " class="message">
+                        <p>Draft uploaded successfully!</p>
+                        <br>
+                    </div>
+                    <br>
+            </div>
+        <br>
+        <div id="getDrafts">
+                <button class="btn btn-success" (click)="getDrafts()" > Show my drafts</button> 
+                <br>
+                <ul>
+                    <span *ngFor="let draft of drafts">
+                         <a class="item"> <li (click)="downloadDraft(draft)">{{draft.name}}</li> </a>
+                    </span>
+                </ul>
+        </div>
+    </div>
+</div>
+
