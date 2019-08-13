@@ -613,9 +613,11 @@ exports.endrequest=(req,res,next) => {
 
 exports.get_drafts=(req,res,next) => {
     Draft.find({assigned_thesis:req.params.assigned_thesisId})
+    .select('assigned_thesis id name created_time')
     .exec()
     .then(result => {
       if(result!=null ) {
+        console.log(result)
         res.status(200).json(result)
       }
       else {
@@ -629,11 +631,15 @@ exports.get_drafts=(req,res,next) => {
     })
 }
 
+ 
+
 exports.get_draft_byId=(req,res,next) => {
   Draft.find({assigned_thesis:req.params.assigned_thesisId , _id:req.params.draftId})
+  .select('data name')
   .exec()
   .then(result => {
     if(result!=null ) {
+      console.log(result)
       res.status(200).json(result)
     }
     else {
@@ -648,10 +654,13 @@ exports.get_draft_byId=(req,res,next) => {
 }
 
 exports.post_draft=(req,res,next) => {
-  
+
+  console.log(req.files.draft)
+  console.log(req.files)
   const draft = new Draft({
     _id: new mongoose.Types.ObjectId(),
-    url: req.body.url,
+    data: req.files.draft.data,
+    name:req.files.draft.name,
     created_time : new Date(),
     assigned_thesis : req.params.assigned_thesisId
   })

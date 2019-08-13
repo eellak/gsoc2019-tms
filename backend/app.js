@@ -4,21 +4,22 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
-const external_loginRoutes=require("./routes/external");
-const SSOloginRoutes=require("./routes/SSO_login");
+const sendAuth=require("./middleware/send-auth");
 var SamlStrategy = require('passport-saml').Strategy;
 const passport =require('passport');
 const dotenv = require('dotenv');
 const auth = require('./ssoauth');
 const jwt = require('jsonwebtoken');
 const rateLimit = require("express-rate-limit");
+const fileUpload = require('express-fileupload');
+const external_loginRoutes=require("./routes/external");
+const SSOloginRoutes=require("./routes/SSO_login");
 const thesisRoutes=require('./routes/thesis');
 const studentRoutes=require('./routes/student');
 const adminRoutes=require('./routes/admin');
 const professorRoutes=require('./routes/professor');
 const universityRoutes=require('./routes/university');
 const secretariatRoutes=require('./routes/secretariat');
-const sendAuth=require("./middleware/send-auth");
 
 dotenv.config();
 // connect with database
@@ -42,7 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors);
 app.use(limiter);
-
+app.use(fileUpload());
 
 // Routes which should handle requests
 app.use('/external',external_loginRoutes);

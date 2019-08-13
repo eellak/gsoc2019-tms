@@ -31,6 +31,22 @@ export class StudentAssignedComponent implements OnInit {
     this.getThesis()
   }
 
+  compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  sortData(sort: Sort) {
+    const data = this.drafts.slice();
+    this.drafts = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+       switch (sort.active) {
+        case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
+        case 'draft': return this.compare(a.title, b.title, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
   }
@@ -101,9 +117,18 @@ export class StudentAssignedComponent implements OnInit {
     }
 
     downloadDraft(draft) {
-        console.log(draft.name)
-        console.log(draft.data.data)
-        var byteArray = new Uint8Array(draft.data.data);
-         this.createAndDownloadBlobFile(byteArray, draft.name);
+         this.studentService.getDraftById(this.assigned._id,draft._id)
+        .subscribe(
+          (draft:any) => {
+             console.log(draft)
+               var byteArray = new Uint8Array(draft[0].data.data);
+               this.createAndDownloadBlobFile(byteArray, draft[0].name);
+              this.loading=false;
+            },
+          error => {
+              this.alertService.error(error);
+           });
+      }
+        
     }
-}
+ 

@@ -2,8 +2,6 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHandler, HttpErrorResponse } from '@angular/common/http';
 import { map, tap, take, catchError } from 'rxjs/operators';
-
-
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import {
     CanActivate,
@@ -101,6 +99,23 @@ export class StudentService {
 
     checkAssigned() {
         return this.http.get(environment.apiUrl+`/student/check_assigned`);
+    }
+
+    getDrafts(assignedThesisId) {
+        return this.http.get(environment.apiUrl+`/student/draft/${assignedThesisId}`)
+    }
+
+    getDraftById(assignedThesisId,draftId) {
+        return this.http.get(environment.apiUrl+`/student/draft/${assignedThesisId}/${draftId}`)
+    }
+     
+    postDraft(fileToUpload: File, assigendThesisId): Observable<boolean> {
+        const endpoint = environment.apiUrl+`/student/draft/${assigendThesisId}`;
+        const formData: FormData = new FormData();
+        formData.append('draft', fileToUpload, fileToUpload.name);
+        return this.http
+            .post(endpoint, formData,{responseType:'arraybuffer' as 'json'})
+            .pipe(map(() => { return true; }))
     }
 
 // get thesis he owns

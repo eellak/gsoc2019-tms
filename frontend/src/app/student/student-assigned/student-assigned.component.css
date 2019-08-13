@@ -37,3 +37,15 @@ div.columns div   { width: 300px; height: 100px; float: left; }
 #getDrafts {
     float:right;
 }
+
+dt {
+    font-size:18px   
+}
+
+dl {
+    font-size:16px
+}
+
+#file {
+    font-size:16px
+}

@@ -70,7 +70,7 @@
     <div class="columns">
         <h3>Draft upload</h3>
             <div class="form-group" id="uploadDraft">
-                    <label for="file">Choose File<i class="material-icons">attach_file</i> </label>
+                    <label for="file" id="file">Choose File<i class="material-icons">attach_file</i> </label>
                          <input type="file"
                             id="file"
                             (change)="handleFileInput($event.target.files)">
@@ -92,11 +92,21 @@
         <div id="getDrafts">
                 <button class="btn btn-success btn-lg" (click)="getDrafts()" > Show my drafts</button> 
                 <br><br>
-                <ul>
-                    <span *ngFor="let draft of drafts">
-                         <a class="item"> <li class="itemlist" (click)="downloadDraft(draft)">{{draft.name}}</li> </a>
-                    </span>
-                </ul>
+                <table class="table table-striped table-bordered users" *ngIf="drafts" matSort (matSortChange)="sortData($event)">
+                    <thead> 
+                        <tr>
+                            <th mat-sort-header="draft" class="table_header"><i class="material-icons">book</i>Draft</th> 
+                            <th mat-sort-header="created_time" class="table_header"><i class="material-icons">date_range</i> Created Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let draft of drafts">
+                            <a class="item"> <td class="itemlist" (click)="downloadDraft(draft)">{{draft.name}} </td></a> <td> {{draft.created_time | date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <br>
                 <div *ngIf="loading">
                         <p>Loading...</p>
                 </div>
