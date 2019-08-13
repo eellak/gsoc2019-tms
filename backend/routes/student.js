@@ -12,9 +12,9 @@ router.get("/check/:thesisId",studentController.checkRequest);//check if student
 
 router.get("/request",studentController.get_request);//get all requests of userId
 router.post("/request/:thesisId",studentController.checkApplication_period,studentController.checkUniversity,studentController.check_assigned_thesis,studentController.apply_thesis);    //check if he is logged in-apply for thesis
-router.delete("/request/:requestId",studentController.delete_request);     
+router.delete("/request/:requestId",studentController.delete_request);    //delete specified request   
 
-router.get("/check_assigned",studentController.check_assigned_thesis,studentController.endrequest);
+router.get("/check_assigned",studentController.check_assigned_thesis,studentController.endrequest); //check if student has assigned to a thesis
 
 router.get("/request/accepted",studentController.get_accepted_request); // get all accepted requests from professors
 router.get("/request/:requestId/accepted",studentController.get_accepted_request_byId); // get accepted request by Id
