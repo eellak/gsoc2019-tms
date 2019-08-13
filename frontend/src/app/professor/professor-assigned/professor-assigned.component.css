@@ -19,4 +19,27 @@ a.add {
     font-size: 33px;
     text-align: center;
 }
+
+.item {
+    cursor:pointer;
+}
+.itemlist {
+    font-size:16px;    
+}
+
+#getDrafts {
+    float:right;
+}
+
+dt {
+    font-size:18px   
+}
+
+dl {
+    font-size:16px
+}
+
+#file {
+    font-size:16px
+}
  

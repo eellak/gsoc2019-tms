@@ -6,6 +6,8 @@ const Assigned_Thesis=require('../models/assigned_thesis');
 const Pending=require('../models/pending');
 const University= require('../models/university');
 const Supervision_Request= require('../models/supervision_requests');
+const Draft=require('../models/draft');
+
 
 exports.get_request= (req,res,next) => {
     var perPage = 6
@@ -486,7 +488,66 @@ exports.get_professors= (req,res,next) => {
     })
   }
 
+  exports.check_thesis=(req,res,next) => {   //check if thesis id belongs to professor
+    Assigned_Thesis.find({_id:req.params.assigned_thesisId , professor:req.userData.userId})
+    .exec()
+    .then(result => {
+      if(result!=null) {
+          return next();
+      }
+      else {
+        return res.status(401).json({
+          message: 'Auth failed: thesis doesnt belong to user'
+      })
+      }
+    })
+    .catch(err => {
+      console.log("error"+err)
+      res.status(500).json({error:err})
+    })
+  }
 
+  exports.get_drafts=(req,res,next) => {
+    Draft.find({assigned_thesis:req.params.assigned_thesisId})
+    .select('assigned_thesis _id name created_time')
+    .exec()
+    .then(result => {
+      if(result!=null ) {
+        console.log(result)
+        res.status(200).json(result)
+      }
+      else {
+        res.status(200).json({
+          message: 'Not found drafts'
+        })
+      }
+    })
+    .catch(err => {
+      console.log("the errors"+err)
+      res.status(500).json({error:err})
+    })
+}
+
+
+exports.get_draft_byId=(req,res,next) => {
+  Draft.find({assigned_thesis:req.params.assigned_thesisId , _id:req.params.draftId})
+  .select('data name')
+  .exec()
+  .then(result => {
+    if(result!=null ) {
+      console.log(result)
+      res.status(200).json(result)
+    }
+    else {
+      res.status(404).json({
+        message: 'Not found drafts'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
 
 exports.get_supervise = (req,res,next) => {
 

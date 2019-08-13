@@ -38,6 +38,11 @@ router.get("/supervise_pending",professorController.get_supervise_pending) //get
 router.get("/supervise_pending/:supervise_requestId",professorController.get_supervise_pending_byId) //get the supervise request from other professors to userId 
 router.post("/supervise_pending/:supervise_requestId",professorController.post_supervise_pending) // accept request for supervision
 
+// get drafts
+
+router.get("/draft/:assigned_thesisId",professorController.check_thesis,professorController.get_drafts); //get drafts of thesis
+router.get("/draft/:assigned_thesisId/:draftId",professorController.check_thesis,professorController.get_draft_byId); //get draft by id of thesis
+
 //routes for professor to propose another supervisor
 router.post("/propose_supervisor/:supervisorId/:thesisId",professorController.check_supervisor_request,professorController.propose_supervisor) //propose another professor to supervise a thesis
 router.get("/accept_supervisor",professorController.get_accepted_supervisor_requests) // get accepted supervisors before confirm

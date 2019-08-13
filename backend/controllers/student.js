@@ -613,7 +613,7 @@ exports.endrequest=(req,res,next) => {
 
 exports.get_drafts=(req,res,next) => {
     Draft.find({assigned_thesis:req.params.assigned_thesisId})
-    .select('assigned_thesis id name created_time')
+    .select('assigned_thesis _id name created_time')
     .exec()
     .then(result => {
       if(result!=null ) {

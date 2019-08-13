@@ -91,6 +91,18 @@ export class ProfessorService {
     getProfessorsFromUniversity() {
         return this.http.delete(environment.apiUrl+`/professor/university`);
     }
+
+
+    // draft routes
+
+    getDrafts(assignedThesisId) {
+        return this.http.get(environment.apiUrl+`/professor/draft/${assignedThesisId}`)
+    }
+
+    getDraftById(assignedThesisId,draftId) {
+        return this.http.get(environment.apiUrl+`/professor/draft/${assignedThesisId}/${draftId}`)
+    }
+
 // routes for professor to be supervisor
 
     //get all the supervise request from other professors to userId 
