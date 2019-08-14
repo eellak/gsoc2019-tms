@@ -1,0 +1,8 @@
+
+.confirm {
+    
+    background-color:rgb(69, 85, 228)  !important;
+    padding-right: 15px;
+}
+
+.mat-select-trigger { min-width: 50px; }

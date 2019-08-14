@@ -1,10 +1,28 @@
 <div class="row">
   <div class="col-xs-12">
-    <a href="http://localhost:3000/SSO/login" >
-      <button class="btn btn-success" >SSO Login as member of university (student,professor,secretariat)</button>    
-    </a>
+      <button class="btn btn-success btn-lg" *ngIf="!sso" (click)="getUniversities()" >SSO Login as member of university (student,professor,secretariat)</button>    
       <br>
       <br>
-      <button class="btn btn-success" (click)="login_external()">Login as external</button>
+      <br>
+      <Br>
+      <button class="btn btn-success btn-lg" *ngIf="!sso" (click)="login_external()">Login as external</button>
   </div>
 </div>
+
+
+<div *ngIf="sso">
+  <h4>In order to proceed, you have to select your University from the list below.</h4>  
+  <br>
+  <mat-form-field >
+    <mat-label>University</mat-label>
+    <mat-select [(ngModel)]="universities[0]._id" >
+      <mat-option *ngFor="let university of universities" [value]="university._id">
+        {{university.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <a href="http://localhost:3000/SSO/login">
+    <button class="btn btn-success confirm">Confirm</button>
+  </a>
+</div>
+ 

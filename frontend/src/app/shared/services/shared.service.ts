@@ -24,6 +24,10 @@ export class SharedService {
         return this.http.get(environment.apiUrl+`/university?page=${page}`);
     }
 
+    getUniversitiesNoPages() {
+        return this.http.get(environment.apiUrl+`/university/noPages`);
+    }
+
     getThesis(page) {
         return this.http.get(environment.apiUrl+`/thesis?page=${page}`);
     }
