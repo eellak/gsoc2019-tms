@@ -20,6 +20,7 @@ export class ProfessorAssignedComponent implements OnInit {
   constructor(private professorService:ProfessorService, private alertService:AlertService) { }
 
   ngOnInit() {
+    this.loading=true;
    this.getAssignedThesis(1)
    }
 

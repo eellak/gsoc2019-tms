@@ -7,7 +7,8 @@
 }
 
 .not_assigned {
-    color:red
+    color:red;
+ 
 }
 
 .material-icons.add { 
@@ -15,7 +16,9 @@
     text-align:center;
 }
 
-a.add {
+ 
+
+.add {
     font-size: 33px;
     text-align: center;
 }

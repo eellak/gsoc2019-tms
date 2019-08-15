@@ -1,5 +1,7 @@
 <table class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)">
-        <caption> <h3>My Theses Results </h3></caption>
+        <caption>    
+             <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+                <h3>My Theses Results </h3></mat-card></caption>
 
         <thead > 
           <tr>
@@ -23,16 +25,23 @@
             <td>
                    <button class="btn btn-default"> <a [routerLink]="['/professor/thesis_edit',thesis._id]"  > <i class="material-icons ">edit</i> Edit Thesis</a></button> 
             </td>
-            <td><button class="btn btn-default" (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button></td>
-            </tr>
+            <td *ngIf="!thesis.assigned"><button class="btn btn-default" (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button></td>
+            <td *ngIf="thesis.assigned"></td>
+        </tr>
         </tbody>
       </table>
+
+      
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
     
       
     <br>  
-    <div>
-        <button class="btn btn-default" ><a [routerLink]="['/thesis_create']" class="create add" > <i class="material-icons add ">create</i> Create Thesis</a></button>
-    </div>
+    <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+        <div>
+           <a [routerLink]="['/thesis_create']" class="create add" > <button class="btn btn-success add"  > <i class="material-icons add ">create</i> Create Thesis</button></a> 
+        </div>
+    </mat-card>
  
     
     

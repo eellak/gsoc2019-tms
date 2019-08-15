@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
 import {Sort} from '@angular/material/sort';
- 
+import {MatCardModule} from '@angular/material';
 
 @Component({
   selector: 'app-professor-thesis',
@@ -21,6 +21,7 @@ export class ProfessorThesisComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.loading=true;
    this.getThesis(1)
    }
 
@@ -53,6 +54,7 @@ export class ProfessorThesisComponent implements OnInit {
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
         this.sortedData=data.theses;
+        this.loading=false;
      },
     error => {
         this.alertService.error(error);

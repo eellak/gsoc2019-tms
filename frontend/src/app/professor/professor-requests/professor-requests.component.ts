@@ -26,6 +26,7 @@ export class ProfessorRequestsComponent implements OnInit {
               { }
 
   ngOnInit() {
+    this.loading=true;
     this.getRequests(1);
   }
   
@@ -58,6 +59,7 @@ export class ProfessorRequestsComponent implements OnInit {
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
+        this.loading=false;
     },
     error => {
         this.alertService.error(error);

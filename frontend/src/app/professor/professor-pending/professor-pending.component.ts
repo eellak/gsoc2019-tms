@@ -24,6 +24,7 @@ export class ProfessorPendingComponent implements OnInit {
               { }
 
   ngOnInit() {
+    this.loading=true;
     this.getPendingThesis(1);
   }
   
@@ -65,6 +66,7 @@ export class ProfessorPendingComponent implements OnInit {
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
+        this.loading=false;
     },
     error => {
         this.alertService.error(error);

@@ -28,6 +28,8 @@
   </tbody>
 </table>
 
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
 <div class="row"  *ngIf="message!=' ' ">
   <div class="col-xs-12">
     <p class="alert alert-success">

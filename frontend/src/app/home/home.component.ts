@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('University',params.university);
         });
     }
+    this.loading=true;
     this.getThesis(1);
     this.location.replaceState('/');
 
@@ -74,6 +75,7 @@ export class HomeComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
      },
      error => {
          this.alertService.error(error);
