@@ -5,25 +5,60 @@
            <div class="well well-sm">
               <div class="row">
                   <div class="col-sm-6 col-md-8 " >
-                      <h4>Thesis Information</h4>
+                      <h3>Thesis Information</h3>
+                      <br>
                       <p *ngIf="isLoaded">
-                          <dl > <dt>Created Time: </dt> <dd>{{thesis.created_time}} </dd> </dl>
-                          <br/>
-                          <dl> <dt>Title: </dt> <dd>{{thesis.title}} </dd> </dl>
-                          <br/>
-                          <dl> <dt>Professor:</dt> <dd>{{thesis.professor?.name}} {{thesis.professor?.lastname}} </dd> </dl>
-                          <br/>
-                          <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
+                          <dl > <dt>Created Time: </dt> <dd><i class="material-icons">date_range</i> {{thesis.created_time | date}} </dd> </dl>
+                           <mat-divider></mat-divider>
+                           <br>
+                           <br>
+                          <dl> <dt>Title: </dt> <dd><i class="material-icons">title</i>{{thesis.title}} </dd> </dl>
+                            <mat-divider></mat-divider>
+                            <br>                           
+                            <br>
+                          <dl> <dt>Professor:</dt> <dd><i class="material-icons">person</i>{{thesis.professor?.name}} {{thesis.professor?.lastname}} </dd> </dl>
+                            <mat-divider></mat-divider>
+                            <mat-divider></mat-divider>
+                            <br>
+                           <dl *ngIf="creator_student!=null"> <dt>Creator Student:</dt> <dd><i class="material-icons">person</i>{{thesis.creator_student?.name}} {{thesis.creator_student?.lastname}} </dd>                           <br/>
                           </dl>
-                          <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
+                          <dl *ngIf="creator_external!=null"> <dt>Creator External:</dt> <dd><i class="material-icons">person</i>{{thesis.creator_external?.name}} {{thesis.creator_external?.lastname}} </dd>                          <br/>
                           </dl>
-                          <dl> <dt>Description:</dt> <dd>{{thesis.description}} </dd> </dl>
-                          <br/>
+                          <dl> <dt>Description:</dt> <dd><i class="material-icons">description</i>{{thesis.description}} </dd> </dl>
+                            <mat-divider></mat-divider>
+                            <br>
+                            <br>
                           <dl> <dt>Prerequisites:</dt> <dd>{{thesis.prerequisites}} </dd> </dl>
-                          <br/>
-                          <dl> <dt>University:</dt> <dd>{{thesis.university?.name}} </dd> </dl>                        
+                            <mat-divider></mat-divider>
+                            <br>                           
+                            <br>                          
+                          <dl> <dt>University:</dt> <dd><i class="material-icons">school</i>{{thesis.university?.name}} </dd> </dl>                        
                   </div>
            </div>
       </div>
   </div>
 </div>
+
+<div>
+    <mat-card [style.backgroundColor]="'rgb(175, 243, 255)'">
+        <mat-card-title>Files for this thesis:</mat-card-title>
+    </mat-card>
+    <table class="table table-striped table-bordered users" *ngIf="files" matSort (matSortChange)="sortData($event)">
+            <thead> 
+                <tr>
+                    <th mat-sort-header="file" class="table_header"><i class="material-icons">book</i>File</th> 
+                 </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let file of files">
+                    <a class="item"> <td class="itemlist" (click)="downloadDraft(file)"><i class="material-icons">cloud_download</i>{{file.file_name}} </td></a>  
+                </tr>
+            </tbody>
+        </table>
+        <br>
+         <div *ngIf="loading">
+                <p>Loading...</p>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+
+<br><br>
