@@ -68,13 +68,30 @@ export class ProfessorService {
     }
 
 // get thesis he owns by id
-    getThesisById(id) {
-        return this.http.get(environment.apiUrl+`/professor/thesis/${id}`);
+    getThesisById(ThesisId) {
+        return this.http.get(environment.apiUrl+`/professor/thesis/${ThesisId}`);
     }
 
  // create thesis
     postThesis(thesis) {
         return this.http.post(environment.apiUrl+`/professor/thesis/`,{thesis:thesis});
+    }
+
+    postPdfThesis(fileToUpload: File, ThesisId): Observable<boolean> {
+        const endpoint = environment.apiUrl+`/professor/thesis/pdf/${ThesisId}`;
+        const formData: FormData = new FormData();
+        formData.append('pdf', fileToUpload, fileToUpload.name);
+        return this.http
+            .post(endpoint, formData,{responseType:'arraybuffer' as 'json'})
+            .pipe(map(() => { return true; }))
+    }
+
+    getFilesThesis(ThesisId) {
+        return this.http.get(environment.apiUrl+`/professor/thesis/${ThesisId}/pdf`);
+    }
+    
+    getFile(FileId) {
+        return this.http.get(environment.apiUrl+`/professor/thesis/pdf/${FileId}`);
     }
 
     //update current thesis
