@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSortModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSortModule, MatDividerModule, MatCardModule, MatProgressBarModule } from '@angular/material';
 import {MatSidenavModule} from '@angular/material/sidenav';
  
 import { AppRoutingModule } from './app-routing.module';
@@ -96,7 +96,10 @@ import { StudentCreatePendingComponent } from './student/student-create-pending/
     MatSelectModule,
     MatInputModule,
     AutosizeModule,
-    MatSortModule
+    MatSortModule,
+    MatDividerModule,
+    MatCardModule,
+    MatProgressBarModule
  
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
