@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Thesis= require('../models/thesis');
-
+const FileThesis = require('../models/file_thesis');
 
 
 exports.thesis_get_all= (req,res,next) => {
-  var perPage = 6
+  var perPage = 5
   var page = req.query.page || 1
   var query= {pending:false}
   if(req.query.university!=null)
@@ -64,6 +64,51 @@ exports.get_byId= (req,res,next) => {
       })
 }
 
+exports.get_files=(req,res,next) => {
+  FileThesis.find({thesis:req.params.thesisId})
+  .exec()
+  .then(result => {
+    if(result!=null)
+    { 
+       console.log(result)
+      res.status(200).json(result)
+    }
+  else {
+    res.status(200).json({
+      message: "Not found"
+    })
+  }
+})
+.catch(err => {
+  console.log(err);
+  res.status(500).json({
+    error: err
+  });
+});
+}
+
+exports.get_file_byId=(req,res,next) => {
+FileThesis.findById({_id:req.params.fileId})
+.exec()
+.then(result => {
+  if(result!=null)
+  { 
+     console.log(result)
+    res.status(200).json(result)
+  }
+else {
+  res.status(200).json({
+    message: "Not found"
+  })
+}
+})
+.catch(err => {
+console.log(err);
+res.status(500).json({
+  error: err
+});
+});
+}
 
 
 
