@@ -26,8 +26,7 @@ router.post("/pending/:pendingId",professorController.check_pending,professorCon
 
 router.get("/thesis",professorController.get_thesis) // get all thesis he owns
 router.post("/thesis/pdf/:thesisId",professorController.post_pdf) //post pdf of specified thesis 
-router.get("/thesis/:thesisId/pdf",professorController.get_files) //get files of specified thesis
-router.get("/thesis/pdf/:fileId",professorController.get_file_byId) // get specified file 
+
 
 router.get("/thesis/:thesisId",professorController.get_thesis_byId) // get thesis he owns by id
 router.post("/thesis",professorController.create_thesis) // create thesis

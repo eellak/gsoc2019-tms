@@ -271,51 +271,6 @@ exports.delete_thesis=(req,res,next) => {
       });
   };
 
-exports.get_files=(req,res,next) => {
-    FileThesis.find({thesis:req.params.thesisId})
-    .exec()
-    .then(result => {
-      if(result!=null)
-      { 
-         console.log(result)
-        res.status(200).json(result)
-      }
-    else {
-      res.status(200).json({
-        message: "Not found"
-      })
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({
-      error: err
-    });
-  });
-}
-
-exports.get_file_byId=(req,res,next) => {
-  FileThesis.findById({_id:req.params.fileId})
-  .exec()
-  .then(result => {
-    if(result!=null)
-    { 
-       console.log(result)
-      res.status(200).json(result)
-    }
-  else {
-    res.status(200).json({
-      message: "Not found"
-    })
-  }
-})
-.catch(err => {
-  console.log(err);
-  res.status(500).json({
-    error: err
-  });
-});
-}
 
 
 exports.update_thesis=(req,res,next) => {
