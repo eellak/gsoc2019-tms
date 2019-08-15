@@ -7,6 +7,7 @@ const Pending=require('../models/pending');
 const University= require('../models/university');
 const Supervision_Request= require('../models/supervision_requests');
 const Draft=require('../models/draft');
+const FileThesis= require('../models/file_thesis')
 
 
 exports.get_request= (req,res,next) => {
@@ -221,6 +222,7 @@ exports.delete_thesis=(req,res,next) => {
           console.log(result);
           res.status(201).json({
             message: "Created thesis successfully",
+            thesis:result
           })
           })
         .catch(err => {
@@ -230,6 +232,90 @@ exports.delete_thesis=(req,res,next) => {
           });
         });
     };
+
+  exports.post_pdf=(req,res,next) => {
+      const file_thesis = new FileThesis ({
+          _id: new mongoose.Types.ObjectId(),
+          file_name: req.files.pdf.name,
+          file_data: req.files.pdf.data,
+          thesis: req.params.thesisId
+      });
+      file_thesis
+      .save()
+      .then(result => {
+        console.log(result)
+        Thesis.findById(req.params.thesisId)
+        .updateOne({file:result._id})
+        .exec()
+        .then( result => {
+          if(result!=null)
+            res.status(200).json(result)
+          else {
+            res.status(404).json({
+              message:"Error in post_pdf"
+            })
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  };
+
+exports.get_files=(req,res,next) => {
+    FileThesis.find({thesis:req.params.thesisId})
+    .exec()
+    .then(result => {
+      if(result!=null)
+      { 
+         console.log(result)
+        res.status(200).json(result)
+      }
+    else {
+      res.status(200).json({
+        message: "Not found"
+      })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+}
+
+exports.get_file_byId=(req,res,next) => {
+  FileThesis.findById({_id:req.params.fileId})
+  .exec()
+  .then(result => {
+    if(result!=null)
+    { 
+       console.log(result)
+      res.status(200).json(result)
+    }
+  else {
+    res.status(200).json({
+      message: "Not found"
+    })
+  }
+})
+.catch(err => {
+  console.log(err);
+  res.status(500).json({
+    error: err
+  });
+});
+}
 
 
 exports.update_thesis=(req,res,next) => {
