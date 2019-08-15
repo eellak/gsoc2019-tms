@@ -1,3 +1,4 @@
+import { MatDividerModule , MatCardModule, MatProgressBarModule} from '@angular/material';
 import { ProfessorService } from './../../shared/services/professor.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -5,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../../shared/services/alert.service';
 import {AuthenticationService} from '../../shared/services/authentication.service';
-
 
 @Component({
   selector: 'app-thesis-create',
@@ -16,7 +16,9 @@ export class ThesisCreateComponent implements OnInit {
   createThesisForm: FormGroup;
   description;
   thesis={};
-  message;
+  message=" ";
+  fileToUpload: File = null;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,6 +42,11 @@ export class ThesisCreateComponent implements OnInit {
 
   get f() { return this.createThesisForm.controls; }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+
   onSubmit() {
     if (this.createThesisForm.invalid) {
       console.log("invalid form")
@@ -54,17 +61,25 @@ export class ThesisCreateComponent implements OnInit {
     this.professorService.postThesis(this.thesis)
     .subscribe(
       (data:any) => {
+        this.message="loading"
         console.log(data)
-         this.message=data.message
-          setTimeout(() =>  {
+         console.log(data)
+         this.professorService.postPdfThesis(this.fileToUpload,data.thesis._id)
+         .subscribe(
+           (result:any) => {
+             console.log(result)
+             this.message="success"
               this.router.navigate(['../professor/thesis'], { relativeTo: this.route})
-          }
-          ,1500);
+           }
+         )
+         
       },
       error => {
         console.log(error)
           this.alertService.error(error);
       });
     }
+
+    
 
 }
