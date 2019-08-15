@@ -86,13 +86,7 @@ export class ProfessorService {
             .pipe(map(() => { return true; }))
     }
 
-    getFilesThesis(ThesisId) {
-        return this.http.get(environment.apiUrl+`/professor/thesis/${ThesisId}/pdf`);
-    }
-    
-    getFile(FileId) {
-        return this.http.get(environment.apiUrl+`/professor/thesis/pdf/${FileId}`);
-    }
+  
 
     //update current thesis
     putThesis(id,thesis) {
