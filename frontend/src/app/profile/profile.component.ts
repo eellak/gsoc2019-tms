@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
     user:any={};
     loading=false;
+    isLoaded;
 
   constructor( private router: Router,
     private authenticationService: AuthenticationService,
@@ -30,6 +31,8 @@ export class ProfileComponent implements OnInit {
             //this.alertService.success('Get user information successful', true);
             this.user=data.userData;
             console.log(this.user);
+            this.loading=false;
+            this.isLoaded=true;
         },
         error => {
             this.alertService.error(error);

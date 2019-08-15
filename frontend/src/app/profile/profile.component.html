@@ -1,11 +1,10 @@
-<div class="container">
+<div class="container" *ngIf="user!=null && isLoaded">
         <div class="row">
                  <div class="well well-sm">
                     <div class="row">
                         <div class="col-sm-6 col-md-8 " >
                         <h3>User Information</h3>
                         <br>
-                        <p *ngIf="user!=null">
                             <dl > <dt>User Id: </dt> <dd><i class="material-icons">person</i> {{user.userId}} </dd> </dl>
                             <br/>
                             <dl> <dt>Email: </dt> <dd><i class="material-icons">email</i> {{user.email}} </dd> </dl>
@@ -21,3 +20,5 @@
                 </div>
         </div>
 </div>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
