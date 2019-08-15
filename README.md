@@ -39,7 +39,7 @@
 
 <h2> Contributors </h2>
  
- - Google Summer of Code participant: Michail Chatzianastasis
+ - Google Summer of Code participant: [Michail Chatzianastasis](https://github.com/MichailChatzianastasis)
  - Mentor: Theodoros Karounos
  - Mentor: Iraklis Varlamis
  - Organization: [GFOSS](https://gfoss.eu/)
