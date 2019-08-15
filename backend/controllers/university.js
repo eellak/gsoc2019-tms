@@ -35,6 +35,20 @@ exports.get_all=(req,res,next) => {
         })
   }
 
+  exports.get_all_noPages=(req,res,next) => {
+      University.find()
+        .exec()
+        .then(docs => {
+          res.status(200).json(docs);
+      })
+        .catch(err => {
+          console.log(err+"wjat");
+          res.status(500).json({
+            error: err
+          });
+        })
+  }
+
   exports.get_byId= (req,res,next) => {
     University.findById({_id:req.params.universityId})
       .exec()
