@@ -10,8 +10,7 @@ const thesisSchema = mongoose.Schema({
     prerequisites: String,
     tags: [String],
     created_time: Date,
-    data: Buffer, // to store pdf file
-    file_name: String, // pdf name file
+    file: {type: mongoose.Schema.Types.ObjectId, ref:'FileThesis'},
     assigned: Boolean, // true if it is assigned to some student
     university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     professor: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
