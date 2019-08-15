@@ -56,6 +56,7 @@ export class ProfessorAssignedComponent implements OnInit {
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
+        this.loading=false;
         for(let i=0;i<this.count;i++) {
           this.getDrafts(this.sortedData[i]._id,i)
         }
