@@ -16,6 +16,7 @@
         <th mat-sort-header="university" class="table_header"><i class="material-icons">school</i>Proposed University</th>
           <th class="table_header">Prerequisites</th>
           <th class="table_header" mat-sort-header="pending">Valid</th>
+          <th class="table_header" >Edit</th>
           <th class="table_header">Delete</th>
 
        </tr>
@@ -28,6 +29,12 @@
           <td>{{thesis.prerequisites}}</td>
           <td align="center" *ngIf="!thesis.pending"> <i class="material-icons accepted">done</i> </td> 
           <td align="center" *ngIf="thesis.pending"> <i class="material-icons not_accepted">clear</i> </td>
+          <td>
+            <a [routerLink]="['/external/thesis_edit',thesis._id]" > 
+              <button class="btn btn-default edit">  <i class="material-icons ">edit</i> Edit Thesis
+              </button>
+            </a>
+          </td>          
           <td><button class="btn btn-default" (click)="deletePending(thesis)"><i class="material-icons">delete_forever</i></button></td>
  
       </tr>

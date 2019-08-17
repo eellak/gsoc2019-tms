@@ -15,7 +15,7 @@ export class ExternalCreatePendingComponent implements OnInit {
   createThesisForm: FormGroup;
   description;
   thesis = {};
-  message;
+  message=" ";
   fileToUpload: File = null;
   universities;
 
