@@ -1,6 +1,6 @@
  <!--Admin sidenav -->
 
- <div class="navbar navbar-default navbar-fixed-left" *ngIf="isAdmin()">
+ <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Admin'">
   <ul class="nav navbar-nav">
       <li routerLinkActive="active">
           <a routerLink="/admin/user">Get Users</a> 
@@ -14,7 +14,7 @@
 </div>
 
 <!--Professor sidenav -->
-<div class="navbar navbar-default navbar-fixed-left" *ngIf="isProfessor()">
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Professor'">
         <ul class="nav navbar-nav">
             <li routerLinkActive="active">
                 <a routerLink="/professor/thesis">My Theses</a>
@@ -32,7 +32,7 @@
 </div>
 
 <!--Student sidenav -->
-<div class="navbar navbar-default navbar-fixed-left" *ngIf="isStudent()">
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Student'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
             <a routerLink="/student/thesis">Available Theses</a>
@@ -41,9 +41,21 @@
             <a routerLink="/student/requests">My Requests for Thesis</a> 
         </li> 
         <li routerLinkActive="active">
-          <a routerLink="/student/pending">Pending Theses</a>
+          <a routerLink="/student/pending">Propose Thesis</a>
         </li>
             
     </ul>
 </div>
  
+
+<!--External sidenav -->
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='External'">
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/external/thesis">My Theses</a>
+        </li>     
+        <li routerLinkActive="active">
+            <a routerLink="/external/create_pending"> Create Thesis </a>
+        </li>           
+    </ul>
+</div>
