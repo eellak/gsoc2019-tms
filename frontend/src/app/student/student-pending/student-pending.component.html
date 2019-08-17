@@ -1,13 +1,20 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
 <div *ngIf="count>0">
   <table *ngIf="count>0" class="table table-striped table-bordered users" matSort (matSortChange)="sortData($event)" >
-    <caption> <h3>Pending Theses Results </h3>
-      <h4>You have proposed these theses to your university</h4>
+    
+    <caption>
+      <mat-card> 
+      <h3>Pending Theses Results </h3>
+      <h4>You have proposed these theses to your university:</h4>
+    </mat-card>
     </caption>
     <thead > 
       <tr>
         <th  mat-sort-header="created_time" class="table_header"> <i class="material-icons">date_range</i>Created Time</th>
         <th mat-sort-header="title" class="table_header"><i class="material-icons">title</i>Title</th>
           <th class="table_header">Prerequisites</th>
+          <th class="table_header" mat-sort-header="pending">Valid</th>
           <th class="table_header">Delete</th>
        </tr>
     </thead>
@@ -16,23 +23,26 @@
         <td>{{thesis.created_time | date}}</td>
         <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
           <td>{{thesis.prerequisites}}</td>
+          <td align="center" *ngIf="!thesis.pending"> <i class="material-icons accepted">done</i> </td> 
+          <td align="center" *ngIf="thesis.pending"> <i class="material-icons not_accepted">clear</i> </td>
           <td><button class="btn btn-default" (click)="deletePending(thesis)"><i class="material-icons">delete_forever</i></button></td>
  
       </tr>
     </tbody>
   </table>
-
-  <br>
+  
   <div>
       <a [routerLink]="['/student/create_pending']" > <button class="btn btn-success" ><i class="material-icons add ">add</i> Create Pending Thesis</button></a>
-    </div>
-  
+  </div>
   
   
 <br>
 <br>
-<h4 *ngIf="acceptedCount>0" >Pending theses accepted from professors:</h4>
-
+<br>
+<br>
+<mat-card>
+  <h4 *ngIf="acceptedCount>0" >These unvalid pending theses were accepted from professors. To make them valid for assigning please press the Confirm Thesis button.</h4>
+</mat-card>
 <table *ngIf="acceptedCount>0" class="table table-striped table-bordered users" matSort (matSortChange)="sortAcceptedData($event)" >
   <caption></caption>
    <thead > 
@@ -52,16 +62,16 @@
     </tr>
   </tbody>
 </table>
-
-<h3 *ngIf="acceptedCount==0">No one professor has accepted your pending theses</h3>
+ 
+<h3 *ngIf="acceptedCount==0">No one professor has accepted your invalid pending theses</h3>
 
 </div>
 
 <br>
 
-
-<h3 *ngIf="count==0 && loading==false">You have not proposed any theses to your university!</h3>
-
+<mat-card>
+  <h3 *ngIf="count==0 && loading==false">You have not proposed any theses to your university!</h3>
+</mat-card>
 
 
 

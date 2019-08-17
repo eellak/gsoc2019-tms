@@ -488,7 +488,7 @@ exports.accept_pending= (req,res,next) => {
           pending_thesis
           .save()
           .then(docs => {
-            res.status(200).json(docs)
+             res.status(200).json(docs)
           })
         }
         else

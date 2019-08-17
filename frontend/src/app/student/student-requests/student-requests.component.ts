@@ -32,6 +32,7 @@ export class StudentRequestsComponent implements OnInit {
 
     
   ngOnInit() {
+    this.loading=true;
     this.getRequests(1);
     this.checkAssigned();
   }
@@ -56,7 +57,6 @@ export class StudentRequestsComponent implements OnInit {
 
   
   getRequests(page) {
-    this.loading=true;
     this.studentService.getRequests(page)
     .subscribe(
      (data:any) => {

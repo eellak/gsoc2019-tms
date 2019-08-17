@@ -28,6 +28,7 @@ export class StudentAssignedComponent implements OnInit {
 
 
   ngOnInit() {
+    this.loading=true;
     this.getThesis()
   }
 
@@ -72,6 +73,7 @@ export class StudentAssignedComponent implements OnInit {
            this.assigned=data[0];
            this.isLoaded=true;
            console.log(data)
+           this.loading=false;
          
       },
       error => {

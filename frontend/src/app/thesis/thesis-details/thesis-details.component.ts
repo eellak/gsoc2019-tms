@@ -37,6 +37,7 @@ export class ThesisDetailsComponent implements OnInit , OnDestroy{
              ) {}
 
   ngOnInit() {
+    this.loading=true;
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'];
       this.sharedService.getThesisById(this.id)
@@ -75,7 +76,7 @@ export class ThesisDetailsComponent implements OnInit , OnDestroy{
 
    getFiles() {
     this.loading=true;
-    this.professorService.getFilesThesis(this.id)
+    this.sharedService.getFilesThesis(this.id)
     .subscribe(
       (files:any) => {
            console.log(files)
@@ -111,7 +112,7 @@ export class ThesisDetailsComponent implements OnInit , OnDestroy{
 
   downloadDraft(file) {
       this.loading=true;
-       this.professorService.getFile(file._id)
+       this.sharedService.getFile(file._id)
       .subscribe(
         (file:any) => {
            console.log("Returned file"+file.file_name)

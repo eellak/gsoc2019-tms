@@ -147,7 +147,7 @@ exports.apply_thesis= (req,res,next) => {
  
     
     exports.get_request= (req,res,next) => {
-        var perPage = 6
+        var perPage = 5
         var page = req.query.page || 1
         var count;
         var query= {student:req.userData.userId}
@@ -441,6 +441,7 @@ exports.create_pending= (req,res,next) => {
       created_time: req.body.thesis.created_time,
       completed: false,
       pending: true,
+      assigned:false,
       university: req.body.thesis.university,       // student should add university 
       creator_student: req.userData.userId
     });
@@ -450,6 +451,7 @@ exports.create_pending= (req,res,next) => {
         console.log(result);
         res.status(201).json({
           message: "Created thesis successfully",
+          thesis:result
         })
         })
       .catch(err => {

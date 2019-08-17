@@ -21,6 +21,7 @@ export class StudentThesisComponent implements OnInit {
   sortedData:any=[];
   message=' ';
   assigned=false;
+  university;
 
   constructor( private router : Router
               ,private authenticationService: AuthenticationService,
@@ -30,8 +31,10 @@ export class StudentThesisComponent implements OnInit {
                private studentService:StudentService ) {}
 
   ngOnInit() {
+    this.loading=true;
+    this.university=localStorage.getItem('University')
     this.checkAssigned();
-    this.getTheses(1,localStorage.getItem('University'));
+    this.getTheses(1);
   }
 
   
@@ -54,8 +57,8 @@ export class StudentThesisComponent implements OnInit {
   }
 
   
-  getTheses(page,university) {
-    this.studentService.getTheses(page,university)
+  getTheses(page) {
+    this.studentService.getTheses(page,this.university)
     .subscribe(
      (data:any) => {
           //this.alertService.success('Get user information successful', true);
@@ -67,6 +70,7 @@ export class StudentThesisComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
      },
      error => {
          this.alertService.error(error);
@@ -103,7 +107,7 @@ checkApplied(thesis) {
               this.message=' ';
             }
             ,2000);
-            this.getTheses(this.pager.currentPage,localStorage.getItem('University'));
+            this.getTheses(this.pager.currentPage);
         },
         error => {
             this.alertService.error(error);

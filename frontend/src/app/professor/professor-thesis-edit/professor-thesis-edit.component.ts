@@ -1,15 +1,10 @@
-import { Component, OnInit, OnDestroy , ViewChild,NgZone} from '@angular/core';
-import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {take} from 'rxjs/operators';
-import { AuthenticationService } from '../../shared/services/authentication.service';
-import { SharedService } from '../../shared/services/shared.service';
+ 
 import { AlertService } from '../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
-import {MatFormFieldModule,MatLabel,MatFormFieldDefaultOptions} from '@angular/material/form-field';
-import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-import {AutosizeModule} from 'ngx-autosize';
-
+ 
 
 @Component({
   selector: 'app-professor-thesis-edit',
@@ -29,12 +24,9 @@ export class ProfessorThesisEditComponent implements OnInit {
   isLoaded:boolean;
    message
   constructor( 
-    private _ngZone: NgZone,
-    private router : Router,
-    private authenticationService: AuthenticationService,
-    private route: ActivatedRoute,
-    private sharedService:SharedService,
-    private professorService:ProfessorService,
+     private router : Router,
+     private route: ActivatedRoute,
+     private professorService:ProfessorService,
     private alertService:AlertService ) {}
     
  

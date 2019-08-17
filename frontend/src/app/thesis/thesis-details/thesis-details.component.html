@@ -1,6 +1,6 @@
 
  
-<div class="container">
+<div class="container-fluid">
   <div class="row">
            <div class="well well-sm">
               <div class="row">
@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div>
+<div *ngIf="files?.length>0">
     <mat-card [style.backgroundColor]="'rgb(175, 243, 255)'">
         <mat-card-title>Files for this thesis:</mat-card-title>
     </mat-card>
@@ -60,5 +60,9 @@
                 <p>Loading...</p>
                 <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
-
+</div>
+<mat-progress-bar *ngIf="loading" mode="indeterminate">
+    <p>Loading files...</p>
+</mat-progress-bar>
+<br><br>
 <br><br>

@@ -3,7 +3,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Thesis=require("../models/thesis");
 const External = require("../models/external");
-const Pending= require("../models/pending")
+const Pending= require("../models/pending");
+const FileThesis = require("../models/file_thesis");
+
+
 
 exports.user_signup = (req, res, next) => {
   External.find({ email: req.body.email })
@@ -97,17 +100,38 @@ exports.user_login = (req, res, next) => {
 
 
 exports.get_pending= (req,res,next) => {
-    Thesis.find({creator_external: req.userData.userId})
-    .exec()
-    .then(docs=> { 
-      if(docs) {
-        res.status(200).json(docs)
-      }
-      else {
-        res.status(404).json({
-          message: 'Not found'
+    var perPage = 5
+    var page = req.query.page || 1
+    var count;
+    var query={creator_external: req.userData.userId}
+    Thesis.countDocuments(query)
+    .then(result => {
+      count=result
+      Thesis.find(query)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .populate('university')
+      .exec()
+      .then(docs=> { 
+          if(docs!=null) {
+            var response= {
+              count: count,
+              pages: Math.ceil(count / perPage),
+              docs:docs 
+            }
+            res.status(200).json(response)
+         }
+        else {
+          res.status(404).json({
+            message: 'Not found'
+          })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error:err
         })
-      }
+      })
     })
     .catch(err => {
       res.status(500).json({
@@ -118,7 +142,7 @@ exports.get_pending= (req,res,next) => {
 
   
 exports.get_pending_byId= (req,res,next) => {
-      Thesis.find({creator_external: req.userData.userId , _id:req.params.pendingId})
+      Thesis.find({creator_external: req.userData.userId , _id:req.params.pendingId , pending:true})
       .exec()
       .then(docs=> {
         if(docs) {
@@ -140,14 +164,15 @@ exports.get_pending_byId= (req,res,next) => {
 exports.create_pending= (req,res,next) => {
   const thesis = new Thesis({
     _id: new mongoose.Types.ObjectId(),
-    title: req.body.title,
-    description: req.body.description,
-    prerequisites: req.body.prerequisites,
-    tags: req.body.tags,
-    created_time: req.body.created_time,
+    title: req.body.thesis.title,
+    description: req.body.thesis.description,
+    prerequisites: req.body.thesis.prerequisites,
+    tags: req.body.thesis.tags,
+    created_time: req.body.thesis.created_time,
     completed: false,
     pending: true,
-    university: req.body.university,       // external should add university 
+    assigned: false,
+    university: req.body.thesis.university,       // external should add university 
     creator_external: req.userData.userId
   });
   thesis
@@ -156,6 +181,7 @@ exports.create_pending= (req,res,next) => {
       console.log(result);
       res.status(201).json({
         message: "Created thesis successfully",
+        thesis:result
       })
       })
     .catch(err => {
@@ -166,10 +192,50 @@ exports.create_pending= (req,res,next) => {
     });
 };
 
+exports.post_pdf=(req,res,next) => {
+  const file_thesis = new FileThesis ({
+      _id: new mongoose.Types.ObjectId(),
+      file_name: req.files.pdf.name,
+      file_data: req.files.pdf.data,
+      thesis: req.params.thesisId
+  });
+  file_thesis
+  .save()
+  .then(result => {
+    console.log(result)
+    Thesis.findById(req.params.thesisId)
+    .updateOne({file:result._id})
+    .exec()
+    .then( result => {
+      if(result!=null)
+        res.status(200).json(result)
+      else {
+        res.status(404).json({
+          message:"Error in post_pdf"
+        })
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
+    });
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+      error: err
+    });
+  });
+};
+
+
 exports.get_accepted =(req,res,next) => {
   Pending.find({creator: req.userData.userId})
   .populate('thesis')
   .populate({path: 'professor' , select:'name lastname'  })
+  .populate('university')
   .exec()
   .then(docs=> { 
     if(docs) {

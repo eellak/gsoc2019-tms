@@ -1,12 +1,9 @@
-import { MatDividerModule , MatCardModule, MatProgressBarModule} from '@angular/material';
-import { ProfessorService } from './../../shared/services/professor.service';
+ import { ProfessorService } from './../../shared/services/professor.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { first } from 'rxjs/operators';
-import { AlertService } from '../../shared/services/alert.service';
-import {AuthenticationService} from '../../shared/services/authentication.service';
-
+ import { AlertService } from '../../shared/services/alert.service';
+ 
 @Component({
   selector: 'app-thesis-create',
   templateUrl: './thesis-create.component.html',
@@ -24,8 +21,7 @@ export class ThesisCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
-    private alertService: AlertService,
+     private alertService: AlertService,
     private professorService:ProfessorService
   ) { }
 

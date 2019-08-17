@@ -1,4 +1,5 @@
-import { StudentCreatePendingComponent } from './student/student-create-pending/student-create-pending.component';
+import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
+import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
 
 
 import { NgModule, Component } from '@angular/core';
@@ -11,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './shared/guards/admin.guard';
+import {ExternalGuard} from './shared/guards/external.guard';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { LoginGuard } from './shared/guards/login.guard';
 import {AuthGuard} from './shared/guards/auth.guard';
@@ -36,7 +38,8 @@ import { StudentThesisComponent } from './student/student-thesis/student-thesis.
 import { StudentRequestsComponent } from './student/student-requests/student-requests.component';
 import { StudentPendingComponent } from './student/student-pending/student-pending.component';
 import { StudentAssignedComponent } from './student/student-assigned/student-assigned.component';
-
+import { ExternalComponent } from './external/external.component';
+import { StudentCreatePendingComponent } from './student/student-create-pending/student-create-pending.component';
 
 
 
@@ -78,6 +81,19 @@ const routes: Routes = [
       { path:'create_pending',component:StudentCreatePendingComponent, pathMatch:'full'}
     ] 
   },
+
+  { path: 'external' , component:ExternalComponent, canActivate: [ExternalGuard],
+    children :[
+      { path:'thesis' , component:ExternalThesisComponent, pathMatch:'full'},
+      { path:'create_pending',component:ExternalCreatePendingComponent, pathMatch:'full'}
+
+    ]
+
+
+
+  },
+
+
 
 
   // otherwise redirect to home

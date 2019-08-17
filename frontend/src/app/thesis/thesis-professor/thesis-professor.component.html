@@ -1,14 +1,16 @@
-<h3>Theses of Professor {{theses[0]?.professor.name}}  {{theses[0]?.professor.lastname}} </h3> 
+<mat-card>
+    <h3>Theses of Professor {{theses[0]?.professor.name}}  {{theses[0]?.professor.lastname}}: </h3> 
+</mat-card>
 
 <table class="table table-striped users">
   <thead> 
       <caption> <h3> Results </h3></caption>
       <tr>
-      <th>Created Time</th>
-      <th>Title</th>
-      <th>University</th>
-      <th>Professor</th>
-      <th>Prerequisites</th>
+      <th class="table_header">Created Time</th>
+      <th class="table_header">Title</th>
+      <th class="table_header">University</th>
+      <th class="table_header">Professor</th>
+      <th class="table_header">Prerequisites</th>
     </tr>
   </thead>
   <tbody *ngIf="theses!=null">

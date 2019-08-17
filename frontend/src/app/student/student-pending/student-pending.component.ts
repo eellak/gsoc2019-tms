@@ -1,7 +1,6 @@
 import { Router,ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
-import { ProfessorService } from './../../shared/services/professor.service';
 import {Sort} from '@angular/material/sort';
 import { StudentService } from './../../shared/services/student.service';
 
@@ -29,6 +28,7 @@ export class StudentPendingComponent implements OnInit {
               { }
 
   ngOnInit() {
+    this.loading=true;
     this.getPendingThesis(1);
     this.getAcceptedPendings();
   }
@@ -58,11 +58,12 @@ export class StudentPendingComponent implements OnInit {
     (data:any) => {
       console.log(data)
          this.sortedData=data.docs;
-         this.loading=false;
         this.count=data.count;
         this.pager.count=data.count;
         this.pager.pages= data.pages;
         this.pager.currentPage=page;
+        this.loading=false;
+
     },
     error => {
         this.alertService.error(error);
@@ -94,6 +95,7 @@ export class StudentPendingComponent implements OnInit {
         case 'title': return this.compare(a.title, b.title, isAsc);
         case 'student': return this.compare(a.student.lastname, b.student.lastname, isAsc);
         case 'apply': return this.compare(a.applied, b.applied, isAsc);
+        case 'pending': return this.compare(a.applied, b.applied, isAsc);
         default: return 0;
       }
     });
