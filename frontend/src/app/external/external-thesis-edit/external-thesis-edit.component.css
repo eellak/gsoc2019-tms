@@ -5,8 +5,13 @@
  
 
 .text {
-    width: 100%;
+  width: 100%;
   padding: 3px;
   margin: 8px 0;
   box-sizing: border-box;
+}
+
+.itemlist {
+  text-align:'center';
+  cursor:pointer;
 }
