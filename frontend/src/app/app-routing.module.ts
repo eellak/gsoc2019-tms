@@ -1,3 +1,4 @@
+import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
 import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
 import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
 
@@ -85,7 +86,8 @@ const routes: Routes = [
   { path: 'external' , component:ExternalComponent, canActivate: [ExternalGuard],
     children :[
       { path:'thesis' , component:ExternalThesisComponent, pathMatch:'full'},
-      { path:'create_pending',component:ExternalCreatePendingComponent, pathMatch:'full'}
+      { path:'create_pending', component:ExternalCreatePendingComponent, pathMatch:'full'},
+      { path:'thesis_edit/:id' , component:ExternalThesisEditComponent , pathMatch:'full' }
 
     ]
 
