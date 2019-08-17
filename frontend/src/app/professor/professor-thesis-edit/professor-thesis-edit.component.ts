@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
- 
 import { AlertService } from '../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
  
@@ -74,9 +73,10 @@ export class ProfessorThesisEditComponent implements OnInit {
       )
    }
 
-   onCancel() {
-
-   }
+    onCancel() {
+      this.ngOnInit();
+    }
+    
   ngOnDestroy() {
     this.routeSub.unsubscribe();
   }
