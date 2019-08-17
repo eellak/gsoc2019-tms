@@ -142,10 +142,12 @@ exports.get_pending= (req,res,next) => {
 
   
 exports.get_pending_byId= (req,res,next) => {
-      Thesis.find({creator_external: req.userData.userId , _id:req.params.pendingId , pending:true})
+      Thesis.find({creator_external: req.userData.userId , _id:req.params.pendingId})
+      .populate('university')
       .exec()
       .then(docs=> {
         if(docs) {
+          console.log(docs)
           res.status(200).json(docs)
         }
         else {
@@ -334,4 +336,52 @@ exports.delete_all_pendings = (req,res,next) => { console.log('inside delete')
     });
   })
 
+}
+
+exports.update_thesis=(req,res,next) => {
+  updateObj={};
+  if(req.body.thesis.title!=null)
+      updateObj['title']=req.body.thesis.title
+  if(req.body.thesis.description!=null)
+      updateObj['description']=req.body.thesis.description
+  if(req.body.thesis.prerequisites!=null)
+      updateObj['prerequisites']=req.body.thesis.prerequisites
+  if(req.body.thesis.tags!=null)
+      updateObj['tags']=req.body.thesis.tags
+  Thesis.findOneAndUpdate({_id:req.params.thesisId,creator_external:req.userData.userId},updateObj,{new:true})
+  .exec()
+  .then(result => {
+    if(result!=null) {
+      res.status(200).json(result)
+    }
+    else 
+      res.status(404).json({message : 'Not found'})
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(500).json({error:err})
+  })
+}
+
+exports.delete_file= (req,res,next) => {
+  Thesis.find({_id:req.params.thesisId, creator_external:req.userData.userId })
+  .exec()
+  .then(result => {
+    console.log("inside")
+    console.log(result)
+    if(result.length>0) {
+          FileThesis.deleteOne({_id:req.params.fileId ,thesis:result[0]._id,})
+          .exec()
+          .then(doc => {
+            if(doc.deletedCount>0) {
+              res.status(200).json(doc)
+          }
+          else {
+            res.status(404).json({
+              message: 'Error in delete'
+            })
+          }
+           })
+        }
+  })
 }
