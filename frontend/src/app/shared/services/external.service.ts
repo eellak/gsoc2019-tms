@@ -43,13 +43,22 @@ export class ExternalService {
    }
 
    postPdfThesis(fileToUpload: File, ThesisId): Observable<boolean> {
-    const endpoint = environment.apiUrl+`/external/thesis/pdf/${ThesisId}`;
+    const endpoint = environment.apiUrl+`/external/thesis/file/${ThesisId}`;
     const formData: FormData = new FormData();
     formData.append('pdf', fileToUpload, fileToUpload.name);
     return this.http
         .post(endpoint, formData,{responseType:'arraybuffer' as 'json'})
         .pipe(map(() => { return true; }))
-}
+    }
+
+    //update  thesis
+    putThesis(id,thesis) {
+        return this.http.put(environment.apiUrl+`/external/thesis/${id}`,{thesis:thesis});
+    }
+
+    deleteFile(thesisId,fileId) {
+        return this.http.delete(environment.apiUrl+`/external/file/${thesisId}/${fileId}`)
+    }
  
 
 
