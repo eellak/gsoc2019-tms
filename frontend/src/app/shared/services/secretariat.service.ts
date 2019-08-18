@@ -18,5 +18,9 @@ export class SecretariatService {
     getStudents_not_assigned() {
         return this.http.get(environment.apiUrl+`/secretariat/get_students_not_assigned`);
     }
+
+    getProfessors(page) {
+        return this.http.get(environment.apiUrl+`/secretariat/get_professors?page=${page}`);
+    }
     
 }
