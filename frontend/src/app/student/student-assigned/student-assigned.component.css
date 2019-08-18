@@ -46,6 +46,23 @@ dl {
     font-size:16px
 }
 
+P {
+    font-size:16px;
+}
+
 #file {
     font-size:16px
+}
+
+.completed {
+    color:rgb(8, 105, 8);
+    cursor:pointer;
+}
+
+.not_completed {
+    color:red
+}
+
+.material-icons {
+    font-size:30px;
 }

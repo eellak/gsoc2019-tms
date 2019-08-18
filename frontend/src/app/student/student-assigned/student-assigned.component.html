@@ -10,43 +10,55 @@
                         <dd>
                             <i class="material-icons">date_range</i> {{assigned.created_time | date}} </dd>
                     </dl>
-                    <br/>
+                    <br>
+                    <dl>
+                        <dt>Completed:</dt>
+                        <dd class="not_completed" *ngIf="!assigned.completed">
+                            <i class="material-icons">clear</i> </dd>
+                        <dd (click)="downloadCompletedThesis()" class="completed" *ngIf="assigned.completed && fileLoaded">
+                            <i class="material-icons">done</i> {{completedThesis.file_name}} </dd> 
+                        <br>
+                    </dl>
                     <dl>
                         <dt>Title: </dt>
                         <dd>
                             <i class="material-icons">title</i>{{assigned.thesis?.title}} </dd>
                     </dl>
-                    <br/>
+                    <br>
                     <dl>
                         <dt>Professor:</dt>
                         <td>
                             <i class="material-icons">person</i>
-                            <a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}} {{assigned.professor.lastname}} </a>
+                            <a [routerLink]="['/thesis_professor',assigned.professor._id]">{{assigned.professor.name}}
+                                {{assigned.professor.lastname}} </a>
                         </td>
                     </dl>
-                    <br/>
+                    <br>
                     <dl *ngIf="creator_student!=null">
                         <dt>Creator Student:</dt>
-                        <dd>{{assigned.thesis.creator_student?.name}} {{assigned.thesis.creator_student?.lastname}} </dd>
-                        <br/>
+                        <dd>{{assigned.thesis.creator_student?.name}} {{assigned.thesis.creator_student?.lastname}}
+                        </dd>
+                        <br />
                     </dl>
                     <dl *ngIf="creator_external!=null">
                         <dt>Creator External:</dt>
-                        <dd>{{assigned.thesis.creator_external?.name}} {{assigned.thesis.creator_external?.lastname}} </dd>
-                        <br/>
+                        <dd>{{assigned.thesis.creator_external?.name}}
+                            {{assigned.thesis.creator_external?.lastname}}
+                        </dd>
+                        <br>
                     </dl>
                     <dl>
                         <dt>Description:</dt>
                         <dd>
                             <i class="material-icons">description</i>{{assigned.thesis?.description}} </dd>
                     </dl>
-                    <br/>
+                    <br>
                     <dl>
                         <dt>Prerequisites:</dt>
                         <dd>
                             <i class="material-icons">short_text</i>{{assigned.thesis?.prerequisites}} </dd>
                     </dl>
-                    <br/>
+                    <br>
                     <dl>
                         <dt>University:</dt>
                         <dd>
@@ -63,59 +75,102 @@
 
 <div *ngIf="count==0 && isLoaded==true">
     <mat-card>
-    <h3>
-        You have not been assigned to a thesis!
-    </h3> 
+        <h3>
+            You have not been assigned to a thesis!
+        </h3>
     </mat-card>
 </div>
 
- 
+<div *ngIf="!assigned.completed">
 
-<div class="centered" *ngIf="count>0">
-    <div class="columns">
-        <h3>Draft upload</h3>
+    <div class="centered" *ngIf="count>0">
+        <div class="columns">
+            <h3>Draft upload</h3>
             <div class="form-group" id="uploadDraft">
-                    <label for="file" id="file">Choose File<i class="material-icons">attach_file</i> </label>
-                         <input type="file"
-                            id="file"
-                            (change)="handleFileInput($event.target.files)">
-                        <br>
-                     <button class="btn btn-success btn-lg" (click)="uploadFileToActivity()" [disabled]="!fileToUpload"> Upload </button> 
-                    <div *ngIf="message==' '">   
-                        <br><br>
-                    </div>
-                    <div *ngIf="message=='loading' ">
-                        <p>Draft is uploading...</p>
-                    </div>
-                    <div *ngIf="message=='success' " class="message">
-                        <p>Draft uploaded successfully!</p>
-                        <br>
-                    </div>
+                <label for="file" id="file">Choose File<i class="material-icons">attach_file</i> </label>
+                <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+                <br>
+                <button class="btn btn-success btn-lg" (click)="uploadFileToActivity()" [disabled]="!fileToUpload">
+                    Upload
+                </button>
+                <div *ngIf="message==' '">
+                    <br><br>
+                </div>
+                <div *ngIf="message=='loading' ">
+                    <p>Draft is uploading...</p>
+                </div>
+                <div *ngIf="message=='success' " class="message">
+                    <p>Draft uploaded successfully!</p>
                     <br>
+                </div>
+                <br>
             </div>
-        <br>
-        <div id="getDrafts">
-                <button class="btn btn-success btn-lg" (click)="getDrafts()" > Show my drafts</button> 
+            <br>
+            <div id="getDrafts">
+                <button class="btn btn-success btn-lg" (click)="getDrafts()"> Show my drafts</button>
                 <br><br>
-                <table class="table table-striped table-bordered users" *ngIf="drafts" matSort (matSortChange)="sortData($event)">
-                    <thead> 
+                <table class="table table-striped table-bordered users" *ngIf="drafts" matSort
+                    (matSortChange)="sortData($event)">
+                    <thead>
                         <tr>
-                            <th mat-sort-header="draft" class="table_header"><i class="material-icons">book</i>Draft</th> 
-                            <th mat-sort-header="created_time" class="table_header"><i class="material-icons">date_range</i> Created Time</th>
+                            <th mat-sort-header="draft" class="table_header"><i class="material-icons">book</i>Draft
+                            </th>
+                            <th mat-sort-header="created_time" class="table_header"><i
+                                    class="material-icons">date_range</i>
+                                Created Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let draft of drafts">
-                            <a class="item"> <td class="itemlist" (click)="downloadDraft(draft)">{{draft.name}} </td></a> <td> {{draft.created_time | date}}</td>
+                            <a class="item">
+                                <td class="itemlist" (click)="downloadDraft(draft)">{{draft.name}} </td>
+                            </a>
+                            <td> {{draft.created_time | date}}</td>
                         </tr>
                     </tbody>
                 </table>
                 <br>
                 <br>
                 <div *ngIf="loading">
-                        <p>Loading...</p>
+                    <p>Loading...</p>
                 </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <hr>
+    <div class="centered ">
+        <div class="row">
+            <div class="col-sm-6 col-md-8 ">
+                <h3>Submit complete thesis</h3>
+                <div class="form-group" id="uploadDraft">
+                    <label for="file_thesis" id="file_thesis">Choose File<i class="material-icons">attach_file</i>
+                    </label>
+                    <input type="file" id="file_thesis" (change)="handleThesisInput($event.target.files)">
+                    <br>
+                    <button class="btn btn-success btn-lg" (click)="uploadThesisToActivity()"
+                        [disabled]="!thesisToUpload">
+                        Upload </button>
+                    <div *ngIf="message2==' '">
+                        <br><br>
+                    </div>
+                    <div *ngIf="message2=='loading' ">
+                        <p>File is uploading...</p>
+                    </div>
+                    <div *ngIf="message2=='success' " class="message">
+                        <p>File uploaded successfully!</p>
+                        <p>You have completed your thesis!!</p>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
+<br>
+<br>

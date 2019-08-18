@@ -19,6 +19,10 @@ export class StudentAssignedComponent implements OnInit {
   message=' ';
   drafts;
   loading;
+  thesisToUpload:File =null;
+  message2= ' ';
+ completedThesis= null;
+ fileLoaded=false;;
 
   constructor(private studentService:StudentService, 
     private alertService:AlertService,
@@ -30,7 +34,7 @@ export class StudentAssignedComponent implements OnInit {
   ngOnInit() {
     this.loading=true;
     this.getThesis()
-  }
+    }
 
   compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -52,6 +56,10 @@ export class StudentAssignedComponent implements OnInit {
     this.fileToUpload = files.item(0);
   }
 
+  handleThesisInput(files: FileList) {
+    this.thesisToUpload = files.item(0);
+  }
+
   uploadFileToActivity() {
     this.message="loading";
     this.studentService.postDraft(this.fileToUpload,this.assigned._id)
@@ -59,6 +67,19 @@ export class StudentAssignedComponent implements OnInit {
       data => {
         console.log(data)
         this.message="success";
+       }, 
+       error => {
+        console.log(error);
+      });
+  }
+
+  uploadThesisToActivity() {
+    this.message2="loading";
+    this.studentService.postCompletedFile(this.thesisToUpload,this.assigned._id)
+    .subscribe(
+      data => {
+        console.log(data)
+        this.message2="success";
        }, 
        error => {
         console.log(error);
@@ -73,6 +94,9 @@ export class StudentAssignedComponent implements OnInit {
            this.assigned=data[0];
            this.isLoaded=true;
            console.log(data)
+           if(this.assigned.completed) {
+            this.getCompletedThesis()
+           }
            this.loading=false;
          
       },
@@ -131,6 +155,25 @@ export class StudentAssignedComponent implements OnInit {
               this.alertService.error(error);
            });
       }
+
+      getCompletedThesis() {
+         this.studentService.getCompletedThesisById(this.assigned._id)
+        .subscribe(
+          (completedThesis:any) => {
+             console.log(completedThesis)
+             this.completedThesis=completedThesis[0]
+             this.fileLoaded=true;
+            },
+            error => {
+                this.alertService.error(error);
+          })
+      }
+
+      downloadCompletedThesis() {
+              var byteArray = new Uint8Array(this.completedThesis.file_data.data);
+              this.createAndDownloadBlobFile(byteArray, this.completedThesis.file_name);
+             this.loading=false;
+     }
         
     }
  
