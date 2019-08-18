@@ -118,6 +118,19 @@ export class StudentService {
             .pipe(map(() => { return true; }))
     }
 
+    postCompletedFile(fileToUpload: File, assigendThesisId): Observable<boolean> {
+        const endpoint = environment.apiUrl+`/student/completed/${assigendThesisId}`;
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload, fileToUpload.name);
+        return this.http
+            .post(endpoint, formData,{responseType:'arraybuffer' as 'json'})
+            .pipe(map(() => { return true; }))
+    }
+
+    getCompletedThesisById(assignedThesisId) {
+        return this.http.get(environment.apiUrl+`/student/completed/${assignedThesisId}`)
+    }
+
 // get thesis he owns
     getThesis() {
         return this.http.get(environment.apiUrl+`/student/thesis`);
