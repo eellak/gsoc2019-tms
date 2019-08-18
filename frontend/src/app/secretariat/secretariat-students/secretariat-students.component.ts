@@ -26,25 +26,7 @@ export class SecretariatStudentsComponent implements OnInit {
      this.getStudents_not_assigned();
 
   }
-
-  compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-
-
-sortData(sort: Sort) {
-  const data = this.sortedData.slice();
-  this.sortedData = data.sort((a, b) => {
-    const isAsc = sort.direction === 'asc';
-     switch (sort.active) {
-      case 'name': return this.compare(a.name, b.name, isAsc);
-      case 'lastname': return this.compare(a.lastname, b.lastname, isAsc);
-      case 'email': return this.compare(a.email, b.email, isAsc);
-      default: return 0;
-    }
-  });
-
-}
+ 
 
 getStudents(page) {
   this.secretariatService.getStudents(page)
