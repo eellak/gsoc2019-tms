@@ -1,7 +1,7 @@
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginGuard } from './shared/guards/login.guard';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error.interceptor';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -52,6 +52,7 @@ import { ExternalThesisEditComponent } from './external/external-thesis-edit/ext
 import { SecretariatComponent } from './secretariat/secretariat.component';
 import { SecretariatStudentsComponent } from './secretariat/secretariat-students/secretariat-students.component';
 import { SecretariatProfessorsComponent } from './secretariat/secretariat-professors/secretariat-professors.component';
+import { CompletedThesisRepositoryComponent } from './completed-thesis-repository/completed-thesis-repository.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { SecretariatProfessorsComponent } from './secretariat/secretariat-profes
     ExternalThesisEditComponent,
     SecretariatComponent,
     SecretariatStudentsComponent,
-    SecretariatProfessorsComponent
+    SecretariatProfessorsComponent,
+    CompletedThesisRepositoryComponent
  
   ],
   imports: [
@@ -117,7 +119,8 @@ import { SecretariatProfessorsComponent } from './secretariat/secretariat-profes
  
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
-               {provide:HTTP_INTERCEPTORS, useClass:HttpErrorInterceptor,multi:true}
+               {provide:HTTP_INTERCEPTORS, useClass:HttpErrorInterceptor,multi:true},
+               Title
               ],
   bootstrap: [AppComponent]
 })
