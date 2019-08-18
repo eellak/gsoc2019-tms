@@ -87,6 +87,42 @@ exports.get_students=(req,res,next) => {
     })
 }
 
+exports.get_professors= (req,res,next) => {
+    var perPage = 6
+    var page = req.query.page || 1  
+    var count;
+    var query={role:'Professor' , university:req.userData.university}
+     User.countDocuments(query)
+    .then( result => {
+        count=result
+        User.find(query)
+        .select("email name lastname")
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .exec()
+        .then(docs => { 
+            if(docs!=null) {
+                const response = {
+                    docs:docs,
+                    count:count,
+                    pages: Math.ceil(count / perPage),
+                }
+             res.status(200).json(response);
+            }
+            else
+                res.status(404).json({
+                    message: 'No entries found'
+                })
+            })
+        })
+            .catch(err => {
+            console.log(err+"wjat");
+            res.status(500).json({
+                error: err
+            });
+            });
+        };
+
 exports.notify_student = (req, res, next) => {
     Student.findById({ _id: req.params.studentId , role:'Student' ,university:req.userData.university })
         .exec()
