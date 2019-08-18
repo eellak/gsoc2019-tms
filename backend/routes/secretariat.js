@@ -10,11 +10,11 @@ const checkAuth = require('../middleware/check-auth');
 router.all("/*",checkAuth,secretariatController.is_secretariat)
 
 
-router.get("/get_students",checkAuth,secretariatController.is_secretariat,secretariatController.get_students_not_assigned) //get students that have not assigned  a thesis
+router.get("/get_students",secretariatController.get_students_pages); //get all students
+router.get("/get_students_not_assigned",secretariatController.get_students) //get students seperated in assigned and not assigned to thesis
 
 
-router.post("/notify_student/:studentId",checkAuth,secretariatController.is_secretariat
-                                        ,secretariatController.notify_student);  //notify students that dont have assigned a thesis
+router.post("/notify_student/:studentId",secretariatController.notify_student);  //notify students that dont have assigned a thesis
 
 
 
