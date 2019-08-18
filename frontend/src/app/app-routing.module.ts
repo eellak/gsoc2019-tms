@@ -1,11 +1,3 @@
-import { SecretariatProfessorsComponent } from './secretariat/secretariat-professors/secretariat-professors.component';
-import { SecretariatStudentsComponent } from './secretariat/secretariat-students/secretariat-students.component';
-import { SecretariatGuard } from './shared/guards/secretariat.guard';
-import { SecretariatComponent } from './secretariat/secretariat.component';
-import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
-import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
-import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
-
 
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -45,6 +37,15 @@ import { StudentPendingComponent } from './student/student-pending/student-pendi
 import { StudentAssignedComponent } from './student/student-assigned/student-assigned.component';
 import { ExternalComponent } from './external/external.component';
 import { StudentCreatePendingComponent } from './student/student-create-pending/student-create-pending.component';
+import { CompletedThesisRepositoryComponent } from './completed-thesis-repository/completed-thesis-repository.component';
+import { SecretariatProfessorsComponent } from './secretariat/secretariat-professors/secretariat-professors.component';
+import { SecretariatStudentsComponent } from './secretariat/secretariat-students/secretariat-students.component';
+import { SecretariatGuard } from './shared/guards/secretariat.guard';
+import { SecretariatComponent } from './secretariat/secretariat.component';
+import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
+import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
+import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
+
 
 
 
@@ -54,9 +55,10 @@ const routes: Routes = [
   { path: 'login-external', component: LoginExternalComponent, canActivate: [LoginGuard] },
   { path: 'register-external', component: RegisterExternalComponent , canActivate: [LoginGuard] },
   { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard] },
+  { path: 'repository', component: CompletedThesisRepositoryComponent },
   { path:'thesis_details/:id' , component:ThesisDetailsComponent , pathMatch:'full' },
   { path:'thesis_professor/:id' , component:ThesisProfessorComponent , pathMatch:'full' },
-  { path:'thesis_create' , component:ThesisCreateComponent , pathMatch:'full' },
+  { path:'thesis_create' , component:ThesisCreateComponent , canActivate: [AuthGuard], pathMatch:'full' },
   { path: 'admin', component: AdminComponent , canActivate: [AdminGuard] , 
       children :[ 
         { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
