@@ -1,3 +1,7 @@
+import { SecretariatProfessorsComponent } from './secretariat/secretariat-professors/secretariat-professors.component';
+import { SecretariatStudentsComponent } from './secretariat/secretariat-students/secretariat-students.component';
+import { SecretariatGuard } from './shared/guards/secretariat.guard';
+import { SecretariatComponent } from './secretariat/secretariat.component';
 import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
 import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
 import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
@@ -88,11 +92,14 @@ const routes: Routes = [
       { path:'thesis' , component:ExternalThesisComponent, pathMatch:'full'},
       { path:'create_pending', component:ExternalCreatePendingComponent, pathMatch:'full'},
       { path:'thesis_edit/:id' , component:ExternalThesisEditComponent , pathMatch:'full' }
-
     ]
+  },
 
-
-
+  { path: 'secretariat' , component:SecretariatComponent, canActivate: [SecretariatGuard],
+    children :[
+      { path:'students' , component:SecretariatStudentsComponent, pathMatch:'full'},
+      { path:'professors' , component:SecretariatProfessorsComponent, pathMatch:'full'},
+    ]
   },
 
 

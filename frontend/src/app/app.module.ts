@@ -49,6 +49,9 @@ import { ExternalComponent } from './external/external.component';
 import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
 import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
 import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
+import { SecretariatComponent } from './secretariat/secretariat.component';
+import { SecretariatStudentsComponent } from './secretariat/secretariat-students/secretariat-students.component';
+import { SecretariatProfessorsComponent } from './secretariat/secretariat-professors/secretariat-professors.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +90,10 @@ import { ExternalThesisEditComponent } from './external/external-thesis-edit/ext
     ExternalComponent,
     ExternalThesisComponent,
     ExternalCreatePendingComponent,
-    ExternalThesisEditComponent
+    ExternalThesisEditComponent,
+    SecretariatComponent,
+    SecretariatStudentsComponent,
+    SecretariatProfessorsComponent
  
   ],
   imports: [
