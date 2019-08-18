@@ -6,11 +6,12 @@ const checkAuth = require('../middleware/check-auth');
 
 
 //url: /external
-router.all("/*",checkAuth)
 
 router.post("/signup", ExternalController.user_signup);
 
 router.post("/login", ExternalController.user_login);
+
+router.all("/*",checkAuth);
 
 router.get("/pending/accepted",ExternalController.get_accepted) // get all accepted pending thesis of userId (From different professors) returns from pending collection
 router.get("/pending/:pendingId",ExternalController.get_pending_byId); //get pending thesis by id
