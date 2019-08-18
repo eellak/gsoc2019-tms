@@ -59,3 +59,15 @@
         </li>           
     </ul>
 </div>
+
+<!--Secretariat sidenav -->
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Secretariat'">
+        <ul class="nav navbar-nav">
+            <li routerLinkActive="active">
+                <a routerLink="/secretariat/students">Students</a>
+            </li>     
+            <li routerLinkActive="active">
+                <a routerLink="/secretariat/professors"> Professors </a>
+            </li>           
+        </ul>
+    </div>

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
-import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, DoCheck } from '@angular/core';
+import {  Router, ActivatedRoute } from '@angular/router';
  
 import { AuthenticationService } from './../shared/services/authentication.service';
 import { SharedService } from './../shared/services/shared.service';
