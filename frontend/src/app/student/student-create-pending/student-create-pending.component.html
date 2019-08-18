@@ -1,4 +1,13 @@
-<h2>Create Thesis</h2>
+<mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+    <h2>Create a new Thesis</h2>
+    <mat-card-content>
+        <p>
+            Please complete the list below in order to create a new thesis. 
+         </p>
+    </mat-card-content>
+</mat-card>
+<br>
+<br>
 <br>
 <form [formGroup]="createThesisForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
