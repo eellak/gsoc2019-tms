@@ -2,8 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
 import {Sort} from '@angular/material/sort';
-import {MatCardModule} from '@angular/material';
-
+ 
 @Component({
   selector: 'app-professor-thesis',
   templateUrl: './professor-thesis.component.html',
