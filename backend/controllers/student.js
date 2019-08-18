@@ -7,6 +7,9 @@ const Pending= require("../models/pending")
 const Draft= require("../models/draft");
 const Time_period=require("../models/time_period");
 const Notification=require("../models/notification");
+const FileThesis= require("../models/file_thesis");
+const CompletedThesis = require("../models/completed_thesis");
+
 
                                         //check if student university is the same with thesis university
 
@@ -462,6 +465,41 @@ exports.create_pending= (req,res,next) => {
       });
   };
 
+  exports.post_completed_file=(req,res,next) => {
+      const file = new CompletedThesis({
+        _id: new mongoose.Types.ObjectId(),
+        file_data: req.files.file.data,
+        file_name:req.files.file.name,
+        created_time : new Date(),
+        thesis : req.params.assigned_thesisId
+      })
+      file
+      .save()
+      .then(result => {
+        if(result!=null ) {
+          console.log('File submited successfully')
+          Assigned_Thesis.updateOne({_id:req.params.assigned_thesisId},{completed:true})
+          .exec()
+          .then( doc => {
+              if(doc) {
+                res.status(200).json(result)
+              }
+          })
+          .catch(err => {
+            res.status(500).json({error:err})
+          })
+        }
+        else {
+          res.status(404).json({
+            message: 'Error in creation of file'
+          })
+        }
+      })
+      .catch(err => {
+        res.status(500).json({error:err})
+      })
+    }
+ 
 
   
 exports.get_accepted_pending =(req,res,next) => {
@@ -676,6 +714,26 @@ exports.post_draft=(req,res,next) => {
     else {
       res.status(404).json({
         message: 'Error in creation of draft'
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+exports.get_completed_file=(req,res,next) => {
+  console.log("inside")
+  CompletedThesis.find({thesis:req.params.assigned_thesisId})
+  .exec()
+  .then( result => {
+    if(result.length>0) {
+      res.status(200).json(result)
+    }
+    else {
+      console.log("eeeeeeeeeeee")
+      res.status(404).json({
+        message: "Not found"
       })
     }
   })

@@ -31,6 +31,8 @@ router.post("/pending",studentController.create_pending); //create pending thesi
 router.delete("/pending/:thesisId",studentController.delete_pending) //delete pending thesis
 
 router.get("/thesis",studentController.get_thesis); //get thesis student
+router.post("/completed/:assigned_thesisId",studentController.post_completed_file)  // post completed thesis file
+router.get("/completed/:assigned_thesisId",studentController.get_completed_file)    //get completed thesis file
 
 router.get("/draft/:assigned_thesisId",studentController.check_thesis,studentController.get_drafts); //get drafts of thesis
 router.get("/draft/:assigned_thesisId/:draftId",studentController.check_thesis,studentController.get_draft_byId); //get draft by id of thesis

@@ -7,6 +7,7 @@ const assigned_thesisSchema = mongoose.Schema({
     student: { type: mongoose.Schema.Types.ObjectId, ref:'User'},
     professor: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
     university: {type: mongoose.Schema.Types.ObjectId, ref:'University'},
+    file: {type: mongoose.Schema.Types.ObjectId, ref:'FileThesis'},
     created_time: Date,
     published: Date, //only if it is completed
     completed: Boolean, // completed thesis for digital repository

@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 
 
 
-const thesisSchema = mongoose.Schema({
+const fileSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     file_data: Buffer, // to store pdf file
     file_name: String, // pdf name file
-    thesis: {type: mongoose.Schema.Types.ObjectId, ref:'Thesis'}
+    created_time : Date,
+    thesis: {type: mongoose.Schema.Types.ObjectId, ref:'Thesis'},
+
 })
 
-module.exports = mongoose.model('FileThesis', thesisSchema,'file_thesis');
+module.exports = mongoose.model('FileThesis', fileSchema,'file_thesis');
