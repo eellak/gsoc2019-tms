@@ -16,7 +16,7 @@
       <th class="table_header">Prerequisites</th>
       <th class="table_header">Message from student</th>
       <th class="table_header" mat-sort-header="accept" class="table_header">Accept</th>
-      <th class="table_header" mat-sort-header="reject" class="table_header">Reject</th>
+      <th class="table_header" mat-sort-header="reject" class="table_header ">Reject</th>
 
     </tr>
   </thead>
@@ -32,8 +32,8 @@
       <td *ngIf="request.accepted_fromProfessor==true">
         <p>You have already accept this request!</p>
       </td>
-      <td *ngIf="true"><button class="btn btn-default" (click)="rejectRequest(request)"><i
-            class="material-icons">delete</i></button></td>
+      <td *ngIf="true"><button class="btn btn-default  " (click)="rejectRequest(request)"><i
+            class="material-icons ">delete</i></button></td>
     </tr>
   </tbody>
 </table>

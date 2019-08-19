@@ -27,7 +27,7 @@
                     <button class="btn btn-default edit">  <i class="material-icons ">edit</i> Edit Thesis</button> 
                   </a>
             </td>
-            <td *ngIf="!thesis.assigned"><button class="btn btn-default" (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button></td>
+            <td *ngIf="!thesis.assigned"><button class="btn btn-default  " (click)="deleteThesis(thesis)"><i class="material-icons">delete_forever</i></button></td>
             <td *ngIf="thesis.assigned"></td>
         </tr>
         </tbody>
