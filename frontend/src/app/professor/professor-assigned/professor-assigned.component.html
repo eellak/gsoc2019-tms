@@ -1,19 +1,23 @@
 <table class="table table-striped table-bordered users" *ngIf="count>0" matSort (matSortChange)="sortData($event)">
     <caption>
-        <h3>Assigned Theses Results </h3>
+        <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+            <h3>Assigned Theses Results </h3>
+        </mat-card>
     </caption>
     <thead>
         <tr>
-            <th mat-sort-header="created_time"><i class="material-icons">date_range</i> Assigned Time</th>
-            <th mat-sort-header="title"><i class="material-icons">title</i>Title</th>
-            <th mat-sort-header="student"><i class="material-icons">person</i>Student Assigned</th>
-            <th>Prerequisites</th>
-            <th mat-sort-header="draft" class="table_header"><i class="material-icons">book</i>Drafts</th>
-            <th> <i class="material-icons">edit</i>Edit</th>
+            <th class="table_header" mat-sort-header="created_time"><i class="material-icons">date_range</i> Assigned
+                Time</th>
+            <th class="table_header" mat-sort-header="title"><i class="material-icons">title</i>Title</th>
+            <th class="table_header" mat-sort-header="student"><i class="material-icons">person</i>Student Assigned</th>
+            <th class="table_header">Prerequisites</th>
+            <th class="table_header" mat-sort-header="draft" class="table_header"><i
+                    class="material-icons">book</i>Drafts</th>
+            <th class="table_header"> <i class="material-icons">person</i>Supervisors</th>
         </tr>
     </thead>
     <tbody *ngIf="count>0">
-        <tr *ngFor="let thesis of sortedData; index as i ">
+        <tr class="itemlist" *ngFor="let thesis of sortedData; index as i ">
             <td>{{thesis.thesis.created_time | date}}</td>
             <td> <a [routerLink]="['/thesis_details' ,thesis.thesis._id]"> {{thesis.thesis.title}} </a> </td>
             <td>{{thesis.student.name}} {{thesis.student.lastname}}</td>
@@ -21,13 +25,17 @@
             <td>
                 <div *ngFor="let draft of drafts[i]">
                     <a class="item">
-            <td class="itemlist" (click)="downloadDraft(draft)">{{draft.name}} on {{draft.created_time | date}} <br><br>
-            </td></a>
+            <td (click)="downloadDraft(draft)">
+                {{draft.name}} on {{draft.created_time | date}} <br><br>
+            </td>
+            </a>
             </div>
             </td>
             <td>
-                <button class="btn btn-default"><a [routerLink]="['/professor/thesis_edit',thesis.thesis._id]"> <i
-                            class="material-icons ">edit</i> Edit Thesis</a> </button>
+                <div *ngFor="let supervisor of thesis.supervisors">
+                    &bull; <a [routerLink]="['/thesis_professor',supervisor._id]"> {{supervisor.name}}
+                        {{supervisor.lastname}} </a> <br><br>
+                </div>
             </td>
         </tr>
     </tbody>
