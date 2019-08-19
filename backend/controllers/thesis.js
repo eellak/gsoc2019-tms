@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const Thesis = require('../models/thesis');
 const FileThesis = require('../models/file_thesis');
 const AssignedThesis = require('../models/assigned_thesis');
+const CompletedThesis= require("../models/completed_thesis");
+
 
 exports.thesis_get_all = (req, res, next) => {
   var perPage = 5
@@ -119,6 +121,9 @@ exports.thesis_completed_get_all = (req, res, next) => {
     .then(result => {
       count = result
       AssignedThesis.find(query)
+        .populate('thesis')
+        .populate({path: 'professor' , select: 'name lastname email '})
+        .populate({path: 'student' , select: 'name lastname email '})
         .skip((perPage * page) - perPage)
         .limit(perPage)
         .exec()
@@ -147,3 +152,41 @@ exports.thesis_completed_get_all = (req, res, next) => {
 }
 
 
+
+exports.thesis_completed_file=(req,res,next) => {
+    CompletedThesis.find({thesis:req.params.assigned_thesisId})
+   .select('_id file_name created_time thesis')
+  .exec()
+  .then( result => {
+    if(result.length>0) {
+      res.status(200).json(result)
+    }
+    else {
+       res.status(404).json({
+        message: "Not found"
+      })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({error:err})
+  })
+}
+
+exports.thesis_completed_data_file=(req,res,next) => {
+  CompletedThesis.find({_id:req.params.fileId})
+  .select('_id file_data')
+ .exec()
+ .then( result => {
+   if(result.length>0) {
+     res.status(200).json(result)
+   }
+   else {
+      res.status(404).json({
+       message: "Not found"
+     })
+   }
+ })
+ .catch(err => {
+   res.status(500).json({error:err})
+ })
+}

@@ -321,6 +321,7 @@ exports.get_assigned=(req,res,next) => {
       .populate('thesis')
       .populate('professor')
       .populate('student')
+      .populate('supervisors')
       .exec()
       .then(docs => {
         var response= {
@@ -652,7 +653,7 @@ exports.accept_supervisor= (req,res,next) => { // confirm supervisor
   .exec()
   .then(doc => {
     if(doc.length>0) { console.log(doc)
-        Thesis.findOneAndUpdate({_id:doc[0].thesis},{$push: {supervisor:doc[0].dst_professor} },{new:true})
+        Thesis.findOneAndUpdate({_id:doc[0].thesis},{$push: {supervisors:doc[0].dst_professor} },{new:true})
         .exec()
         .then( result => {
           if(result)
