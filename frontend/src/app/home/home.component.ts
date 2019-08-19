@@ -30,14 +30,11 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
       const url=this.router.url;
       if(url.startsWith("/?access_token")) {
-        this.route.queryParams
-        .subscribe(params => {
-          localStorage.setItem('Token',params.access_token);
-          localStorage.setItem('Role',params.role);
+           localStorage.setItem('Token',this.route.snapshot.queryParams["access_token"]);
+          localStorage.setItem('Role',this.route.snapshot.queryParams["role"]);
           localStorage.setItem('Timestamp',''+new Date());
-          localStorage.setItem('University',params.university);
-        });
-    }
+          localStorage.setItem('University',this.route.snapshot.queryParams["university"]);
+        };
     this.loading=true;
     this.getThesis(1);
     this.location.replaceState('/');
