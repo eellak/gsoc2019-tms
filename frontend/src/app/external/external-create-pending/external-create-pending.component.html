@@ -2,8 +2,8 @@
     <h2>Create a new Thesis</h2>
     <mat-card-content>
         <p>
-            Please complete the list below in order to create a new thesis. 
-            You can also upload a pdf file of your thesis. 
+            Please complete the list below in order to create a new thesis.
+            You can also upload a pdf file of your thesis.
         </p>
     </mat-card-content>
 </mat-card>
@@ -18,22 +18,23 @@
 <form [formGroup]="createThesisForm" (ngSubmit)="onSubmit()">
 
 
-         <label for="university">Select the University from the list below</label>
-        <div style="height:1px"> </div>
-        <mat-form-field> 
-                <mat-label>University</mat-label>
-                <mat-select (selectionChange)="selectUniversity($event.value)">
-                <mat-option *ngFor="let university of universities" [value]="university._id">
-                    {{university.name}}
-                  </mat-option>
-                </mat-select>
-        </mat-form-field>
-               
+    <label for="university">Select the University from the list below</label>
+    <div style="height:1px"> </div>
+    <mat-form-field>
+        <mat-label>University</mat-label>
+        <mat-select (selectionChange)="selectUniversity($event.value)">
+            <mat-option *ngFor="let university of universities" [value]="university._id">
+                {{university.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <h4>Thesis details:</h4>
     <br>
     <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+        <input type="text" formControlName="title" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
         <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
             <div *ngIf="f.title.errors.required">title is required</div>
         </div>
@@ -41,7 +42,8 @@
     <br>
     <div class="form-group">
         <label for="prerequisites">Prerequisites</label>
-        <input type="text" formControlName="prerequisites" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.prerequisites.errors }" />
+        <input type="text" formControlName="prerequisites" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.prerequisites.errors }" />
         <div *ngIf="submitted && f.prerequisites.errors" class="invalid-feedback">
             <div *ngIf="f.prerequisites.errors.required">prerequisites is required</div>
         </div>
@@ -49,7 +51,8 @@
     <br>
     <div class="form-group">
         <label for="description">Description</label>
-        <textarea formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+        <textarea formControlName="description" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
         <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
             <div *ngIf="f.description.errors.required">description is required</div>
         </div>
@@ -57,7 +60,8 @@
     <br>
     <div class="form-group">
         <label for="tags">Tags</label>
-        <input type="text" formControlName="tags" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.tags.errors }" />
+        <input type="text" formControlName="tags" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.tags.errors }" />
         <div *ngIf="submitted && f.tags.errors" class="invalid-feedback">
             <div *ngIf="f.tags.errors.required">tags are required</div>
         </div>
@@ -74,26 +78,27 @@
             <br>
         </div>
     </mat-card>
-        <div *ngIf="message=='loading' ">
-            <p>Thesis is creating...</p>
-            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
-        <br>
-        <br>
+    <div *ngIf="message=='loading' ">
+        <p>Thesis is creating...</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <br>
+    <br>
 
 
     <div class="form-group">
-        <button [disabled]="loading"  class="btn btn-success"><i class="material-icons">save</i> Create</button>
-        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-       <a routerLink="/register-external" class="btn btn-default"><i class="material-icons">cancel</i> Cancel</a>
+        <button [disabled]="loading" class="btn btn-success"><i class="material-icons">save</i> Create</button>
+        <img *ngIf="loading" class="pl-3"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a routerLink="/register-external" class="btn btn-default"><i class="material-icons">cancel</i> Cancel</a>
     </div>
-</form>         
-<br>       
- 
-<div class="row"  *ngIf="message==success ">
-  <div class="col-xs-12">
-    <p class="alert alert-success">
-      <strong>Thesis created successfully!</strong>
-    </p>    
-  </div>
+</form>
+<br>
+
+<div class="row" *ngIf="message==success ">
+    <div class="col-xs-12">
+        <p class="alert alert-success">
+            <strong>Thesis created successfully!</strong>
+        </p>
+    </div>
 </div>

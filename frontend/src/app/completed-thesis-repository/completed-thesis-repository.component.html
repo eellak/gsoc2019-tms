@@ -14,8 +14,6 @@
       <th class="table_header" mat-sort-header="file"><span class="glyphicon glyphicon-file"></span>File</th>
       <th class="table_header" mat-sort-header="submited_date"><i class="material-icons">date_range </i>Submited Date
       </th>
-
-
     </tr>
   </thead>
   <tbody *ngIf="count>0 && isLoaded">
@@ -43,7 +41,7 @@
 <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
 
- 
+
 
 <div class="card-footer pb-0 pt-3">
   <ul *ngIf="pager.pages>1" class="pagination">
