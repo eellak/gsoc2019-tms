@@ -13,8 +13,9 @@ export class CompletedThesisRepositoryComponent implements OnInit {
   count=0;
   pager:any={}
   sortedData:any=[];
- files;
- 
+  files = [];
+  isLoaded=false;
+  fileLoaded=[];
 
   constructor(private sharedService:SharedService, 
               private alertService:AlertService) {
@@ -48,8 +49,7 @@ export class CompletedThesisRepositoryComponent implements OnInit {
     this.sharedService.getCompletedThesis(page)
     .subscribe(
     (data:any) => {
-        console.log(data)
-          //this.alertService.success('Get user information successful', true);
+           //this.alertService.success('Get user information successful', true);
         this.sortedData=data.docs;
         this.count=data.count;
         this.pager.count=data.count;
@@ -59,6 +59,7 @@ export class CompletedThesisRepositoryComponent implements OnInit {
         for(let i=0;i<this.count;i++) {
           this.getFiles(this.sortedData[i]._id,i)
         }
+        this.isLoaded=true;
      },
     error => {
         this.alertService.error(error);
@@ -67,15 +68,14 @@ export class CompletedThesisRepositoryComponent implements OnInit {
   }
 
   getFiles(thesisId,index) {
-    console.log(thesisId)
-    this.loading=true;
-     this.sharedService.getFilesThesis(thesisId)
+     this.loading=true;
+     this.sharedService.getCompletedFileThesis(thesisId)
     .subscribe(
       (files:any) => {
-           console.log(files)
-           if(files.length>0) {
+             if(files.length>0) {
            this.files[index]=files
             this.loading=false;
+            this.fileLoaded[index]=true;
            }
            
         },
@@ -109,12 +109,12 @@ export class CompletedThesisRepositoryComponent implements OnInit {
   }
 
   downloadDraft(file) {
-       this.sharedService.getFile(file._id)
+        this.sharedService.getCompletedFileThesisData(file._id)
       .subscribe(
-        (file:any) => {
-           console.log(file)
-             var byteArray = new Uint8Array(file[0].data.data);
-             this.createAndDownloadBlobFile(byteArray, file[0].name);
+        (result:any) => {
+           console.log(result)
+             var byteArray = new Uint8Array(result[0].file_data.data);
+             this.createAndDownloadBlobFile(byteArray, file.file_name);
             this.loading=false;
           },
         error => {
