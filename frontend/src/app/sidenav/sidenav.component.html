@@ -1,34 +1,39 @@
- <!--Admin sidenav -->
+<!--Admin sidenav -->
 
- <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Admin'">
-  <ul class="nav navbar-nav">
-      <li routerLinkActive="active">
-          <a routerLink="/admin/user">Get Users</a> 
-      <li routerLinkActive="active">
-          <a routerLink="/admin/external">Get Externals users</a>
-      </li>   
-      <li routerLinkActive="active">
-        <a  routerLink="/admin/university">Get University</a>
-    </li>       
-  </ul>
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Admin'">
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/admin/user">Get Users</a>
+        <li routerLinkActive="active">
+            <a routerLink="/admin/external">Get Externals users</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/admin/university">Get University</a>
+        </li>
+    </ul>
 </div>
 
 <!--Professor sidenav -->
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Professor'">
-        <ul class="nav navbar-nav">
-            <li routerLinkActive="active">
-                <a routerLink="/professor/thesis">My Theses</a>
-            </li>   
-            <li routerLinkActive="active">
-                <a routerLink="/professor/assigned">Assigned Theses</a>
-            </li>   
-            <li routerLinkActive="active">
-              <a routerLink="/professor/pending">Pending Theses</a>
-            </li>
-            <li routerLinkActive="active">
-                    <a routerLink="/professor/requests">Requests</a> 
-            </li>       
-        </ul>
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/professor/assigned">
+                <i class="material-icons">assignment_turned_in</i>
+                        Assigned Theses 
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/professor/pending"><i class="material-icons">timelapse</i>
+                Pending Theses</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/professor/requests"><i class="material-icons">notifications</i>Requests Theses</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/professor/supervise"><i class="material-icons">people</i>
+                 Supervise Requests</a>
+        </li>
+    </ul>
 </div>
 
 <!--Student sidenav -->
@@ -36,38 +41,38 @@
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
             <a routerLink="/student/thesis">Available Theses</a>
-        </li>     
-        <li routerLinkActive="active">
-            <a routerLink="/student/requests">My Requests for Thesis</a> 
-        </li> 
-        <li routerLinkActive="active">
-          <a routerLink="/student/pending">Propose Thesis</a>
         </li>
-            
+        <li routerLinkActive="active">
+            <a routerLink="/student/requests">My Requests for Thesis</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/student/pending">Propose Thesis</a>
+        </li>
+
     </ul>
 </div>
- 
+
 
 <!--External sidenav -->
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='External'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
             <a routerLink="/external/thesis">My Theses</a>
-        </li>     
+        </li>
         <li routerLinkActive="active">
             <a routerLink="/external/create_pending"> Create Thesis </a>
-        </li>           
+        </li>
     </ul>
 </div>
 
 <!--Secretariat sidenav -->
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Secretariat'">
-        <ul class="nav navbar-nav">
-            <li routerLinkActive="active">
-                <a routerLink="/secretariat/students">Students</a>
-            </li>     
-            <li routerLinkActive="active">
-                <a routerLink="/secretariat/professors"> Professors </a>
-            </li>           
-        </ul>
-    </div>
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/secretariat/students">Students</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/secretariat/professors"> Professors </a>
+        </li>
+    </ul>
+</div>
