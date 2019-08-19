@@ -11,8 +11,8 @@ const assigned_thesisSchema = mongoose.Schema({
     created_time: Date,
     published: Date, //only if it is completed
     completed: Boolean, // completed thesis for digital repository
-    supervisor: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],  // array of supervisors
-    examiner: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],    // array of examiners
+    supervisors: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],  // array of supervisors
+    examiners: [{ type : mongoose.Schema.Types.ObjectId, ref: 'User' }],    // array of examiners
     draft: [{ type:mongoose.Schema.Types.ObjectId, ref:'Draft' }]    
 
     });
