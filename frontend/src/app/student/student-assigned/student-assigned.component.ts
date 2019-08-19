@@ -157,7 +157,7 @@ export class StudentAssignedComponent implements OnInit {
       }
 
       getCompletedThesis() {
-         this.studentService.getCompletedThesisById(this.assigned._id)
+         this.studentService.getCompletedFileThesisById(this.assigned._id)
         .subscribe(
           (completedThesis:any) => {
              console.log(completedThesis)
