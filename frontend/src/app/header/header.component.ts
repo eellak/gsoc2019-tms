@@ -54,6 +54,13 @@ export class HeaderComponent implements OnInit {
   else
     return false;
   }
+
+  isProfessor() {
+    if(localStorage.getItem('Role')==="Professor")
+    return true;
+  else
+    return false;
+  }
  
   
 
