@@ -1,3 +1,4 @@
+import { ProfessorSuperviseComponent } from './professor/professor-supervise/professor-supervise.component';
 
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,15 +10,15 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './shared/guards/admin.guard';
-import {ExternalGuard} from './shared/guards/external.guard';
+import { ExternalGuard } from './shared/guards/external.guard';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { LoginGuard } from './shared/guards/login.guard';
-import {AuthGuard} from './shared/guards/auth.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
 import { ProfessorGuard } from './shared/guards/professor.guard';
 import { StudentGuard } from './shared/guards/student.guard';
 import { AdminExternalComponent } from './admin/admin-external/admin-external.component';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
- import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
+import { CreateUserComponent } from './admin/admin-user/create-user/create-user.component';
 import { CreateUniversityComponent } from './admin/create-university/create-university.component';
 import { AdminUniversityComponent } from './admin/admin-university/admin-university.component';
 import { ThesisDetailsComponent } from './thesis/thesis-details/thesis-details.component';
@@ -51,56 +52,62 @@ import { ExternalThesisComponent } from './external/external-thesis/external-the
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login' , component: LoginComponent , canActivate: [LoginGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'login-external', component: LoginExternalComponent, canActivate: [LoginGuard] },
-  { path: 'register-external', component: RegisterExternalComponent , canActivate: [LoginGuard] },
-  { path: 'profile', component: ProfileComponent , canActivate: [AuthGuard] },
+  { path: 'register-external', component: RegisterExternalComponent, canActivate: [LoginGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'repository', component: CompletedThesisRepositoryComponent },
-  { path:'thesis_details/:id' , component:ThesisDetailsComponent , pathMatch:'full' },
-  { path:'thesis_professor/:id' , component:ThesisProfessorComponent , pathMatch:'full' },
-  { path:'thesis_create' , component:ThesisCreateComponent , canActivate: [AuthGuard], pathMatch:'full' },
-  { path: 'admin', component: AdminComponent , canActivate: [AdminGuard] , 
-      children :[ 
-        { path:'external' , component:AdminExternalComponent , pathMatch:'full'},
-        { path:'external_activate', component:AdminActivateExternalsComponent , pathMatch:'full'},
-        { path:'user' , component:AdminUserComponent , pathMatch:'full' },
-        { path:'user_create' , component:CreateUserComponent , pathMatch:'full' },
-        { path:'university_create' , component:CreateUniversityComponent , pathMatch:'full' },
-        { path:'university' , component:AdminUniversityComponent , pathMatch:'full' },
-      ] 
+  { path: 'thesis_details/:id', component: ThesisDetailsComponent, pathMatch: 'full' },
+  { path: 'thesis_professor/:id', component: ThesisProfessorComponent, pathMatch: 'full' },
+  { path: 'thesis_create', component: ThesisCreateComponent, canActivate: [AuthGuard], pathMatch: 'full' },
+  {
+    path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
+    children: [
+      { path: 'external', component: AdminExternalComponent, pathMatch: 'full' },
+      { path: 'external_activate', component: AdminActivateExternalsComponent, pathMatch: 'full' },
+      { path: 'user', component: AdminUserComponent, pathMatch: 'full' },
+      { path: 'user_create', component: CreateUserComponent, pathMatch: 'full' },
+      { path: 'university_create', component: CreateUniversityComponent, pathMatch: 'full' },
+      { path: 'university', component: AdminUniversityComponent, pathMatch: 'full' },
+    ]
   },
-  { path: 'professor', component: ProfessorComponent , canActivate: [ProfessorGuard],
-    children :[ 
-      { path:'requests' , component:ProfessorRequestsComponent , pathMatch:'full'},
-      { path:'assigned', component:ProfessorAssignedComponent , pathMatch:'full'},
-      { path:'pending' , component:ProfessorPendingComponent , pathMatch:'full' },
-      { path:'thesis' , component:ProfessorThesisComponent , pathMatch:'full' },
-      { path:'thesis_edit/:id' , component:ProfessorThesisEditComponent , pathMatch:'full' }
+  {
+    path: 'professor', component: ProfessorComponent, canActivate: [ProfessorGuard],
+    children: [
+      { path: 'requests', component: ProfessorRequestsComponent, pathMatch: 'full' },
+      { path: 'assigned', component: ProfessorAssignedComponent, pathMatch: 'full' },
+      { path: 'supervise', component: ProfessorSuperviseComponent, pathMatch: 'full' },
+      { path: 'pending', component: ProfessorPendingComponent, pathMatch: 'full' },
+      { path: 'thesis', component: ProfessorThesisComponent, pathMatch: 'full' },
+      { path: 'thesis_edit/:id', component: ProfessorThesisEditComponent, pathMatch: 'full' }
 
-    ] 
-  }, 
-  { path: 'student', component: StudentComponent , canActivate: [StudentGuard],
-    children :[ 
-      { path:'requests' , component:StudentRequestsComponent , pathMatch:'full'},
-      { path:'assigned', component:StudentAssignedComponent , pathMatch:'full'},
-      { path:'pending' , component:StudentPendingComponent , pathMatch:'full' },
-      { path:'thesis' , component:StudentThesisComponent , pathMatch:'full' },
-      { path:'create_pending',component:StudentCreatePendingComponent, pathMatch:'full'}
-    ] 
+    ]
   },
-
-  { path: 'external' , component:ExternalComponent, canActivate: [ExternalGuard],
-    children :[
-      { path:'thesis' , component:ExternalThesisComponent, pathMatch:'full'},
-      { path:'create_pending', component:ExternalCreatePendingComponent, pathMatch:'full'},
-      { path:'thesis_edit/:id' , component:ExternalThesisEditComponent , pathMatch:'full' }
+  {
+    path: 'student', component: StudentComponent, canActivate: [StudentGuard],
+    children: [
+      { path: 'requests', component: StudentRequestsComponent, pathMatch: 'full' },
+      { path: 'assigned', component: StudentAssignedComponent, pathMatch: 'full' },
+      { path: 'pending', component: StudentPendingComponent, pathMatch: 'full' },
+      { path: 'thesis', component: StudentThesisComponent, pathMatch: 'full' },
+      { path: 'create_pending', component: StudentCreatePendingComponent, pathMatch: 'full' }
     ]
   },
 
-  { path: 'secretariat' , component:SecretariatComponent, canActivate: [SecretariatGuard],
-    children :[
-      { path:'students' , component:SecretariatStudentsComponent, pathMatch:'full'},
-      { path:'professors' , component:SecretariatProfessorsComponent, pathMatch:'full'},
+  {
+    path: 'external', component: ExternalComponent, canActivate: [ExternalGuard],
+    children: [
+      { path: 'thesis', component: ExternalThesisComponent, pathMatch: 'full' },
+      { path: 'create_pending', component: ExternalCreatePendingComponent, pathMatch: 'full' },
+      { path: 'thesis_edit/:id', component: ExternalThesisEditComponent, pathMatch: 'full' }
+    ]
+  },
+
+  {
+    path: 'secretariat', component: SecretariatComponent, canActivate: [SecretariatGuard],
+    children: [
+      { path: 'students', component: SecretariatStudentsComponent, pathMatch: 'full' },
+      { path: 'professors', component: SecretariatProfessorsComponent, pathMatch: 'full' },
     ]
   },
 
@@ -112,7 +119,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation: "reload"})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: "reload" })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
