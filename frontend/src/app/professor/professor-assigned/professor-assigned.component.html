@@ -32,9 +32,25 @@
             </div>
             </td>
             <td>
-                <div *ngFor="let supervisor of thesis.supervisors">
-                    &bull; <a [routerLink]="['/thesis_professor',supervisor._id]"> {{supervisor.name}}
-                        {{supervisor.lastname}} </a> <br><br>
+                <div *ngIf="thesis.supervisors.length>0">
+                    <div *ngFor="let supervisor of thesis.supervisors">
+                        &bull; <a [routerLink]="['/thesis_professor',supervisor._id]"> {{supervisor.name}}
+                            {{supervisor.lastname}} </a> <br><br>
+                    </div>
+                </div>
+                <div *ngIf="thesis.supervisors.length<2">
+                        <label for="supervisor">Select the Supervisor from the list below</label>
+                        <div style="height:1px"> </div>
+                        <mat-form-field>
+                            <mat-label>Professor</mat-label>
+                            <mat-select (selectionChange)="selectSupervisor($event.value)">
+                                <mat-option *ngFor="let supervisor of professors" [value]="supervisor">
+                                    {{supervisor.name}} {{supervisor.lastname}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    
+                    <button class="btn btn-success" (click)="proposeSupervisor(thesis)">Propose Supervisor</button>
                 </div>
             </td>
         </tr>
@@ -44,7 +60,13 @@
 
 
 
-
+<div class="row" *ngIf="message=='success' ">
+        <div class="col-xs-12">
+          <p class="alert alert-success">
+            <strong>You have propose supervisor for the thesis sucessfully!</strong>
+          </p>
+        </div>
+      </div>
 
 <br>
 <mat-card>

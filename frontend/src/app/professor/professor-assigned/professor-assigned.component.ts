@@ -1,3 +1,4 @@
+import { UserService } from './../../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from './../../shared/services/alert.service';
 import { ProfessorService } from './../../shared/services/professor.service';
@@ -16,14 +17,35 @@ export class ProfessorAssignedComponent implements OnInit {
   pager: any = {}
   sortedData: any = [];
   drafts = {};
+  professors;
+  supervisor;
+  user;
+ message;
 
-  constructor(private professorService: ProfessorService, private alertService: AlertService) { }
+ 
+  constructor(private professorService: ProfessorService, private alertService: AlertService,
+    private userService: UserService) { }
 
   ngOnInit() {
     this.loading = true;
-    this.getAssignedThesis(1)
+    this.getAssignedThesis(1);
+    this.getUser();
   }
 
+
+  getUser() {
+    this.userService.getUser()
+      .subscribe(
+        (data: any) => {
+          this.user = data.userData;
+          this.getProfessors();
+
+        },
+        error => {
+          this.alertService.error(error);
+          this.loading = false;
+        });
+  }
 
   compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
@@ -71,11 +93,9 @@ export class ProfessorAssignedComponent implements OnInit {
 
   getDrafts(assigned_id, index) {
     this.loading = true;
-    console.log(assigned_id + " index " + index)
     this.professorService.getDrafts(assigned_id)
       .subscribe(
         (drafts: any) => {
-          console.log(drafts)
           this.drafts[index] = drafts
           this.loading = false;
         },
@@ -112,8 +132,7 @@ export class ProfessorAssignedComponent implements OnInit {
     this.professorService.getDraftById(draft.assigned_thesis, draft._id)
       .subscribe(
         (draft: any) => {
-          console.log(draft)
-          var byteArray = new Uint8Array(draft[0].data.data);
+           var byteArray = new Uint8Array(draft[0].data.data);
           this.createAndDownloadBlobFile(byteArray, draft[0].name);
           this.loading = false;
         },
@@ -122,5 +141,38 @@ export class ProfessorAssignedComponent implements OnInit {
         });
   }
 
+  getProfessors() {
+    this.professorService.getProfessorsFromUniversity()
+      .subscribe((professors: any) => {
+         this.professors = professors;
+        for (var i = 0; i < professors.length; i++) {
+            if(professors[i]._id==this.user.userId) {
+               this.professors.splice(i,1);
+            }
+        }
+       },
+        error => {
+          this.alertService.error(error);
+        });
+  }
 
+  selectSupervisor(supervisor) {
+    console.log(supervisor)
+    this.supervisor = supervisor;
+  }
+
+  proposeSupervisor(thesis) {
+    console.log(thesis)
+    var text;
+    if (text = prompt("Are you sure want to propose professor: " + this.supervisor.name + " " + this.supervisor.lastname + " to supervise this thesis " + thesis.thesis.title + "? Write a message to the professor")) {
+      this.professorService.proposeProfessor(this.supervisor._id, thesis._id, text)
+        .subscribe(result => {
+          console.log(result)
+          this.message="success"
+        },
+        error => {
+          this.alertService.error(error);
+        }); 
+    }
+  }
 }
