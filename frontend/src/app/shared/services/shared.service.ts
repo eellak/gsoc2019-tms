@@ -36,6 +36,14 @@ export class SharedService {
         return this.http.get(environment.apiUrl+`/thesis/completed?page=${page}`);
     }
 
+    getCompletedFileThesis(thesisId) {
+        return this.http.get(environment.apiUrl+`/thesis/completed/file/${thesisId}`)
+    }
+
+    getCompletedFileThesisData(fileId) {
+        return this.http.get(environment.apiUrl+`/thesis/completed/data/${fileId}`);
+    }
+
     getThesisOfProfessor(page,id) {
         return this.http.get(environment.apiUrl+`/thesis?page=${page}&professor=${id}`);
     }

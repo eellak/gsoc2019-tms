@@ -127,7 +127,7 @@ export class StudentService {
             .pipe(map(() => { return true; }))
     }
 
-    getCompletedThesisById(assignedThesisId) {
+    getCompletedFileThesisById(assignedThesisId) {
         return this.http.get(environment.apiUrl+`/student/completed/${assignedThesisId}`)
     }
 
