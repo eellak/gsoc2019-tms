@@ -1,0 +1,59 @@
+<table class="table table-striped table-bordered users" *ngIf="count>0" matSort (matSortChange)="sortData($event)">
+  <caption>
+      <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+          <h3>Supervise Theses Results </h3>
+          <p>You are supervisor in these theses:</p>
+      </mat-card>
+  </caption>
+  <thead>
+      <tr>
+          <th class="table_header" mat-sort-header="created_time"><i class="material-icons">date_range</i> Assigned
+              Time</th>
+          <th class="table_header" mat-sort-header="title"><i class="material-icons">title</i>Title</th>
+          <th class="table_header" mat-sort-header="professor" class="table_header"><i
+            class="material-icons">person</i>Professor </th>
+          <th class="table_header" mat-sort-header="student"><i class="material-icons">person</i>Student Assigned</th>
+          <th class="table_header">Prerequisites</th>
+          <th class="table_header" mat-sort-header="draft" class="table_header"><i
+                  class="material-icons">book</i>Drafts</th>
+       </tr>
+  </thead>
+  <tbody *ngIf="count>0">
+      <tr class="itemlist" *ngFor="let thesis of theses; index as i ">
+          <td>{{thesis.thesis.created_time | date}}</td>
+          <td> <a [routerLink]="['/thesis_details' ,thesis.thesis._id]"> {{thesis.thesis.title}} </a> </td>
+          <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}}
+            {{thesis.professor.lastname}} </a> </td>
+          <td>{{thesis.student.name}} {{thesis.student.lastname}}</td>
+          <td>{{thesis.thesis.prerequisites}}</td>
+          <td *ngIf="draftLoaded">
+              <div *ngFor="let draft of drafts[i]">
+                  <a class="item">
+          <td (click)="downloadDraft(draft)">
+              {{draft.name}} on {{draft.created_time | date}} <br><br>
+          </td>
+          </a>
+          </div>
+          </td>
+       
+      </tr>
+  </tbody>
+</table>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+
+
+<div class="row" *ngIf="message=='success' ">
+      <div class="col-xs-12">
+        <p class="alert alert-success">
+          <strong>You have propose the supervisor for the thesis sucessfully!</strong>
+        </p>
+      </div>
+    </div>
+
+<br>
+<mat-card>
+  <h4 *ngIf="count==0 && loading==false">You do not supervise any theses !</h4>
+</mat-card>
+
+ 

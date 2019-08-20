@@ -1,0 +1,63 @@
+<table class="table table-striped table-bordered" matSort (matSortChange)="sortData($event)" *ngIf="count>0">
+  <caption>
+    <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+      <h3>Requests for Supervisor Results </h3>
+    </mat-card>
+  </caption>
+  <thead>
+    <tr>
+      <th class="table_header" mat-sort-header="created_time" class="table_header"><i
+          class="material-icons">date_range</i>Created Time</th>
+      <th class="table_header" mat-sort-header="title" class="table_header"><i class="material-icons">title</i>Title
+      </th>
+      <th class="table_header" mat-sort-header="professor" class="table_header"><i
+          class="material-icons">person</i>Professor </th>
+      <th class="table_header" mat-sort-header="student" class="table_header"><i
+          class="material-icons">person</i>Student</th>
+      <th class="table_header">Message from professor</th>
+      <th class="table_header" mat-sort-header="accept" class="table_header">Accept</th>
+      <th class="table_header" mat-sort-header="reject" class="table_header ">Reject</th>
+
+    </tr>
+  </thead>
+  <tbody *ngIf="count>0">
+
+    <tr *ngFor="let request of sortedData">
+      <td>{{request.created_time | date}}</td>
+      <td> <a [routerLink]="['/thesis_details' ,request.assigned_thesis.thesis._id]">
+          {{request.assigned_thesis.thesis.title}} </a> </td>
+      <td><a [routerLink]="['/thesis_professor',request.professor._id]">{{request.professor.name}}
+          {{request.professor.lastname}} </a> </td>
+      <td>{{request.student.name}} {{request.student.lastname}}</td>
+      <td>{{request.text}}</td>
+      <td><button class="btn btn-success"
+          (click)="acceptRequest(request)"><i class="material-icons">done</i></button></td>
+      <td ><button class="btn btn-default  " (click)="rejectRequest(request)"><i
+            class="material-icons ">delete</i></button></td>
+    </tr>
+  </tbody>
+</table>
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+<mat-card>
+  <h4 *ngIf="count==0 && loading==false">You have not any supervise requests !</h4>
+</mat-card>
+
+<div class="row" *ngIf="message=='success' ">
+  <div class="col-xs-12">
+    <p class="alert alert-success">
+      <strong>You have accept the request for the thesis sucessfully!</strong>
+    </p>
+  </div>
+</div>
+
+<div class="row" *ngIf="messageReject=='success' ">
+  <div class="col-xs-12">
+    <p class="alert alert-success">
+      <strong>You have rejected the request for the thesis sucessfully!</strong>
+    </p>
+  </div>
+</div>
+
+<br>
