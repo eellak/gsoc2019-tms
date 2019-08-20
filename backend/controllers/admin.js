@@ -188,6 +188,7 @@ exports.get_users=(req,res,next) => {
     .then( result => {
         count=result
         User.find()
+        .populate('university')
         .select("email role university name lastname")
         .skip((perPage * page) - perPage)
         .limit(perPage)

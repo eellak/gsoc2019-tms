@@ -38,8 +38,8 @@ router.get("/university",professorController.get_professors) // get all professo
 // routes for professor to be supervisor
 router.get("/supervise_pending",professorController.get_supervise_pending) //get the supervise request from other professors to userId 
 router.get("/supervise_pending/:supervise_requestId",professorController.get_supervise_pending_byId) //get the supervise request from other professors to userId 
-router.post("/supervise_pending/:supervise_requestId",professorController.post_supervise_pending) // accept request for supervision
-
+router.post("/supervise_pending/:supervise_requestId",professorController.post_supervise_pending,professorController.delete_supervisor_request) // accept request for supervision, delete request
+router.delete("/supervise_pending/:supervise_requestId",professorController.delete_supervisor_request)
 // get drafts
 
 router.get("/draft/:assigned_thesisId",professorController.check_thesis,professorController.get_drafts); //get drafts of thesis
@@ -49,9 +49,8 @@ router.get("/draft/:assigned_thesisId/:draftId",professorController.check_thesis
 router.post("/propose_supervisor/:supervisorId/:thesisId",professorController.check_supervisor_request,professorController.propose_supervisor) //propose another professor to supervise a thesis
 router.get("/accept_supervisor",professorController.get_accepted_supervisor_requests) // get accepted supervisors before confirm
 router.get("/accept_supervisor/:supervise_requestId",professorController.get_accepted_supervisor_request_byId) // get accepted supervisors before confirm
-router.post("/accept_supervisor/:supervise_requestId",professorController.accept_supervisor,professorController.delete_supervisor_request) // professor confirms the supervisor
 
-//router.get()
+router.get("/supervisor/thesis",professorController.getThesisSupervise) // get the theses that supervise 
 
  
 

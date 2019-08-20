@@ -13,15 +13,16 @@ app.use(passport.session());
 router.get('/login',
   passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
-    res.redirect('/');
+     res.redirect('/');
   }
 );
 
 router.post("/login/callback",
     bodyParser.urlencoded({ extended: false }),
     (req, res, next) => {
-      console.log(req.body);
-       passport.authenticate("saml", { session: false }, (err, user) => {
+        passport.authenticate("saml", { session: false }, (err, user) => {
+          if(err) console.log(err)
+         console.log(user)
         const token = jwt.sign(
           {
             email: user.email,
@@ -32,7 +33,7 @@ router.post("/login/callback",
             lastname: user.lastname
           },
           process.env.JWT_KEY,
-          { expiresIn: '3h' }
+          { expiresIn: '5h' }
         );
         console.log("token:" + token)
          req.user = user;
