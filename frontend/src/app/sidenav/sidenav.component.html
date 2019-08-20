@@ -3,12 +3,12 @@
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Admin'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
-            <a routerLink="/admin/user">Get Users</a>
+            <a routerLink="/admin/user"> <i class="material-icons">people</i>Get Users</a>
         <li routerLinkActive="active">
-            <a routerLink="/admin/external">Get Externals users</a>
+            <a routerLink="/admin/external"> <i class="material-icons">supervised_user_circle</i>Get Externals users</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/admin/university">Get University</a>
+            <a routerLink="/admin/university"> <i class="material-icons">school</i>Get Universities</a>
         </li>
     </ul>
 </div>
@@ -23,11 +23,17 @@
             </a>
         </li>
         <li routerLinkActive="active">
+            <a routerLink="/professor/supervise_thesis">
+                <i class="material-icons">local_library</i>
+                        Supervise Theses 
+            </a>
+        </li>
+        <li routerLinkActive="active">
             <a routerLink="/professor/pending"><i class="material-icons">timelapse</i>
                 Pending Theses</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/professor/requests"><i class="material-icons">notifications</i>Requests Theses</a>
+            <a routerLink="/professor/requests"><i class="material-icons">notifications</i>Theses Requests</a>
         </li>
         <li routerLinkActive="active">
             <a routerLink="/professor/supervise"><i class="material-icons">people</i>
@@ -40,13 +46,13 @@
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Student'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
-            <a routerLink="/student/thesis">Available Theses</a>
+            <a routerLink="/student/thesis"><i class="material-icons">assignment_turned_in</i>Available Theses</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/student/requests">My Requests for Thesis</a>
+            <a routerLink="/student/requests"><i class="material-icons">notifications</i>My Requests for Thesis</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/student/pending">Propose Thesis</a>
+            <a routerLink="/student/pending"><i class="material-icons">create</i>Propose Thesis</a>
         </li>
 
     </ul>
@@ -57,10 +63,10 @@
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='External'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
-            <a routerLink="/external/thesis">My Theses</a>
+            <a routerLink="/external/thesis"><i class="material-icons">book</i>My Theses</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/external/create_pending"> Create Thesis </a>
+            <a routerLink="/external/create_pending"><i class="material-icons">create</i> Create Thesis </a>
         </li>
     </ul>
 </div>
@@ -69,10 +75,10 @@
 <div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='Secretariat'">
     <ul class="nav navbar-nav">
         <li routerLinkActive="active">
-            <a routerLink="/secretariat/students">Students</a>
+            <a routerLink="/secretariat/students"><i class="material-icons">school</i>Students</a>
         </li>
         <li routerLinkActive="active">
-            <a routerLink="/secretariat/professors"> Professors </a>
+            <a routerLink="/secretariat/professors"><i class="material-icons">people</i> Professors </a>
         </li>
     </ul>
 </div>
