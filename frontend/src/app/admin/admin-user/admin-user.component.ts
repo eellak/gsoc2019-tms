@@ -26,6 +26,7 @@ export class AdminUserComponent implements OnInit {
     private adminService: AdminService) {}
 
   ngOnInit() {
+    this.loading=true;
     this.getUsers(1);
   }
 
@@ -41,6 +42,7 @@ export class AdminUserComponent implements OnInit {
        switch (sort.active) {
         case 'lastname': return this.compare(a.lastname, b.lastname, isAsc);
         case 'role': return this.compare(a.role, b.role, isAsc);
+        case 'name': return this.compare(a.role, b.role, isAsc);
         case 'email': return this.compare(a.email, b.email, isAsc);
          default: return 0;
       }
@@ -58,6 +60,7 @@ export class AdminUserComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
          console.log(this.users);
      },
      error => {

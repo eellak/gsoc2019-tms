@@ -1,5 +1,11 @@
-<h2>Create University</h2>
-<br>
+<mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+        <h2>Create a new Thesis</h2>
+        <mat-card-content>
+            <p>
+                Please complete the list below in order to create a new thesis.
+            </p>
+        </mat-card-content>
+    </mat-card><br>
 <form [formGroup]="CreateUniversityForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="name">University Name</label>
@@ -9,7 +15,7 @@
         </div>
     </div>
     <div class="form-group">
-        <button [disabled]="loading" type="submit" class="btn btn-primary">Create</button>
+        <button [disabled]="loading" type="submit" class="btn btn-lg btn-primary">Create</button>
     </div>
 </form>
 <div class="row"  *ngIf="message!=null ">

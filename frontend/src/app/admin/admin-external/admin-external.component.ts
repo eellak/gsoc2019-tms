@@ -1,7 +1,6 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {Sort} from '@angular/material/sort';
-import { AuthenticationService } from '../../shared/services/authentication.service';
 import { UserService } from '../../shared/services/user.service';
 import { AlertService } from '../../shared/services/alert.service';
 import { AdminService } from '.././../shared/services/admin.service';
@@ -21,7 +20,6 @@ export class AdminExternalComponent implements OnInit {
   message;
 
   constructor( private router: Router,
-    private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService,
     private adminService: AdminService,
@@ -29,6 +27,7 @@ export class AdminExternalComponent implements OnInit {
 
 
   ngOnInit() {
+    this.loading=true;
     this.getExternals(1);
    }
  
@@ -62,6 +61,7 @@ export class AdminExternalComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
      },
      error => {
          this.alertService.error(error);
