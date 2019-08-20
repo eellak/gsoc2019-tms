@@ -46,6 +46,7 @@ import { SecretariatComponent } from './secretariat/secretariat.component';
 import { ExternalThesisEditComponent } from './external/external-thesis-edit/external-thesis-edit.component';
 import { ExternalCreatePendingComponent } from './external/external-create-pending/external-create-pending.component';
 import { ExternalThesisComponent } from './external/external-thesis/external-thesis.component';
+import { ProfessorSupervisorThesisComponent } from './professor/professor-supervisor-thesis/professor-supervisor-thesis.component';
 
 
 
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: 'requests', component: ProfessorRequestsComponent, pathMatch: 'full' },
       { path: 'assigned', component: ProfessorAssignedComponent, pathMatch: 'full' },
       { path: 'supervise', component: ProfessorSuperviseComponent, pathMatch: 'full' },
+      { path: 'supervise_thesis', component: ProfessorSupervisorThesisComponent, pathMatch: 'full' },
       { path: 'pending', component: ProfessorPendingComponent, pathMatch: 'full' },
       { path: 'thesis', component: ProfessorThesisComponent, pathMatch: 'full' },
       { path: 'thesis_edit/:id', component: ProfessorThesisEditComponent, pathMatch: 'full' }
