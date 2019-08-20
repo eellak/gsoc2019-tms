@@ -1,49 +1,55 @@
-<mat-card>
-    <h3>Theses of Professor {{theses[0]?.professor.name}}  {{theses[0]?.professor.lastname}}: </h3> 
-</mat-card>
-
-<table class="table table-striped users">
-  <thead> 
-      <caption> <h3> Results </h3></caption>
-      <tr>
-      <th class="table_header">Created Time</th>
-      <th class="table_header">Title</th>
-      <th class="table_header">University</th>
-      <th class="table_header">Professor</th>
-      <th class="table_header">Prerequisites</th>
-    </tr>
-  </thead>
-  <tbody *ngIf="theses!=null">
-    <tr *ngFor="let thesis of theses">
-      <td>{{thesis.created_time | date}}</td>
-      <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
-      <td>{{thesis.university.name}}</td>
-      <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}} {{thesis.professor.lastname}} </a> </td>
-      <td>{{thesis.prerequisites}}</td>
-  </tr>
-  </tbody>
+<table class="table table-striped table-bordered" *ngIf="pager.count>0">
+    <caption>
+        <mat-card *ngIf="pager.count>0">
+            <h3>Theses of Professor {{theses[0]?.professor.name}} {{theses[0]?.professor.lastname}}: </h3>
+        </mat-card>
+    </caption>
+    <thead>
+        <tr>
+            <th class="table_header"><i class="material-icons">date_range</i>Created Time</th>
+            <th class="table_header"><i class="material-icons">title</i>Title</th>
+            <th class="table_header"><i class="material-icons">school</i>University</th>
+            <th class="table_header"><i class="material-icons">person</i>Professor</th>
+            <th class="table_header">Prerequisites</th>
+        </tr>
+    </thead>
+    <tbody *ngIf="theses!=null">
+        <tr *ngFor="let thesis of theses">
+            <td>{{thesis.created_time | date}}</td>
+            <td> <a [routerLink]="['/thesis_details' ,thesis._id]"> {{thesis.title}} </a> </td>
+            <td>{{thesis.university.name}}</td>
+            <td><a [routerLink]="['/thesis_professor',thesis.professor._id]">{{thesis.professor.name}}
+                    {{thesis.professor.lastname}} </a> </td>
+            <td>{{thesis.prerequisites}}</td>
+        </tr>
+    </tbody>
 </table>
 
 
 
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
 
 <div class="card-footer pb-0 pt-3">
     <ul *ngIf="pager.pages>1" class="pagination">
         <li class="page-item first-item">
-            <button  [disabled]="pager.currentPage === 1" (click)="getThesis(1)" class="pagination btn-default">First  </button>
+            <button [disabled]="pager.currentPage === 1" (click)="getThesis(1)" class="pagination btn-default">First
+            </button>
         </li>
         <li class="page-item previous-item">
-            <button  [disabled]="pager.currentPage === 1" (click)="getThesis(pager.currentPage-1)" class="pagination btn-default">Previous </button> 
+            <button [disabled]="pager.currentPage === 1" (click)="getThesis(pager.currentPage-1)"
+                class="pagination btn-default">Previous </button>
         </li>
         <li class="page-item current-item">
             <button (click)="getThesis(pager.currentPage)" class="pagination btn-default">{{pager.currentPage}}</button>
         </li>
         <li class="page-item next-item">
-            <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.currentPage+1)" class="pagination btn-default">Next </button>
+            <button [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.currentPage+1)"
+                class="pagination btn-default">Next </button>
         </li>
         <li class="page-item last-item">
-            <button  [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.pages)" class="pagination btn-default">Last </button>
+            <button [disabled]="pager.currentPage === pager.pages" (click)="getThesis(pager.pages)"
+                class="pagination btn-default">Last </button>
         </li>
     </ul>
 </div>

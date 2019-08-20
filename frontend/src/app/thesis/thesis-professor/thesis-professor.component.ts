@@ -30,6 +30,7 @@ export class ThesisProfessorComponent implements OnInit {
   ngOnInit() {
     this.routeSub = this.route.params.subscribe(params => {
       this.id=params['id'];
+      this.loading=true;
       this.getThesis(1,this.id);
     })
   }
@@ -44,6 +45,7 @@ export class ThesisProfessorComponent implements OnInit {
          this.pager.count=data.count;
          this.pager.pages= data.pages;
          this.pager.currentPage=page;
+         this.loading=false;
      },
      error => {
          this.alertService.error(error);
