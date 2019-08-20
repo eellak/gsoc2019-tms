@@ -62,6 +62,7 @@ export class SharedService {
     getFile(FileId) {
         return this.http.get(environment.apiUrl+`/thesis/file/${FileId}`);
     }
+ 
 
 
 

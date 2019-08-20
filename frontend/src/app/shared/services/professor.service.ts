@@ -92,7 +92,7 @@ export class ProfessorService {
 
     // get all professors from the same university
     getProfessorsFromUniversity() {
-        return this.http.delete(environment.apiUrl+`/professor/university`);
+        return this.http.get(environment.apiUrl+`/professor/university`);
     }
 
 
@@ -119,14 +119,18 @@ export class ProfessorService {
     }
 
     // accept request for supervision
-    acceptSuperviceRequest(id,request) {
-        return this.http.post(environment.apiUrl+`/professor/supervise_pending/${id}`,{request:request});
+    acceptSuperviceRequest(id) {
+        return this.http.post(environment.apiUrl+`/professor/supervise_pending/${id}`,{});
+    }
+
+    deleteSuperviceRequest(id) {
+        return this.http.delete(environment.apiUrl+`/professor/supervise_pending/${id}`);
     }
 
 //routes for professor to propose another supervisor
     //propose another professor to supervise a thesis
-    proposeProfessor(supervisor_id,thesis_id,proposal) {
-        return this.http.post(environment.apiUrl+`/professor/propose_supervisor/${supervisor_id}/${thesis_id}`,{proposal:proposal});
+    proposeProfessor(supervisor_id,thesis_id,text) {
+        return this.http.post(environment.apiUrl+`/professor/propose_supervisor/${supervisor_id}/${thesis_id}`,{text:text});
     }
     
     // get accepted supervisors before confirm
@@ -139,11 +143,10 @@ export class ProfessorService {
         return this.http.get(environment.apiUrl+`/professor/accept_supervisor/${id}`);
     }
 
-    // professor confirms the supervisor
-    postConfirmSupervisor(id,confirm) {
-        return this.http.post(environment.apiUrl+`/professor/accept_supervisor/${id}`,{confirm:confirm});
+    
+    getThesisSupervise() {
+        return this.http.get(environment.apiUrl+`/professor/supervisor/thesis`)
     }
-
 
 
 
