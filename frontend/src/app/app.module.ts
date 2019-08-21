@@ -55,6 +55,7 @@ import { SecretariatProfessorsComponent } from './secretariat/secretariat-profes
 import { CompletedThesisRepositoryComponent } from './completed-thesis-repository/completed-thesis-repository.component';
 import { ProfessorSuperviseComponent } from './professor/professor-supervise/professor-supervise.component';
 import { ProfessorSupervisorThesisComponent } from './professor/professor-supervisor-thesis/professor-supervisor-thesis.component';
+import { SearchResultsComponent } from './home/search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { ProfessorSupervisorThesisComponent } from './professor/professor-superv
     SecretariatProfessorsComponent,
     CompletedThesisRepositoryComponent,
     ProfessorSuperviseComponent,
-    ProfessorSupervisorThesisComponent
+    ProfessorSupervisorThesisComponent,
+    SearchResultsComponent
  
   ],
   imports: [

@@ -1,3 +1,4 @@
+import { SearchResultsComponent } from './home/search-results/search-results.component';
 import { ProfessorSuperviseComponent } from './professor/professor-supervise/professor-supervise.component';
 
 import { NgModule, Component } from '@angular/core';
@@ -58,6 +59,7 @@ const routes: Routes = [
   { path: 'register-external', component: RegisterExternalComponent, canActivate: [LoginGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'repository', component: CompletedThesisRepositoryComponent },
+  { path: 'search', component: SearchResultsComponent },
   { path: 'thesis_details/:id', component: ThesisDetailsComponent, pathMatch: 'full' },
   { path: 'thesis_professor/:id', component: ThesisProfessorComponent, pathMatch: 'full' },
   { path: 'thesis_create', component: ThesisCreateComponent, canActivate: [AuthGuard], pathMatch: 'full' },
