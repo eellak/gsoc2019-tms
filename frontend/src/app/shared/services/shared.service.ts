@@ -11,62 +11,69 @@ import {
     RouterStateSnapshot,
     Router,
     UrlTree
-  } from '@angular/router';
+} from '@angular/router';
 
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
- 
-    constructor(private http: HttpClient) {}
-        
-    
+
+    private searchQuery = new BehaviorSubject('');
+    currentQuery = this.searchQuery.asObservable();
+
+
+    constructor(private http: HttpClient) { }
+
+    changeQuery(searchQuery: string) {
+        this.searchQuery.next(searchQuery)
+      }
+
     getUniversities(page) {
-        return this.http.get(environment.apiUrl+`/university?page=${page}`);
+        return this.http.get(environment.apiUrl + `/university?page=${page}`);
     }
 
     getUniversitiesNoPages() {
-        return this.http.get(environment.apiUrl+`/university/noPages`);
+        return this.http.get(environment.apiUrl + `/university/noPages`);
     }
 
-    getThesis(page) {
-        return this.http.get(environment.apiUrl+`/thesis?page=${page}`);
+    getThesis(page?,university?,professor?) {
+        return this.http.get(environment.apiUrl + `/thesis?page=${page}&university=${university}&professor=${professor}`);
     }
 
     getCompletedThesis(page) {
-        return this.http.get(environment.apiUrl+`/thesis/completed?page=${page}`);
+        return this.http.get(environment.apiUrl + `/thesis/completed?page=${page}`);
     }
 
     getCompletedFileThesis(thesisId) {
-        return this.http.get(environment.apiUrl+`/thesis/completed/file/${thesisId}`)
+        return this.http.get(environment.apiUrl + `/thesis/completed/file/${thesisId}`)
     }
 
     getCompletedFileThesisData(fileId) {
-        return this.http.get(environment.apiUrl+`/thesis/completed/data/${fileId}`);
+        return this.http.get(environment.apiUrl + `/thesis/completed/data/${fileId}`);
     }
 
-    getThesisOfProfessor(page,id) {
-        return this.http.get(environment.apiUrl+`/thesis?page=${page}&professor=${id}`);
+    getThesisOfProfessor(page, id) {
+        return this.http.get(environment.apiUrl + `/thesis?page=${page}&professor=${id}`);
     }
 
     getThesisById(id) {
-        return this.http.get(environment.apiUrl+`/thesis/${id}`);
+        return this.http.get(environment.apiUrl + `/thesis/${id}`);
     }
     getCompleted(page) {
-        return this.http.get(environment.apiUrl+`/thesis/completed?page=${page}`); //digital repository
+        return this.http.get(environment.apiUrl + `/thesis/completed?page=${page}`); //digital repository
     }
 
     getFilesThesis(ThesisId) {
-        return this.http.get(environment.apiUrl+`/thesis/files/${ThesisId}`);
+        return this.http.get(environment.apiUrl + `/thesis/files/${ThesisId}`);
     }
-    
+
     getFile(FileId) {
-        return this.http.get(environment.apiUrl+`/thesis/file/${FileId}`);
+        return this.http.get(environment.apiUrl + `/thesis/file/${FileId}`);
     }
 
     getProfessors() {
-        return this.http.get(environment.apiUrl+`/thesis/professors`);
+        return this.http.get(environment.apiUrl + `/thesis/professors`);
     }
- 
+
 
 
 
