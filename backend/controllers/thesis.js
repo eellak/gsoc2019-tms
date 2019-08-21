@@ -6,14 +6,15 @@ const CompletedThesis = require("../models/completed_thesis");
 const User = require("../models/user");
 
 exports.thesis_get_all = (req, res, next) => {
+  console.log("inside")
   var perPage = 5
   var page = req.query.page || 1
   var query = { pending: false }
-  if (req.query.university != null)
+  if (req.query.university != null && req.query.university != 'undefined') {
     query['university'] = req.query.university
-  if (req.query.professor != null) {
+  }
+  if (req.query.professor != null && req.query.professor != 'undefined') {
     query['professor'] = req.query.professor
-    console.log(req.query.professor)
   }
   var count;
   console.log(query)
@@ -192,7 +193,7 @@ exports.thesis_completed_data_file = (req, res, next) => {
 }
 
 exports.getProfessors = (req, res, next) => {
-  var query = { role: 'Professor'}
+  var query = { role: 'Professor' }
   User.find(query)
     .select("email name lastname")
     .exec()
@@ -201,7 +202,7 @@ exports.getProfessors = (req, res, next) => {
         res.status(200).json(docs);
       }
       else {
-        res.status(404).json({message:"Not found"})
+        res.status(404).json({ message: "Not found" })
       }
     })
     .catch(err => {
@@ -211,3 +212,4 @@ exports.getProfessors = (req, res, next) => {
       });
     });
 };
+
