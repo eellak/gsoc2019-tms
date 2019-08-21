@@ -8,17 +8,19 @@
 <mat-card>
     <div>
         <p>Search by university</p>
-
-        <form class="example-form" *ngIf="universitiesLoaded">
+        <form  class="example-form" *ngIf="universitiesLoaded" (ngSubmit)="onSubmit(myControlUniversity)">
             <mat-form-field class="example-full-width">
-                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControlUniversity"
-                    [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete" >
-                    <mat-option *ngFor="let university of filteredUniversityOptions | async" [value]="university.name">
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                    [formControl]="myControlUniversity" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayUniversity" >
+                    <mat-option *ngFor="let university of filteredUniversityOptions | async" [value]="university">
                         {{university.name}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
+            <div class="form-group">
+                <button type="submit" [disabled]="!myControlUniversity.value" class="btn btn-success">Submit</button>
+            </div>
         </form>
     </div>
 </mat-card>
@@ -29,19 +31,21 @@
     <div>
         <p>Search by professor</p>
 
-        <form class="example-form" *ngIf="professorsLoaded">
+        <form   class="example-form" *ngIf="professorsLoaded"
+            (ngSubmit)="onSubmit(myControlProfessor)">
             <mat-form-field class="example-full-width">
-                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControlProfessor"
-                    [matAutocomplete]="auto">
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                    [formControl]="myControlProfessor" [matAutocomplete]="auto">
                 <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayProfessor">
-                    <mat-option *ngFor="let professor of filteredProfessorOptions | async"
-                     [value]="professor" >
+                    <mat-option *ngFor="let professor of filteredProfessorOptions | async" [value]="professor">
                         {{professor.name}} {{professor.lastname}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
+            <div class="form-group">
+                <button type="submit"  [disabled]="!myControlProfessor.value" class="btn btn-success">Submit</button>
+            </div>
         </form>
+
     </div>
 </mat-card>
-
- 

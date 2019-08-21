@@ -1,11 +1,11 @@
 import { map, startWith } from 'rxjs/operators';
-import { Component, OnInit, Input } from '@angular/core';
-import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { SharedService } from './../shared/services/shared.service';
 import { AlertService } from './../shared/services/alert.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   professors;
   universities;
 
-  @Input() selectedProfessor: any;
+  selectedProfessor: any;
 
 
   professorsLoaded;
@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
       localStorage.setItem('University', this.route.snapshot.queryParams["university"]);
     };
     this.loading = true;
+
     this.filteredProfessorOptions = this.myControlProfessor.valueChanges
       .pipe(
         startWith(''),
@@ -75,9 +76,15 @@ export class HomeComponent implements OnInit {
     else return undefined;
   }
 
+  displayUniversity(university) {
+    if (university) {
+      return university.name
+    }
+    else return undefined;
+  }
+
 
   private _filterProfessor(value) {
-    console.log(value)
     var filterValue;
     if (typeof value === 'object') {
       filterValue = value.lastname.toLowerCase()
@@ -86,25 +93,32 @@ export class HomeComponent implements OnInit {
       filterValue = value.toLowerCase();
     }
     return this.professors.filter(option => {
-      const optionString = option.name.toString().toLowerCase() +" "+ option.lastname.toString().toLowerCase();
+      const optionString = option.name.toString().toLowerCase() + " " + option.lastname.toString().toLowerCase();
       return optionString.includes(filterValue);
     });
   }
 
-  private _filterUniversity(value): string[] {
-    console.log(value)
-    const filterValue = value.toLowerCase();
-
+  private _filterUniversity(value) {
+    var filterValue;
+    if (typeof value === 'object') {
+      filterValue = value.name.toLowerCase()
+    }
+    else {
+      filterValue = value.toLowerCase();
+    }
     return this.universities.filter(option => option.name.toString().toLowerCase().includes(filterValue));
   }
 
   getUniversities() {
     this.sharedService.getUniversitiesNoPages()
       .subscribe((result: any) => {
-        console.log(result)
         this.universities = result
         this.universitiesLoaded = true;
-      })
+      },
+        error => {
+          console.log(error)
+          this.alertService.error(error);
+        });
   }
 
 
@@ -113,8 +127,20 @@ export class HomeComponent implements OnInit {
       .subscribe((result: any) => {
         this.professors = result
         this.professorsLoaded = true;
-      })
+      },
+        error => {
+          console.log(error)
+          this.alertService.error(error);
+        });
   }
+
+
+  onSubmit(formControl: FormControl) {
+    console.log("submit" + formControl)
+    this.sharedService.changeQuery(formControl.value)
+    this.router.navigate(['./search'], { relativeTo: this.route })
+  }
+
 }
 
 
