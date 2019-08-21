@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { map, startWith } from 'rxjs/operators';
+import { Component, OnInit, Input } from '@angular/core';
 import { UrlSegment, Router, ActivatedRoute } from '@angular/router';
-import {Sort} from '@angular/material/sort';
 import { Location } from '@angular/common';
 
-import { AuthenticationService } from './../shared/services/authentication.service';
 import { SharedService } from './../shared/services/shared.service';
 import { AlertService } from './../shared/services/alert.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -14,71 +15,106 @@ import { AlertService } from './../shared/services/alert.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
- 
-  theses:any=[];
-  loading=false;
-  pager:any={}
-  sortedData:any=[];
 
-  constructor( private router : Router
-              ,private authenticationService: AuthenticationService,
-               private route: ActivatedRoute,
-               private sharedService:SharedService,
-               private alertService:AlertService,
-              private location:Location ) {}
+  myControlProfessor = new FormControl();
+  myControlUniversity = new FormControl();
+
+  filteredProfessorOptions: Observable<string[]>;
+  filteredUniversityOptions: Observable<string[]>;
+
+  theses: any = [];
+  loading = false;
+  pager: any = {}
+  sortedData: any = [];
+
+  professors;
+  universities;
+
+  @Input() selectedProfessor: any;
+
+
+  professorsLoaded;
+  universitiesLoaded;
+
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private sharedService: SharedService,
+    private alertService: AlertService,
+    private location: Location) { }
 
   ngOnInit() {
-      const url=this.router.url;
-      if(url.startsWith("/?access_token")) {
-           localStorage.setItem('Token',this.route.snapshot.queryParams["access_token"]);
-          localStorage.setItem('Role',this.route.snapshot.queryParams["role"]);
-          localStorage.setItem('Timestamp',''+new Date());
-          localStorage.setItem('University',this.route.snapshot.queryParams["university"]);
-        };
-    this.loading=true;
-    this.getThesis(1);
+    const url = this.router.url;
+    if (url.startsWith("/?access_token")) {
+      localStorage.setItem('Token', this.route.snapshot.queryParams["access_token"]);
+      localStorage.setItem('Role', this.route.snapshot.queryParams["role"]);
+      localStorage.setItem('Timestamp', '' + new Date());
+      localStorage.setItem('University', this.route.snapshot.queryParams["university"]);
+    };
+    this.loading = true;
+    this.filteredProfessorOptions = this.myControlProfessor.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filterProfessor(value))
+      );
+    this.filteredUniversityOptions = this.myControlUniversity.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filterUniversity(value))
+      );
+    this.professorsLoaded = false;
+    this.getProfessors();
+    this.getUniversities();
     this.location.replaceState('/');
 
   }
 
-  
-  compare(a: number | string | boolean, b: number | string | boolean, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  displayProfessor(professor) {
+    if (professor) {
+      return professor.name + " " + professor.lastname;
+    }
+    else return undefined;
   }
 
-  sortData(sort: Sort) {
-    const data = this.sortedData.slice();
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-       switch (sort.active) {
-        case 'created_time': return this.compare(a.created_time, b.created_time, isAsc);
-        case 'title': return this.compare(a.title, b.title, isAsc);
-        case 'professor': return this.compare(a.professor.lastname, b.professor.lastname, isAsc);
-        case 'university': return this.compare(a.professor.lastname, b.professor.lastname, isAsc);
-        default: return 0;
-      }
+
+  private _filterProfessor(value) {
+    console.log(value)
+    var filterValue;
+    if (typeof value === 'object') {
+      filterValue = value.lastname.toLowerCase()
+    }
+    else {
+      filterValue = value.toLowerCase();
+    }
+    return this.professors.filter(option => {
+      const optionString = option.name.toString().toLowerCase() +" "+ option.lastname.toString().toLowerCase();
+      return optionString.includes(filterValue);
     });
   }
 
-  
-  getThesis(page) {
-    this.sharedService.getThesis(page)
-    .subscribe(
-     (data:any) => {
-          //this.alertService.success('Get user information successful', true);
-         this.theses=data.docs;
-         this.sortedData=this.theses.slice();
-         console.log(this.theses)
-         this.pager.count=data.count;
-         this.pager.pages= data.pages;
-         this.pager.currentPage=page;
-         this.loading=false;
-     },
-     error => {
-         this.alertService.error(error);
-         this.loading = false;
-     });
-   }
+  private _filterUniversity(value): string[] {
+    console.log(value)
+    const filterValue = value.toLowerCase();
+
+    return this.universities.filter(option => option.name.toString().toLowerCase().includes(filterValue));
+  }
+
+  getUniversities() {
+    this.sharedService.getUniversitiesNoPages()
+      .subscribe((result: any) => {
+        console.log(result)
+        this.universities = result
+        this.universitiesLoaded = true;
+      })
+  }
+
+
+  getProfessors() {
+    this.sharedService.getProfessors()
+      .subscribe((result: any) => {
+        this.professors = result
+        this.professorsLoaded = true;
+      })
+  }
 }
 
 
