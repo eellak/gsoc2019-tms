@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms'; 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSortModule, MatDividerModule, MatCardModule, MatProgressBarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule, MatSortModule, MatDividerModule, MatCardModule, MatProgressBarModule, MatAutocompleteModule } from '@angular/material';
 import {MatSidenavModule} from '@angular/material/sidenav';
  
 import { AppRoutingModule } from './app-routing.module';
@@ -119,7 +119,8 @@ import { ProfessorSupervisorThesisComponent } from './professor/professor-superv
     MatSortModule,
     MatDividerModule,
     MatCardModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatAutocompleteModule
  
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
