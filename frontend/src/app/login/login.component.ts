@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     sso=false;
     value: string;
      viewValue: string;
+  selectedUniversity;
 
     constructor(private router: Router,  
        private http: HttpClient,
@@ -58,6 +59,10 @@ export class LoginComponent implements OnInit {
        });
     }
 
-    // NOT IMPLEMENTED ---- Geting the value of selected university and redirect to the specified Identity Provider !
+    changeUniversity(university) {
+       this.selectedUniversity=university;
+    }
+
+    // Geting the value of selected university and  // NOT IMPLEMENTED ----  redirect to the specified Identity Provider !
 
 }

@@ -16,13 +16,13 @@
   <br>
   <mat-form-field>
     <mat-label>University</mat-label>
-    <mat-select [(ngModel)]="universities[0]._id">
+    <mat-select   (selectionChange)="changeUniversity($event.value)">
       <mat-option *ngFor="let university of universities" [value]="university._id">
         {{university.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <a href="http://localhost:3000/SSO/login">
+  <a href="http://localhost:3000/SSO/login?university={{selectedUniversity}}">
     <button class="btn btn-success confirm">Confirm</button>
   </a>
 </div>
