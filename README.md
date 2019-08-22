@@ -50,7 +50,7 @@
  - [Architecture Design](https://github.com/eellak/gsoc2019-tms/wiki/Architecture-Design)
  - [API Documentation](https://github.com/eellak/gsoc2019-tms/wiki/API-Documentation)
  - [SSO Documentation](https://github.com/eellak/gsoc2019-tms/wiki/Single-Sign-On-Documentation)
-
+- [Register-Login](https://github.com/eellak/gsoc2019-tms/wiki/Register-and-Login-as-External-user)
  
  <h2> Technologies used </h2>
  
