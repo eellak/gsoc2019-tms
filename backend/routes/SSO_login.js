@@ -5,12 +5,14 @@ const app=express();
  const auth=require("../ssoauth");
 const bodyParser=require("body-parser");
 const jwt=require("jsonwebtoken");
+const professor =require("../controllers/professor")
+
 
 //url : /SSO
 app.use(passport.initialize());
 app.use(passport.session());
 
-router.get('/login',
+router.get('/login', auth.setUniversity,
   passport.authenticate('saml', { failureRedirect: '/', failureFlash: true }),
   function(req, res) {
      res.redirect('/');
@@ -20,8 +22,10 @@ router.get('/login',
 router.post("/login/callback",
     bodyParser.urlencoded({ extended: false }),
     (req, res, next) => {
-        passport.authenticate("saml", { session: false }, (err, user) => {
-          if(err) console.log(err)
+        passport.authenticate("saml", { session: false ,  passReqToCallback: true }, (err, user) => {
+          if(err)  {
+            console.log("Error"+err)
+          }
          console.log(user)
         const token = jwt.sign(
           {
@@ -50,8 +54,7 @@ router.post("/login/callback",
       
 
     router.get('/logout', (req, res) => {
-        // res.clearCookie("cookie.sid");
-          res.redirect('https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:3000/SSO/logout/callback');
+           res.redirect('https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:3000/SSO/logout/callback');
 
        });
        
