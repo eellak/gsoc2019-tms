@@ -10,6 +10,7 @@
  
 
 
+
 <h2> Lifecycle </h2>
 
 The lifecycle of TMS can be separated in 4 periods:
@@ -31,6 +32,7 @@ You can find a more detailed review in [Wiki Lifecycle](https://github.com/eella
  - [TMS Lifecycle](https://github.com/eellak/gsoc2019-tms/wiki/Lifecycle-of-TMS)
  -[Wiki Contribute](https://github.com/eellak/gsoc2019-tms/wiki/Contribute-and-Future-Work)
 
+ 
 <h2> Timeline </h2>
 
  Milestones at the end of each [GSoC phase](https://developers.google.com/open-source/gsoc/timeline):
@@ -56,6 +58,10 @@ You can find a more detailed review in [Wiki Lifecycle](https://github.com/eella
 - Integrated Chat between student and supervisor
 - Tests
 
+
+<h2> Final Report Gist </h2>
+
+ Link to the final report (https://gist.github.com/MichailChatzianastasis/1768fcfcc72ad735bc42ab8456fd16d0) 
 
 <h2> Contributors </h2>
  
