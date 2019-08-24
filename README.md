@@ -21,7 +21,7 @@ The lifecycle of TMS can be separated in 4 periods:
  
 You can find a more detailed review in [Wiki Lifecycle](https://github.com/eellak/gsoc2019-tms/wiki/Lifecycle-of-TMS)
 
- <h2> Overview </h2>
+ <h2> Wiki Overview </h2>
  
  - [Installation Guide](https://github.com/eellak/gsoc2019-tms/wiki/Installation-Guide)
  - [Architecture Design](https://github.com/eellak/gsoc2019-tms/wiki/Architecture-Design)
@@ -75,7 +75,7 @@ The <b>backend</b> is written in node js, using the following libraries: [bcrypt
 
 The <b>frontend</b> is written in angular7, using the following modules: [@angular/core](https://www.npmjs.com/package/@angular/core) , [@angular/common](https://www.npmjs.com/package/@angular/common) , [@angular/compiler](https://www.npmjs.com/package/@angular/compiler) , [@angular/compiler-cli](https://www.npmjs.com/package/@angular/compiler-cli) , [@angular/forms](https://www.npmjs.com/package/@angular/forms) , [@angular/http](https://www.npmjs.com/package/@angular/http) , [@angular/platform-browser](https://angular.io/api/platform-browser) , , [@angular/platform-browser-dynamic](https://www.npmjs.com/package/@angular/platform-browser-dynamic)  , [@angular/platform-server](https://www.npmjs.com/package/@angular/platform-server) , [@angular/router](https://www.npmjs.com/package/@angular/router) , [@angular/animations](https://www.npmjs.com/package/@angular/animations) , [@angular/upgrade](https://www.npmjs.com/package/@angular/upgrade) , [@angular/material](https://www.npmjs.com/package/@angular/material) , [rxjs](https://www.npmjs.com/package/rxjs) , [tslib](https://www.npmjs.com/package/tslib) , [zone.js](https://www.npmjs.com/package/zone.js?activeTab=readme) , [bootstrap@3](https://www.npmjs.com/package/bootstrap) , [@ng-bootstrap/ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
 
-For the UI css <b>bootstrap3<b> framework is used
+For the UI css <b>bootstrap3</b> framework is used
     
     
 <h2> Future Work </h2>
