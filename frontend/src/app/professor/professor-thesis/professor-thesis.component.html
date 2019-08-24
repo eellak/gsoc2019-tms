@@ -43,7 +43,7 @@
     </mat-card>
       
     <br>  
-    <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
+    <mat-card *ngIf="!loading" [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
         <div>
            <a [routerLink]="['/thesis_create']" class="create add" > <button class="btn btn-success add"  > <i class="material-icons add ">create</i> Create Thesis</button></a> 
         </div>
