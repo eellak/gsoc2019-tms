@@ -49,12 +49,12 @@ router.post("/login/callback",
     router.post("/login/callback",
     bodyParser.urlencoded({ extended: false }),
     (req, res, next) => { 
-        res.redirect("http://localhost:4200/?access_token="+req.token+"&role="+req.user.role+"&university="+req.user.university);
+        res.redirect(process.env.SERVER_IP+":4200/?access_token="+req.token+"&role="+req.user.role+"&university="+req.user.university);
     });
       
 
     router.get('/logout', (req, res) => {
-           res.redirect('https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:3000/SSO/logout/callback');
+           res.redirect('https://dev-i5mfll-2.auth0.com/v2/logout?client_id=nN6sDa8ZyhOlc4jC67Xu1x76zgZ7Kl6X&returnTo='+process.env.SERVER_IP+':3000/SSO/logout/callback');
 
        });
        

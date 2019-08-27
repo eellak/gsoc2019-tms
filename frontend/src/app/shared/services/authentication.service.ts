@@ -85,7 +85,7 @@ export class AuthenticationService {
     
     sso_logout() {
         localStorage.clear();
-        window.location.href='https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:4200/sso_logout';    
+        window.location.href='https://dev-i5mfll-2.auth0.com/v2/logout?client_id=nN6sDa8ZyhOlc4jC67Xu1x76zgZ7Kl6X&returnTo=http://83.212.104.202:4200/sso_logout';    
     }
 
     logout() {
