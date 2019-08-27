@@ -28,7 +28,8 @@ exports.user_signup = (req, res, next) => {
               email: req.body.email,
               password: hash,
               name: req.body.name,
-              lastname: req.body.lastname
+              lastname: req.body.lastname,
+              active : false
             });
             user
               .save()
@@ -58,6 +59,11 @@ exports.user_login = (req, res, next) => {
         return res.status(401).json({
           message: "Auth failed, Wrong email or password"
         });
+      }
+      if(!user[0].active) {
+        return res.status(401).json({
+          message: "Your account must be activated from admin"
+        }) 
       }
       bcrypt.compare(req.body.password, user[0].password, (err, result) => { console.log(result)
         if (err) {
