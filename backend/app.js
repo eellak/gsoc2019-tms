@@ -63,6 +63,32 @@ app.get('/user',sendAuth);
 
 
 
+//// android studio 
+
+const formidable = require('formidable')
+var multer= require('multer');
+var upload=multer({dest: 'uploads/'})
+app.post("/android",(req,res,next)=>{
+    console.log(req)
+    const myfile=req.files.file;
+    const age= req.headers.age;
+    const education = req.headers.education;
+    const gender = req.headers.gender;
+    const diseases = req.headers.diseases;
+    const fs = require('fs');
+    var path = process.cwd();
+    fs.writeFile(path+'/android', myfile, function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      
+      console.log("The file was saved!");
+      res.status(200).json({message:"The file was saved"})
+    }); 
+  })
+
+/////////
+
 
 
 
