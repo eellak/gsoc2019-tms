@@ -25,6 +25,7 @@ loading;
   searchQuery;
   professor_id;
   university_id;
+selected;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -39,9 +40,11 @@ loading;
         this.searchQuery = searchQuery;        ////////check if searchquery is for professor or university
         if (this.searchQuery.lastname) {
           this.professor_id = this.searchQuery._id
+          this.selected= this.searchQuery.name + ' ' + this.searchQuery.lastname
         }
         else {
           this.university_id = this.searchQuery._id;
+          this.selected= this.searchQuery.name;
         }
         this.getTheses(1)
       })
