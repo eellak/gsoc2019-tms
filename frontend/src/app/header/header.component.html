@@ -1,34 +1,38 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a routerLink="/" class="navbar-brand nav-item"> <span class="glyphicon glyphicon-home"></span> </a>  
+      <a routerLink="/" class="navbar-brand nav-item"> <span class="glyphicon glyphicon-home"></span> </a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents"
+        aria-expanded="true">
+        <i class="glyphicon glyphicon-align-center"></i>
+      </button>
     </div>
-     <div class="collapse navbar-collapse">
+    <div class="collapse navbar-collapse" id="exampleNavComponents">
       <ul class="nav navbar-nav">
         <li routerLinkActive="active2" *ngIf="!isLoggedIn()">
           <a routerLink="/login" class="nav-item">Login</a>
         </li>
         <li routerLinkActive="active2" *ngIf="isLoggedIn()">
-          <a class="nav-item nav-link logout"  (click)="logout()">Logout</a>
+          <a class="nav-item nav-link logout" (click)="logout()">Logout</a>
         </li>
         <li routerLinkActive="active2" *ngIf="!isLoggedIn()">
-          <a routerLink="/register-external" class="nav-item" >Register </a>
+          <a routerLink="/register-external" class="nav-item">Register </a>
         </li>
         <li routerLinkActive="active2" *ngIf="isLoggedIn()">
-          <a routerLink="/profile" class="nav-item" >My Profile </a>
+          <a routerLink="/profile" class="nav-item">My Profile </a>
         </li>
         <li routerLinkActive="active2" *ngIf="isStudent()">
-          <a routerLink="/student/assigned" class="nav-item" >My Thesis</a>
-      </li> 
-      <li routerLinkActive="active2" *ngIf="isProfessor()">
+          <a routerLink="/student/assigned" class="nav-item">My Thesis</a>
+        </li>
+        <li routerLinkActive="active2" *ngIf="isProfessor()">
           <a routerLink="/professor/thesis" class="nav-item">My Theses</a>
-      </li>  
+        </li>
         <li routerLinkActive="active2" *ngIf="isLoggedIn() && isAdmin() ">
-            <a routerLink="/admin" class="nav-item" >Admin</a>
+          <a routerLink="/admin" class="nav-item">Admin</a>
         </li>
         <li routerLinkActive="active2">
-          <a routerLink="/repository" class="nav-item" >Completed Theses Repository </a>
-      </li>
+          <a routerLink="/repository" class="nav-item">Completed Theses Repository </a>
+        </li>
       </ul>
     </div>
   </div>
