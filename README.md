@@ -9,7 +9,19 @@
  I propose the development of a web application that will support the whole lifecycle of a thesis creation, namely, a Thesis Management System (TMS) that will benefit the students as well as the professors. This proposed system aims at eliminating the time consuming procedures and paper work at the very basic level by encapsulating and automating them with in the web app. MoreoverTMS will provide the functionality of an open source digital repository of completed theses, where the student authors can share their work to a wide audience and may be cited more easily by companies and researchers in their academic community.
  
 
+<h2> Demo </h2>
 
+You can find a demo here http://83.212.104.202:4200. <br>
+Test users with SSO: 
+
+  1. Professor
+  - email: professor@gmail.com
+  - password: 8nhUv97uQL6
+  
+  2. Student 
+  - email: frontendstudent@gmail.com
+  - password: 7uQL6&+R4-
+            
 
 <h2> Lifecycle </h2>
 
@@ -33,32 +45,6 @@ You can find a more detailed review in [Wiki Lifecycle](https://github.com/eella
  -[Wiki Contribute](https://github.com/eellak/gsoc2019-tms/wiki/Contribute-and-Future-Work)
 
  
-<h2> Timeline </h2>
-
- Milestones at the end of each [GSoC phase](https://developers.google.com/open-source/gsoc/timeline):
-
-<h3>June 28, 2019 Phase 1 Evaluation:</h3>  
-
-- Complete Database schema.
-- Complete Models and Routes of the Backend system.
-- API that supports the basic functionality of the system (student,supervisor register, topic creation, assign topic, submit topic).
-
-<h3>July 26, 2019 Phase 2 Evaluation:</h3>
-
-- Register and Log in components in the frontend.
-- Basic user-interface for student and supervisor.
-- Partial documentation of the system
-- Tests that checks if the backend works properly
-
-<h3>August 26, 2019 Final Evaluation:</h3>
-
-- Functional user-interface and backend that supports all the roles of the TMS lifecycle
-- Full documentation of the project
-- Digital repository of completed thesis
-- Integrated Chat between student and supervisor
-- Tests
-
-
 <h2> Final Report Gist </h2>
 
  Link to the final report (https://gist.github.com/MichailChatzianastasis/1768fcfcc72ad735bc42ab8456fd16d0) 
