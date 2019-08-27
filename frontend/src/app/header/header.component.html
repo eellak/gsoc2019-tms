@@ -2,8 +2,12 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a routerLink="/" class="navbar-brand nav-item"> <span class="glyphicon glyphicon-home"></span> </a>  
+	 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#exampleNavComponents"
+        aria-expanded="true">
+        <i class="glyphicon glyphicon-align-center"></i>
+      </button>
     </div>
-     <div class="collapse navbar-collapse">
+     <div class="collapse navbar-collapse" id="exampleNavComponents">
       <ul class="nav navbar-nav">
         <li routerLinkActive="active2" *ngIf="!isLoggedIn()">
           <a routerLink="/login" class="nav-item">Login</a>
