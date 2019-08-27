@@ -137,8 +137,13 @@ export class HomeComponent implements OnInit {
 
   onSubmit(formControl: FormControl) {
     console.log("submit" + formControl)
-    this.sharedService.changeQuery(formControl.value)
-    this.router.navigate(['./search'], { relativeTo: this.route })
+    if(formControl.value.name) {
+      this.sharedService.changeQuery(formControl.value)
+      this.router.navigate(['./search'], { relativeTo: this.route })
+    }
+    else {
+        alert("Wrong university or professor. Please try again!")
+    }
   }
 
 }
