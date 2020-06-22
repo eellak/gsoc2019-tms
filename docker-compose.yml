@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+    node-app:
+        build: backend
+        ports: 
+            - 3000:3000
+        depends_on:
+            - mongo
+
+    mongo:
+        image: mongo # pulls official mongo image
+        restart: always
+        ports: 
+            - 27017:27017
+        # Uncomment the following 2 lines if you want the container to preserve the mongodb data
+        # volumes:
+        #     - /var/log/mongodb/mongodb.log:/data/db
+        environment:
+            ME_CONFIG_MONGODB_ADMINUSERNAME: <username>
+            ME_CONFIG_MONGODB_ADMINPASSWORD: <password>
+
+    angular-app:
+        build: frontend
+        ports: 
+            - 4200:4200
+        depends_on: 
+            - node-app

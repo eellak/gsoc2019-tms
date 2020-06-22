@@ -82,3 +82,25 @@
         </li>
     </ul>
 </div>
+
+<!--External-Professor sidenav -->
+<div class="navbar navbar-default navbar-fixed-left" *ngIf="role=='External-Professor'">
+    <ul class="nav navbar-nav">
+        <li routerLinkActive="active">
+            <a routerLink="/external/thesis"><i class="material-icons">book</i>My Theses</a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/external/create_pending"><i class="material-icons">create</i> Create Thesis </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/professor/supervise_thesis">
+                <i class="material-icons">local_library</i>
+                        Supervise Theses 
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a routerLink="/professor/supervise"><i class="material-icons">people</i>
+                 Supervise Requests</a>
+        </li>
+    </ul>
+</div>

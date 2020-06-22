@@ -17,11 +17,12 @@ router.get("/get_external/:userId",adminController.get_external_byId); //get ext
 router.delete("/delete_external/:userId",adminController.delete_external); //delete external
 router.get("/get_not_active_externals",adminController.get_not_active_externals); //get all not active externals;
 router.get("/activate_external/:userId",adminController.activate_external); //activate external with the specified id;
-
+router.put("/update_external/:userId",adminController.update_external); //update external
 
 router.get("/get_users",adminController.get_users); //get all users
 router.get("/get_user/:userId",adminController.get_user_byId); //get user by id
 router.delete("/delete_user/:userId",adminController.delete_user); //delete user
+router.put("/update_user/:userId",adminController.update_user); //update user
 
 router.post("/application_period",adminController.application_period); // specify application period
  

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {Sort} from '@angular/material/sort';
 
@@ -19,7 +19,17 @@ export class AdminUserComponent implements OnInit {
   pager:any={}
   sortedData:any=[];
 
+  roles = [
+    'Guest',
+    'Professor',
+    'Secretariat',
+    'Student'
+  ]
+  ischanged = false;
+  newRole;
+
   constructor( private router: Router,
+    private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private alertService: AlertService,
@@ -28,6 +38,12 @@ export class AdminUserComponent implements OnInit {
   ngOnInit() {
     this.loading=true;
     this.getUsers(1);
+  }
+
+  onChange(newRole) {
+    console.log(' and the change is: ' + newRole);
+    this.ischanged = true;
+    this.newRole = newRole;
   }
 
   
@@ -83,6 +99,28 @@ export class AdminUserComponent implements OnInit {
      });
    }
 
+   updateUser(user){
+    if(confirm("You are about to change the role of the user with email: " + user.email + " from " + user.role + " to " + this.newRole + ".          Are you sure?")){ 
+    console.log(user._id + ' andd ' + user.role );
+    user.role = this.newRole;
+    console.log('The new role is: ' + user.role);
+    this.adminService.putUser(user._id, user.role)
+    .subscribe(
+      (data:any) => {
+        console.log(data)
+        // this.message=data;
+        setTimeout(() =>  {
+          this.router.navigate(['../../'], { relativeTo: this.route})
+        }
+        ,1500);
+
+      },
+      error => {
+        this.alertService.error(error);
+      }
+    )
+   }
+  }
  
   }
 

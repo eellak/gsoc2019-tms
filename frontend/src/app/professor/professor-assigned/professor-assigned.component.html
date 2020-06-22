@@ -32,25 +32,44 @@
             </div>
             </td>
             <td>
-                <div *ngIf="thesis.supervisors.length>0">
-                    <div *ngFor="let supervisor of thesis.supervisors">
-                        &bull; <a [routerLink]="['/thesis_professor',supervisor._id]"> {{supervisor.name}}
-                            {{supervisor.lastname}} </a> <br><br>
-                    </div>
+                <div *ngIf="thesis.supervisors.length+thesis.external_supervisors.length>0">
+                    <ng-container *ngIf="thesis.supervisors.length>0">
+                        <div *ngFor="let supervisor of thesis.supervisors">
+                            &bull; <a [routerLink]="['/thesis_professor',supervisor._id]"> {{supervisor.name}}
+                                {{supervisor.lastname}} </a> <br><br>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="thesis.external_supervisors.length>0">
+                        <div *ngFor="let external of thesis.external_supervisors">
+                            &bull; <a> {{external.name}}
+                                {{external.lastname}} </a> <br><br>
+                        </div>
+                    </ng-container>
                 </div>
-                <div *ngIf="thesis.supervisors.length<2">
-                        <label for="supervisor">Select the Supervisor from the list below</label>
+                <div *ngIf="thesis.supervisors.length+thesis.external_supervisors.length<2">
+                        <label for="supervisor">University Supervisors</label>
                         <div style="height:1px"> </div>
                         <mat-form-field>
-                            <mat-label>Professor</mat-label>
+                            <mat-label>University Professor</mat-label>
                             <mat-select (selectionChange)="selectSupervisor($event.value)">
                                 <mat-option *ngFor="let supervisor of professors" [value]="supervisor">
                                     {{supervisor.name}} {{supervisor.lastname}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
-                    
-                    <button class="btn btn-success" (click)="proposeSupervisor(thesis)">Propose Supervisor</button>
+                        <br>
+                        <label for="supervisor">External Supervisors</label>
+                        <div style="height:1px"> </div>
+                        <mat-form-field>
+                            <mat-label>External Professor</mat-label>
+                            <mat-select (selectionChange)="selectSupervisor($event.value)">
+                                <mat-option *ngFor="let supervisor of external_professors" [value]="supervisor">
+                                    {{supervisor.name}} {{supervisor.lastname}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    <br>
+                    <button mat-raised-button color="primary" (click)="proposeSupervisor(thesis)">Propose Supervisor</button>
                 </div>
             </td>
         </tr>
@@ -63,14 +82,14 @@
 <div class="row" *ngIf="message=='success' ">
         <div class="col-xs-12">
           <p class="alert alert-success">
-            <strong>You have propose the supervisor for the thesis sucessfully!</strong>
+            <strong>You have proposed the supervisor for this thesis sucessfully!</strong>
           </p>
         </div>
       </div>
 
 <br>
 <mat-card>
-    <h4 *ngIf="count==0 && loading==false">You have not any assigned theses !</h4>
+    <h4 *ngIf="count==0 && loading==false">You have not any assigned theses!</h4>
 </mat-card>
 
 <div class="card-footer pb-0 pt-3">

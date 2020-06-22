@@ -258,6 +258,38 @@ exports.delete_user = (req, res, next) => {
     });
 };
 
+exports.update_user = (req, res, next) => {
+    User.findOneAndUpdate({ _id: req.params.userId}, {$set:{role:req.body.role}}, { new: true })
+    .exec()
+    .then(result => {
+      if (result != null) {
+        res.status(200).json(result)
+      }
+      else
+        res.status(404).json({ message: 'Not found' })
+    })
+    .catch(err => {
+        console.log('Error in updating user ' + err);
+      res.status(500).json({ error: err })
+    })
+}
+
+exports.update_external = (req, res, next) => {
+    External.findOneAndUpdate({ _id: req.params.userId}, {$set:{role:req.body.role}}, { new: true })
+    .exec()
+    .then(result => {
+      if (result != null) {
+        res.status(200).json(result)
+      }
+      else
+        res.status(404).json({ message: 'Not found' })
+    })
+    .catch(err => {
+        console.log('Error in updating user ' + err);
+      res.status(500).json({ error: err })
+    })
+}
+
 
 
 exports.application_period= (req,res,next) => {

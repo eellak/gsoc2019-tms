@@ -23,7 +23,17 @@
       <td>{{user.email}}</td>
       <td>{{user.name}}</td>
       <td>{{user.lastname}}</td>
-      <td>{{user.role}}</td>
+      <td>
+        <mat-form-field>
+          <mat-label>{{user.role}}</mat-label>
+          <mat-select (selectionChange)="onChange($event.value)">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button *ngIf='ischanged' mat-raised-button color="primary" (click)="updateExternal(user)">Update Role</button> 
+      </td>
       <td *ngIf="user.active"><i class="material-icons active">done</i></td>
       <td *ngIf="!user.active"><i class="material-icons not_active">clear</i></td>
       <td><button class="btn btn-default" (click)="deleteExternal(user)"><i

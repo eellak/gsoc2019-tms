@@ -1,33 +1,44 @@
+<mat-card class="col-xs-12 col-sm-5  col-md-4 col-lg-3">
 <h2>Register</h2>
+<br>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label for="email">Email</mat-label>
+            <input matInput type="text" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <mat-error *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+                <mat-error *ngIf="f.email.errors.pattern">Not a valid email</mat-error>
+            </mat-error>
+        </mat-form-field>
     </div>
     <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-            <div *ngIf="f.name.errors.required">Name is required</div>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label for="name">Name</mat-label>
+            <input matInput type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <mat-error *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.name.errors.required">Name is required</mat-error>
+            </mat-error>
+        </mat-form-field>
     </div>
     <div class="form-group">
-        <label for="lastname">Lastname</label>
-        <input type="text" formControlName="lastname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
-        <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
-            <div *ngIf="f.lastname.errors.required">Lastname is required</div>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label for="lastname">Lastname</mat-label>
+            <input matInput type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }" />
+            <mat-error *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.lastname.errors.required">Lastname is required</mat-error>
+            </mat-error>
+        </mat-form-field>
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-        </div>
+        <mat-form-field appearance="fill">
+            <mat-label for="password">Password</mat-label>
+            <input matInput type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <mat-error *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+                <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
+            </mat-error>
+        </mat-form-field>
     </div>
     <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">Register</button>
@@ -35,6 +46,7 @@
         <a [routerLink]="['/']" class="btn btn-link">Cancel</a>
     </div>
 </form>
+</mat-card>
 
  
 <div class="row"  *ngIf="message!=null ">

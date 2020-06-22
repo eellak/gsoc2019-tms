@@ -56,6 +56,9 @@ import { CompletedThesisRepositoryComponent } from './completed-thesis-repositor
 import { ProfessorSuperviseComponent } from './professor/professor-supervise/professor-supervise.component';
 import { ProfessorSupervisorThesisComponent } from './professor/professor-supervisor-thesis/professor-supervisor-thesis.component';
 import { SearchResultsComponent } from './home/search-results/search-results.component';
+import { LoginLdapComponent } from './login/login-ldap/login-ldap.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -101,7 +104,8 @@ import { SearchResultsComponent } from './home/search-results/search-results.com
     CompletedThesisRepositoryComponent,
     ProfessorSuperviseComponent,
     ProfessorSupervisorThesisComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    LoginLdapComponent
  
   ],
   imports: [
@@ -122,8 +126,9 @@ import { SearchResultsComponent } from './home/search-results/search-results.com
     MatDividerModule,
     MatCardModule,
     MatProgressBarModule,
-    MatAutocompleteModule
- 
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [ {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } ,
                {provide:HTTP_INTERCEPTORS, useClass:HttpErrorInterceptor,multi:true},

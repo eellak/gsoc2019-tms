@@ -17,3 +17,12 @@ p {
  button {
    text-align: right;
  }
+
+ mat-card {
+   margin-right: 10px;
+   margin-bottom: 10px;
+ }
+
+ h3 {
+   padding-left: 0px;
+ }

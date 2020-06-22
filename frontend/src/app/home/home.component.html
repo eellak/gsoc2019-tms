@@ -1,13 +1,13 @@
-<mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'">
-    <h2>Welcome to <b>Thesis Management System</b></h2>
-</mat-card><br>
-
-<h2><i class="material-icons">search</i>Search Thesis</h2>
-
-
-<mat-card>
+<!-- <mat-card [style.backgroundColor]="'rgba(252, 252, 252, 0.877)'"> -->
+<div *ngIf="!isloggedin">
+    <h2>Welcome to <b>TMS</b></h2>
+    <h3>You can get started by browsing available theses:</h3>
+</div>
+<!-- </mat-card> -->
+<br>
+<mat-card class="col-md-4">
     <div>
-        <p>Search by university</p>
+        <p>Search theses by university</p>
         <form  class="example-form" *ngIf="universitiesLoaded" (ngSubmit)="onSubmit(myControlUniversity)">
             <mat-form-field class="example-full-width">
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput
@@ -25,13 +25,11 @@
     </div>
 </mat-card>
 
-<hr>
-
-<mat-card>
+<mat-card class="col-md-4">
     <div>
-        <p>Search by professor</p>
+        <p>Search theses by professor</p>
 
-        <form   class="example-form" *ngIf="professorsLoaded"
+        <form class="example-form" *ngIf="professorsLoaded"
             (ngSubmit)="onSubmit(myControlProfessor)">
             <mat-form-field class="example-full-width">
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput
@@ -49,3 +47,8 @@
 
     </div>
 </mat-card>
+
+<br>
+<div *ngIf="!isloggedin">
+    <h3 class="col-md-6">Or you can propose you own!    <button color="accent" mat-raised-button (click)="login()">Login</button></h3>
+</div>

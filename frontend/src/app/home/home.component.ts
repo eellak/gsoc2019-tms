@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 
 import { SharedService } from './../shared/services/shared.service';
 import { AlertService } from './../shared/services/alert.service';
+import { AuthenticationService } from './../shared/services/authentication.service';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -36,11 +37,16 @@ export class HomeComponent implements OnInit {
   professorsLoaded;
   universitiesLoaded;
 
+  isloggedin = false;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private sharedService: SharedService,
     private alertService: AlertService,
-    private location: Location) { }
+    private authenticationService: AuthenticationService,
+    private location: Location) { 
+      this.isloggedin = this.authenticationService.isLoggedIn();
+    }
 
   ngOnInit() {
     const url = this.router.url;
@@ -67,6 +73,10 @@ export class HomeComponent implements OnInit {
     this.getUniversities();
     this.location.replaceState('/');
 
+  }
+
+  login(){
+    this.router.navigate(['/login']);
   }
 
   displayProfessor(professor) {

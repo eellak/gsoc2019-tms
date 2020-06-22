@@ -75,6 +75,23 @@ export class AuthenticationService {
             }));
     }
 
+    ldap_login(email: string, password: string, university: number){
+        console.log('Next step is to pass email and pass to backend in /ldap/login URL and university id: '+university);
+        return this.http.post<any>(environment.apiUrl+'/ldap/login', { email, password, university })
+            .pipe(map(user => {
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('Token', user.token);
+                    localStorage.setItem('Role',user.role);
+                    localStorage.setItem('University',user.university);
+                    localStorage.setItem('Timestamp',''+new Date());
+                }
+                console.log(user);
+                // console.log(localStorage);
+                return user;
+            }));
+    }
 
     isAdmin() {
        return this.http.get(environment.apiUrl+'/admin')
@@ -85,7 +102,7 @@ export class AuthenticationService {
     
     sso_logout() {
         localStorage.clear();
-        window.location.href='https://dev-i5mfll-2.auth0.com/v2/logout?client_id=ISe3r0XrgUoKgchkvExvSPlqGecxhN67&returnTo=http://localhost:4200/sso_logout';    
+        this.router.navigate(['/login'])
     }
 
     logout() {

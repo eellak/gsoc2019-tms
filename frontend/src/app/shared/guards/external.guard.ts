@@ -16,7 +16,7 @@ export class ExternalGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot ,
         router: RouterStateSnapshot) 
         :Observable<any>|boolean {
-     if(localStorage.getItem('Role')==="External")
+     if(localStorage.getItem('Role')==="External" || localStorage.getItem('Role')==="External-Professor")
          return true; 
      else {
              console.log("not auth");

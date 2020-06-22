@@ -40,6 +40,7 @@ exports.checkUniversity= (req,res,next) => {
             })
         })
         .catch(err => {
+          console.log('error in chechUniversity: ' + err);
           res.status(500).json({error:err})
         })
        };
@@ -70,6 +71,7 @@ exports.checkApplication_period= (req,res,next) => {
       }
   })
   .catch(err => {
+    console.log('checkTimePeriod error: ' + err);
     res.status(500).json({error:err})
   })
 }
@@ -99,6 +101,7 @@ exports.checkRequest= (req,res,next) => {
         }
   })
   .catch(err=> {
+    console.log('checkRequest error: ' + err);
     res.status(500).json({
       error: err
     });
@@ -139,12 +142,18 @@ exports.apply_thesis= (req,res,next) => {
           })
           })
         .catch(err => {
-          console.log(err);
+          console.log('save request error: ' + err);
           res.status(500).json({
             error: err
           });
         });
       }
+    })
+    .catch(err => {
+      console.log('checkres error:' + err);
+      res.status(404).json({
+        error: err
+      });
     })
     };
  
@@ -622,6 +631,7 @@ exports.check_thesis=(req,res,next) => {   //check if thesis id belongs to stude
     }
   })
   .catch(err => {
+    console.log('checkAssignedThesis error: ' + err);
     res.status(500).json({error:err})
   })
 }

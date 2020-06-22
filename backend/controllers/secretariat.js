@@ -11,7 +11,7 @@ const User=require('../models/user');
 exports.is_secretariat=(req,res,next) => {
         if(req.userData.role!='Secretariat') {
           console.log("You are not a secretariat")
-          res.status(400).json({message:'You are not a student'})
+          res.status(400).json({message:'You are not a secretariat'})
         }
         else 
           next();
@@ -57,16 +57,42 @@ exports.get_students=(req,res,next) => {
     Assigned_Thesis.find({university:req.userData.university})
     .lean()
     .populate('student')
+    .populate('professor')
     .populate({path:'thesis' , select: '_id title'})
-    .select('student thesis')
+    .populate({path:'supervisors', select:'name lastname'})
+    .populate({path:'external_supervisors', select:'name lastname'})
+    .select('student thesis created_time professor supervisors external_supervisors')
     .exec()
     .then( result => { 
         var assigned_length=result.length;
-        var student_array= []
+        var student_array= [];
+        var export_data=[];
         for (var i = 0; i < result.length; i++) {
-            result[i].student.thesis_id=result[i].thesis._id 
-            result[i].student.thesis_title=result[i].thesis.title 
-             student_array.push(result[i].student);
+            result[i].student.thesis_id=result[i].thesis._id;
+            result[i].student.thesis_title=result[i].thesis.title;
+            student_array.push(result[i].student);
+            var sFullname = [result[i].student.name, result[i].student.lastname];
+            var pFullname = [result[i].professor.name, result[i].professor.lastname];           
+            var email = result[i].student.email
+            var am = email.substring(0, email.lastIndexOf("@"));
+            var created = result[i].created_time;
+            var date = created.getTime();
+            var fulldate = created.toDateString();
+            if(result[i].supervisors[0] && result[i].supervisors[1]){
+                var supFullname = [result[i].supervisors[0].name, result[i].supervisors[0].lastname];
+                var supFullname2 = [result[i].supervisors[1].name, result[i].supervisors[1].lastname];
+                export_data.push({ ΟΝΟΜΑΤΕΠΩΝΥΜΟ:sFullname.join(' '), ΑΜ:am, ΤΙΤΛΟΣ:result[i].student.thesis_title, date:date, ΗΜΕΡΟΜΗΝΙΑ:fulldate, ΕΠΙΒΛΕΠΩΝ:pFullname.join(' '), ΜΕΛΟΣ1:supFullname.join(' '), ΜΕΛΟΣ2:supFullname2.join(' ')});
+            }else if(result[i].external_supervisors[0] && result[i].external_supervisors[1]){
+                var exFullname = [result[i].external_supervisors[0].name, result[i].external_supervisors[0].lastname];
+                var exFullname2 = [result[i].external_supervisors[1].name, result[i].external_supervisors[1].lastname];
+                export_data.push({ ΟΝΟΜΑΤΕΠΩΝΥΜΟ:sFullname.join(' '), ΑΜ:am, ΤΙΤΛΟΣ:result[i].student.thesis_title, date:date, ΗΜΕΡΟΜΗΝΙΑ:fulldate, ΕΠΙΒΛΕΠΩΝ:pFullname.join(' '), ΜΕΛΟΣ1:exFullname.join(' '), ΜΕΛΟΣ2:exFullname2.join(' ')});
+            }else if(result[i].supervisors[0] && result[i].external_supervisors[0]){
+                var fullname = [result[i].supervisors[0].name, result[i].supervisors[0].lastname];
+                var fullname2 = [result[i].external_supervisors[0].name, result[i].external_supervisors[0].lastname];
+                export_data.push({ ΟΝΟΜΑΤΕΠΩΝΥΜΟ:sFullname.join(' '), ΑΜ:am, ΤΙΤΛΟΣ:result[i].student.thesis_title, date:date, ΗΜΕΡΟΜΗΝΙΑ:fulldate, ΕΠΙΒΛΕΠΩΝ:pFullname.join(' '), ΜΕΛΟΣ1:fullname.join(' '), ΜΕΛΟΣ2:fullname2.join(' ')});
+            }else{
+                export_data.push({ ΟΝΟΜΑΤΕΠΩΝΥΜΟ:sFullname.join(' '), ΑΜ:am, ΤΙΤΛΟΣ:result[i].student.thesis_title, date:date, ΗΜΕΡΟΜΗΝΙΑ:fulldate, ΕΠΙΒΛΕΠΩΝ:pFullname.join(' ')});
+            }
         }
          
         User.find({role:'Student' , university:req.userData.university, _id: { $nin: student_array  } })
@@ -75,7 +101,8 @@ exports.get_students=(req,res,next) => {
                 const result= {
                     assigned:student_array,
                     not_assigned: docs,
-                    count: docs.length+ assigned_length
+                    count: docs.length+ assigned_length,
+                    export_data: export_data
                 }
                 res.status(200).json(result)
         })
@@ -84,6 +111,8 @@ exports.get_students=(req,res,next) => {
                 error:err
             });
         })
+    }).catch(err => {
+        console.log("Error in fetching students: " + err);
     })
 }
 
