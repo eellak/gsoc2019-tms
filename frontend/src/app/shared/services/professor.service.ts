@@ -95,6 +95,11 @@ export class ProfessorService {
         return this.http.get(environment.apiUrl+`/professor/university`);
     }
 
+    // get all external professors 
+    getExternalProfessors() {
+        return this.http.get(environment.apiUrl+`/professor/external_professors`);
+    }
+
 
     // draft routes
 

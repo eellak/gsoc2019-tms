@@ -18,6 +18,7 @@ export class ProfessorAssignedComponent implements OnInit {
   sortedData: any = [];
   drafts = {};
   professors;
+  external_professors;
   supervisor;
   user;
  message;
@@ -30,6 +31,7 @@ export class ProfessorAssignedComponent implements OnInit {
     this.loading = true;
     this.getAssignedThesis(1);
     this.getUser();
+    this.getExternalProfessors();
   }
 
 
@@ -156,14 +158,25 @@ export class ProfessorAssignedComponent implements OnInit {
         });
   }
 
+  getExternalProfessors() {
+    this.professorService.getExternalProfessors()
+      .subscribe((professors: any) => {
+         this.external_professors = professors;
+       },
+        error => {
+          console.log('External Professor not found.');
+        });
+  }
+
   selectSupervisor(supervisor) {
     console.log(supervisor)
     this.supervisor = supervisor;
   }
 
   proposeSupervisor(thesis) {
-    console.log(thesis)
+    console.log(thesis);
     var text;
+    console.log('All supervisors are: ' + this.professors + this.external_professors);
     if (text = prompt("Are you sure want to propose professor: " + this.supervisor.name + " " + this.supervisor.lastname + " to supervise this thesis " + thesis.thesis.title + "? Write a message to the professor")) {
       this.professorService.proposeProfessor(this.supervisor._id, thesis._id, text)
         .subscribe(result => {

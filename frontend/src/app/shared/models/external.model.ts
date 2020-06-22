@@ -7,7 +7,7 @@ export class External {
     public name: string;
     public password: string;
     public lastname: string;
-    public role: "External";
+    public role: 'External' | 'External-Professor';
     //public university: { type: mongoose.Schema.Types.ObjectId, ref: 'University'},
     
      constructor(email) { this.email=email };

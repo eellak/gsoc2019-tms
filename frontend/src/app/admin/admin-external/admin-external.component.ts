@@ -18,6 +18,12 @@ export class AdminExternalComponent implements OnInit {
   pager:any={}
   sortedData:any=[];
   message;
+  roles = [
+    'External',
+    'External-Professor',
+  ]
+  ischanged = false;
+  newRole;
 
   constructor( private router: Router,
     private userService: UserService,
@@ -86,6 +92,12 @@ export class AdminExternalComponent implements OnInit {
       });
     }
 
+    onChange(newRole) {
+      console.log(' and the change is: ' + newRole);
+      this.ischanged = true;
+      this.newRole = newRole;
+    }
+
    deleteExternal(user) {
     this.adminService.deleteExternal(user)
     .subscribe(
@@ -99,6 +111,33 @@ export class AdminExternalComponent implements OnInit {
          this.loading = false;
      });
    }
+
+   updateExternal(user){
+    if(confirm("You are about to change the role of the user with email: " + user.email + " from " + user.role + " to " + this.newRole + ".          Are you sure?")){ 
+      console.log(user._id + ' andd ' + user.role );
+      if(user.role != 'Admin'){
+        user.role = this.newRole;
+        this.adminService.putExternal(user._id, user.role)
+        .subscribe(
+          (data:any) => {
+            console.log(data)
+            // this.message=data;
+            setTimeout(() =>  {
+              this.router.navigate(['../../'], { relativeTo: this.route});
+            }
+            ,1500);
+
+          },
+          error => {
+            this.alertService.error(error);
+          }
+        )
+      }else{
+        alert('Sorry, cannot change Admin');
+        this.router.navigate(['../../'], { relativeTo: this.route});
+      }
+    }
+  }
 
 
 

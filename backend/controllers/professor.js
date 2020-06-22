@@ -7,7 +7,8 @@ const Pending = require('../models/pending');
 const University = require('../models/university');
 const Supervision_Request = require('../models/supervision_requests');
 const Draft = require('../models/draft');
-const FileThesis = require('../models/file_thesis')
+const FileThesis = require('../models/file_thesis');
+const External = require('../models/external');
 
 
 exports.get_request = (req, res, next) => {
@@ -305,9 +306,9 @@ exports.update_thesis = (req, res, next) => {
 
 
 exports.isProfessor = (req, res, next) => {
-  if (req.userData.role != 'Professor') {
-    console.log("You are not a professor")
-    res.status(400).json({ message: 'You are not a student' })
+  if (req.userData.role != 'Professor' && req.userData.role != 'External-Professor') {
+    console.log("You are not a professor, you are a: " + req.userData.role)
+    res.status(400).json({ message: 'You are not a professor' })
   }
   else
     next();
@@ -327,7 +328,8 @@ exports.get_assigned = (req, res, next) => {
         .populate('thesis')
         .populate('professor')
         .populate('student')
-        .populate('supervisors')
+        .populate({path:'supervisors', select:'name lastname'})
+        .populate({path:'external_supervisors', select:'name lastname'})
         .exec()
         .then(docs => {
           var response = {
@@ -530,6 +532,23 @@ exports.get_professors = (req, res, next) => {
     })
 }
 
+exports.getExternalProfessors = (req, res, next) => {
+  External.find({role:'External-Professor'})
+  .exec()
+    .then(results => {
+      if (results.length > 0) {
+        res.status(200).json(results)
+      }
+      else res.status(404).json({ Message: 'No external professors found' })
+    })
+    .catch(err => {
+      console.log(err + "Error in getting external professors");
+      res.status(500).json({
+        error: err
+      })
+    })
+}
+
 exports.check_thesis = (req, res, next) => {   //check if thesis id belongs to professor
   Assigned_Thesis.find({ _id: req.params.assigned_thesisId, professor: req.userData.userId })
     .exec()
@@ -636,10 +655,44 @@ exports.propose_supervisor = (req, res, next) => {
             }
           })
       }
-      else {
-        res.status(404).json({
-          message: 'Professor not found'
-        });
+      else if(doc === null){
+        External.findById({ _id: req.params.supervisorId})
+              .exec()
+              .then(exdoc => {
+                if(exdoc != null){
+                  Assigned_Thesis.findById({ _id: req.params.thesisId, professor: req.userData.userId })
+                  .exec()
+                  .then(thesis => {
+                    if(thesis != null){
+                      var supervision_request = new Supervision_Request({
+                        _id: new mongoose.Types.ObjectId(),
+                        student: thesis.student,
+                        professor: thesis.professor,
+                        assigned_thesis: req.params.thesisId,
+                        dst_professor: req.params.supervisorId,
+                        assigned_thesis: thesis._id,
+                        text: req.body.text,
+                        created_time: new Date(),
+                      })
+                      supervision_request
+                        .save()
+                        .then(result => {
+                          res.status(200).json(result);
+                        })
+                    }
+                    else {
+                      res.status(404).json({
+                        message: 'Thesis not found'
+                      });
+                    }
+                  })
+                }
+                else{
+                  res.status(404).json({
+                    message: 'Professor not found'
+                  });
+                }
+              })        
       }
     })
     .catch(err => {
@@ -654,14 +707,25 @@ exports.accept_supervisor = (req, res, next) => { // confirm supervisor
     .exec()
     .then(doc => {
       if (doc.length > 0) {
-        Assigned_Thesis.findOneAndUpdate({ _id: doc[0].thesis }, { $push: { supervisors: doc[0].dst_professor } }, { new: true })
-          .exec()
-          .then(result => {
-            if (result)
-              return next()
-            else
-              res.status(404).json({ message: 'Not found' })
-          })
+        if(req.userData.role == 'Professor'){
+          Assigned_Thesis.findOneAndUpdate({ _id: doc[0].thesis }, { $push: { supervisors: doc[0].dst_professor } }, { new: true })
+            .exec()
+            .then(result => {
+              if (result)
+                return next()
+              else
+                res.status(404).json({ message: 'Not found' })
+            })
+          }else if(req.userData.role == 'External-Professor'){
+            Assigned_Thesis.findOneAndUpdate({ _id: doc[0].thesis }, { $push: { external_supervisors: doc[0].dst_professor } }, { new: true })
+            .exec()
+            .then(result => {
+              if (result)
+                return next()
+              else
+                res.status(404).json({ message: 'Not found' })
+            })
+          }
       }
       else {
         res.status(404).json({ message: 'Not found' })
@@ -764,14 +828,25 @@ exports.post_supervise_pending = (req, res, next) => { // accept request supervi
     .exec()
     .then(doc => {
       if (doc.length > 0) {
-        Assigned_Thesis.findOneAndUpdate({ _id: doc[0].assigned_thesis }, { $push: { supervisors: doc[0].dst_professor } }, { new: true })
-          .exec()
-          .then(result => {
-            if (result)
-              return next()
-            else
-              res.status(404).json({ message: 'Not found' })
-          })
+        if(req.userData.role == 'Professor'){
+          Assigned_Thesis.findOneAndUpdate({ _id: doc[0].assigned_thesis }, { $push: { supervisors: doc[0].dst_professor } }, { new: true })
+            .exec()
+            .then(result => {
+              if (result)
+                return next()
+              else
+                res.status(404).json({ message: 'Not found' })
+            })
+          }else if(req.userData.role == 'External-Professor'){
+            Assigned_Thesis.findOneAndUpdate({ _id: doc[0].assigned_thesis }, { $push: { external_supervisors: doc[0].dst_professor } }, { new: true })
+            .exec()
+            .then(result => {
+              if (result)
+                return next()
+              else
+                res.status(404).json({ message: 'Not found' })
+            })
+          }
       }
       else {
         res.status(404).json({ message: 'Not found' })
@@ -806,24 +881,51 @@ exports.check_supervisor_request = (req, res, next) => {
 
 
 exports.getThesisSupervise = (req, res, next) => {
-  Assigned_Thesis.find({ supervisors: req.userData.userId })
-    .populate('thesis')
-    .populate('student')
-    .populate('professor')
-    .exec()
-    .then(result => {
-      if (result!=null) {
-        res.status(200).json(result)
-      }
-      else {
-        res.status(200).json(
-          {message:'not found'}
-          )
-      }
-    })
-    .catch(err => {
-      res.status(500).json({
-        error: err
-      });
-    })
+  if(req.userData.role == 'Professor'){
+    Assigned_Thesis.find({ supervisors: req.userData.userId })
+      .populate('thesis')
+      .populate('student')
+      .populate('professor')
+      .exec()
+      .then(result => {
+        if (result!=null) {
+          res.status(200).json(result)
+        }
+        else {
+          res.status(200).json(
+            {message:'not found'}
+            )
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      })
+  }else if (req.userData.role == 'External-Professor'){
+    Assigned_Thesis.find({ external_supervisors: req.userData.userId })
+      .populate('thesis')
+      .populate('student')
+      .populate('professor')
+      .exec()
+      .then(result => {
+        if (result!=null) {
+          res.status(200).json(result)
+        }
+        else {
+          res.status(200).json(
+            {message:'not found'}
+            )
+        }
+      })
+      .catch(err => {
+        res.status(500).json({
+          error: err
+        });
+      })
+  }else{
+    res.status(500).json({
+      error: err
+    });
+  }
 }

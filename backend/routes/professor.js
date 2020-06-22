@@ -52,8 +52,7 @@ router.get("/accept_supervisor/:supervise_requestId",professorController.get_acc
 
 router.get("/supervisor/thesis",professorController.getThesisSupervise) // get the theses that supervise 
 
- 
-
+router.get("/external_professors",professorController.getExternalProfessors) //get external professors
 
 //router.delete("/:userId", checkAuth, thesisController.user_delete); // 
 //search thesis

@@ -1,0 +1,38 @@
+<mat-card class="col-xs-12 col-sm-5  col-md-4 col-lg-3">
+<h2>University Login</h2>
+<br>
+<form [formGroup]="ldapLoginForm" *ngIf="universitiesLoaded" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <mat-form-field appearance="fill">
+        <mat-label for="email">Email</mat-label>
+        <input matInput type="text" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+        <mat-error *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+            <mat-error *ngIf="f.email.errors.pattern">Not a valid email</mat-error>
+        </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field appearance="fill">
+            <mat-label for="password">Password</mat-label>
+            <input matInput type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+            <mat-error *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <mat-form-field appearance="fill">
+            <mat-label for="university">University</mat-label>
+            <mat-select (selectionChange)="changeUniversity($event.value)" formControlName="university" #university>
+                <mat-option *ngFor="let university of universities" [value]='university._id'>{{university.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading"  class="btn btn-primary">Login</button>
+        <img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+        <a routerLink="/register-external" class="btn btn-link">Register</a>
+    </div>
+</form>
+</mat-card>

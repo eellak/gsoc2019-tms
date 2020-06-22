@@ -16,7 +16,7 @@ export class ProfessorGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot ,
                router: RouterStateSnapshot) 
        :Observable<any>|boolean {
-            if(localStorage.getItem('Role')==="Professor")
+            if(localStorage.getItem('Role')==="Professor" || localStorage.getItem('Role')==="External-Professor")
                 return true; 
             else {
                     console.log("not auth");

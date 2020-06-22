@@ -1,17 +1,10 @@
 .nav-item {
-
-    margin-top: 10px;
-
     cursor: pointer;
     font-size: 18px;
 }
 
-.navbar {
-    
+.navbar {   
     background-color:rgb(88, 173, 226);
-    
-  min-height: 70px;
-
 }
 
 .logo {

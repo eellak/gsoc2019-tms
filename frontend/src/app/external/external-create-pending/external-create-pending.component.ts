@@ -72,6 +72,7 @@ export class ExternalCreatePendingComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.message = "loading"
+          if(this.fileToUpload !== null){
           this.externalService.postPdfThesis(this.fileToUpload, data.thesis._id)
             .subscribe(
               (result: any) => {
@@ -79,7 +80,10 @@ export class ExternalCreatePendingComponent implements OnInit {
                 this.router.navigate(['../external/thesis'], { relativeTo: this.route })
               }
             )
-
+          }else{
+            this.message = "success"
+            this.router.navigate(['../external/thesis'], { relativeTo: this.route })
+          }
         },
         error => {
           console.log(error)

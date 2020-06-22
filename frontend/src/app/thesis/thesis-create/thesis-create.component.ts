@@ -59,16 +59,20 @@ export class ThesisCreateComponent implements OnInit {
       (data:any) => {
         this.message="loading"
         console.log(data)
-         console.log(data)
-         this.professorService.postPdfThesis(this.fileToUpload,data.thesis._id)
-         .subscribe(
-           (result:any) => {
-             console.log(result)
-             this.message="success"
-              this.router.navigate(['../professor/thesis'], { relativeTo: this.route})
-           }
-         )
-         
+        console.log(data)
+        if(this.fileToUpload !== null){
+          this.professorService.postPdfThesis(this.fileToUpload,data.thesis._id)
+            .subscribe(
+              (result:any) => {
+                console.log(result);
+                this.message="success";
+                this.router.navigate(['../professor/thesis'], { relativeTo: this.route})
+              }
+            )
+        }else{
+          this.message="success";
+          this.router.navigate(['../professor/thesis'], { relativeTo: this.route})
+        }
       },
       error => {
         console.log(error)

@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterExternalComponent } from './register-external/register-external.component';
 import { LoginExternalComponent } from './login/login-external/login-external.component';
 import { LoginComponent } from './login/login.component';
+import { LoginLdapComponent } from './login/login-ldap/login-ldap.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './shared/guards/admin.guard';
@@ -57,6 +58,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'login-external', component: LoginExternalComponent, canActivate: [LoginGuard] },
   { path: 'register-external', component: RegisterExternalComponent, canActivate: [LoginGuard] },
+  { path: 'login-ldap',component: LoginLdapComponent, canActivate: [LoginGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'repository', component: CompletedThesisRepositoryComponent },
   { path: 'search', component: SearchResultsComponent },

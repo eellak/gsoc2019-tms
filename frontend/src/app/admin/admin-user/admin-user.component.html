@@ -21,8 +21,18 @@
       <td>{{user.email}}</td>
       <td>{{user.name}}</td>
       <td>{{user.lastname}}</td>
-      <td>{{user.role}}</td>
-      <td >{{user.university.name}}</td>
+      <td>
+        <mat-form-field>
+          <mat-label>{{user.role}}</mat-label>
+          <mat-select (selectionChange)="onChange($event.value)">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{role}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button *ngIf='ischanged' mat-raised-button color="primary" (click)="updateUser(user)">Update Role</button> 
+      </td>
+      <td>{{user.university.name}}</td>
       <td><button class="btn btn-default" (click)="deleteUser(user)"><i
             class="material-icons">delete_forever</i></button> </td>
     </tr>

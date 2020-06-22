@@ -11,7 +11,7 @@ router.all("/*",checkAuth,studentController.is_student);   //verify token, check
 router.get("/check/:thesisId",studentController.checkRequest);//check if student has applied in a specific thesis
 
 router.get("/request",studentController.get_request);//get all requests of userId
-router.post("/request/:thesisId",studentController.checkApplication_period,studentController.checkUniversity,studentController.check_assigned_thesis,studentController.apply_thesis);    //check if he is logged in-apply for thesis
+router.post("/request/:thesisId",studentController.checkUniversity,studentController.check_assigned_thesis,studentController.apply_thesis);    //check if he is logged in-apply for thesis
 router.delete("/request/:requestId",studentController.delete_request);    //delete specified request   
 
 router.get("/check_assigned",studentController.check_assigned_thesis,studentController.endrequest); //check if student has assigned to a thesis

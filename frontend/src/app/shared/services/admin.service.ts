@@ -65,6 +65,14 @@ export class AdminService {
 
         }
     }
+
+    putUser(id, role) {
+        return this.http.put(environment.apiUrl+`/admin/update_user/${id}`, {role:role});
+    }
+
+    putExternal(id, role) {
+        return this.http.put(environment.apiUrl+`/admin/update_external/${id}`, {role:role});
+    }
     
     createUniversity(name) {
         return this.http.post(environment.apiUrl+`/admin/create_university`,{name:name});

@@ -59,4 +59,38 @@ export class ProfessorSupervisorThesisComponent implements OnInit {
           this.alertService.error(error);
         });
   }
+
+  createAndDownloadBlobFile(body, filename) {
+    const blob = new Blob([body], { type: "application/pdf" });
+    const fileName = `${filename}`;
+    if (navigator.msSaveBlob) {
+      // IE 10+
+      navigator.msSaveBlob(blob, fileName);
+    } else {
+      const link = document.createElement('a');
+      // Browsers that support HTML5 download attribute
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', fileName);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    }
+  }
+
+  downloadDraft(draft) {
+    this.professorService.getDraftById(draft.assigned_thesis, draft._id)
+      .subscribe(
+        (draft: any) => {
+           var byteArray = new Uint8Array(draft[0].data.data);
+          this.createAndDownloadBlobFile(byteArray, draft[0].name);
+          this.loading = false;
+        },
+        error => {
+          this.alertService.error(error);
+        });
+  }
 }

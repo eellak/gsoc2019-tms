@@ -4,16 +4,18 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors=require("./cors");
+const bcrypt = require("bcrypt");
+const External = require("./models/external");
+const University = require('./models/university');
 const sendAuth=require("./middleware/send-auth");
 var SamlStrategy = require('passport-saml').Strategy;
 const passport =require('passport');
 const dotenv = require('dotenv');
-const auth = require('./ssoauth');
 const jwt = require('jsonwebtoken');
 const rateLimit = require("express-rate-limit");
 const fileUpload = require('express-fileupload');
 const external_loginRoutes=require("./routes/external");
-const SSOloginRoutes=require("./routes/SSO_login");
+const ldapLoginRoutes=require('./routes/ldap_login');
 const thesisRoutes=require('./routes/thesis');
 const studentRoutes=require('./routes/student');
 const adminRoutes=require('./routes/admin');
@@ -23,12 +25,59 @@ const secretariatRoutes=require('./routes/secretariat');
 
 dotenv.config();
 // connect with database
-mongoose.connect('mongodb+srv://new_mike_first:'+process.env.MONGO_PASSWORD+'@cluster0-wyycr.mongodb.net/test?retryWrites=true'
+mongoose.connect('mongodb://mongo:27017/test1?retryWrites=true'
 , {useNewUrlParser: true ,   useCreateIndex: true,
 })
   .catch(err => {
     console.log('error in database:'+err);
   
+})
+
+var db = mongoose.connection;
+
+db.once('open', function() {
+  console.log("Connection Successful!!");
+
+  let myPlaintextPassword = process.env.ADM_PWD;
+  let saltRounds = 10;
+  bcrypt.hash(myPlaintextPassword, saltRounds, (err, hash) => {
+    if (err) {
+      console.log('Error in creating Admin');
+    } else {
+      const initial = new External({
+        _id: new mongoose.Types.ObjectId(),
+        email: process.env.ADM_EMAIL,
+        password: hash,
+        name: "initial",
+        lastname: "initial",
+        role: "Admin",
+        active: true
+      })
+    
+      initial
+        .save()
+        .then(result => {
+          console.log('Admin is ' + result.email);         
+        })
+        .catch( err => {
+            console.log(err);
+        })
+    }
+  });
+
+  const hua = new University({
+    _id: new mongoose.Types.ObjectId('000000000001'),
+    name: 'Χαροκόπειο Πανεπιστήμιο'
+  });
+
+  hua.save()
+  .then(result => {
+    console.log('University is ' + result.name + ' ID: ' + result._id);         
+  })
+  .catch( err => {
+      console.log(err);
+  })
+
 })
 
 // limit request from ip
@@ -47,7 +96,7 @@ app.use(fileUpload());
 
 // Routes which should handle requests
 app.use('/external',external_loginRoutes);
-app.use('/SSO',SSOloginRoutes);
+app.use('/ldap', ldapLoginRoutes);
 app.use('/thesis',thesisRoutes);
 app.use('/student',studentRoutes);
 app.use('/admin',adminRoutes);
@@ -55,12 +104,6 @@ app.use('/professor',professorRoutes);
 app.use('/university',universityRoutes);
 app.use('/secretariat',secretariatRoutes);
 app.get('/user',sendAuth);
-
-
- 
-
-
-
 
 
 //// android studio 
@@ -88,18 +131,6 @@ app.post("/android",(req,res,next)=>{
   })
 
 /////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
