@@ -27,7 +27,7 @@
     "bootstrap": "^3.4.1",
     "crypto": "^1.0.1",
     "hammerjs": "^2.0.8",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.15",
     "ngx-autosize": "^1.7.2",
     "querystringify": "^2.1.1",
